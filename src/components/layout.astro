@@ -130,6 +130,9 @@ const { title, description, home = false } = Astro.props;
 
     .headercontainer {
       max-height: 150px;
+      margin: 0 auto;
+      text-align: center;
+      width: min(90vw, 900px);
     }
 
     .heading {
@@ -180,7 +183,7 @@ const { title, description, home = false } = Astro.props;
   </style>
 </head>
 <body>
-  <header class="container">
+  <header class="headercontainer">
     <img src="/images/Hit-Play-Logo-1.0.png" width="350px" alt="">
 
 
