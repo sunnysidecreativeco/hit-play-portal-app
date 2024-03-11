@@ -2,6 +2,8 @@
 import Layout from '../components/layout.astro';
 import FunctionTester from '../components/function-tester.jsx';
 import StateDisplay from '../components/StateDisplay.jsx';
+import LoginComponent from '../components/LoginComponent.jsx';
+
 ---
 
 
@@ -63,6 +65,8 @@ import StateDisplay from '../components/StateDisplay.jsx';
   <main class="main">
 
     <StateDisplay client:load />
+    <h1>Login</h1>
+    <LoginComponent client:load />
     
   </main>
 </Layout>
