@@ -6,8 +6,8 @@ const { title, description, home = false } = Astro.props;
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="preload" href="/fonts/PacaembuVar-subset.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/MulishVar-subset.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/ChicagoFLF.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="/fonts/ibm-plex-serif.regular.ttf" as="font" type="font/ttf" crossorigin>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -35,9 +35,23 @@ const { title, description, home = false } = Astro.props;
       --light: #b0b9b2;
       --white: #b0b9b2;
       --card-radius: var(--border-radius-3);
-      --font-primary: Pacaembu, sans-serif;
-      --font-secondary: Mulish, sans-serif;
+      --font-primary: font-family: 'ChicagoFLF', sans-serif;
+      --font-secondary: font-family: 'IBM Plex Serif', sans-serif;
 
+    }
+
+    @font-face {
+      font-family: 'ChicagoFLF';
+      src: url('/fonts/ChicagoFLF.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+}
+
+    @font-face {
+      font-family: 'IBM Plex Serif';
+      src: url('/fonts/ibm-plex-serif.regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
     }
 
     * {
