@@ -1,7 +1,12 @@
 ---
 import Layout from '../components/layout.astro';
 import FunctionTester from '../components/function-tester.jsx';
+import StateDisplay from '../components/StateDisplay.jsx';
 ---
+
+
+<StateDisplay client:load />
+
 
 <FunctionTester client:load>
   <p></p>
