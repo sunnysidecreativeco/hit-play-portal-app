@@ -56,6 +56,15 @@ import LoginComponent from '../components/LoginComponent.jsx';
   font-weight: 600;
   margin: 0;
 }
+.headercontainer {
+      padding-top: 25px;
+      padding-bottom: 25px;
+      max-height: 150px;
+      margin: 0 auto;
+      text-align: center;
+      width: min(90vw, 900px);
+      background-color: #b0b9b2;
+    }
 
 
 </style>
@@ -63,6 +72,10 @@ import LoginComponent from '../components/LoginComponent.jsx';
 
 <Layout>
   <main class="main">
+
+    <header class="headercontainer">
+      <img src="/images/Hit-Play-Logo-1.0.png" width="350px" alt="">
+    </header>
 
     <StateDisplay client:load />
     <h1>Host Portal Login</h1>
