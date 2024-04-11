@@ -8,23 +8,23 @@ function StateDisplay() {
     const [loading, setLoading] = useState(true);
 
     //Connect to the db
-    // useEffect(() => {
-    //     const loadGiveaway = async () => {
-    //         setLoading(true); // Start loading
-    //         const docRef = doc(db, 'giveaway', 'giveawayStatus');
-    //         const docSnap = await getDoc(docRef);
+    useEffect(() => {
+        const loadGiveaway = async () => {
+            setLoading(true); // Start loading
+            const docRef = doc(db, 'giveaway', 'giveawayStatus');
+            const docSnap = await getDoc(docRef);
     
-    //         if (docSnap.exists()) {
-    //             const currentGiveawayItem = docSnap.data().item;
-    //             setGiveawayItem(currentGiveawayItem);
-    //         } else {
-    //             console.log("No such document!");
-    //         }
-    //         setLoading(false); // Data loaded
-    //     };
+            if (docSnap.exists()) {
+                const currentGiveawayItem = docSnap.data().item;
+                setGiveawayItem(currentGiveawayItem);
+            } else {
+                console.log("No such document!");
+            }
+            setLoading(false); // Data loaded
+        };
     
-    //     loadGiveaway();
-    // }, []);
+        loadGiveaway();
+    }, []);
 
 
     //Run the query
