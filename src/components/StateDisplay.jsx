@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'preact/hooks';
-//import { db, auth, storage } from '../../firebase-config.js';
-//import { doc, getDoc } from 'firebase/firestore';
+import { db, auth, storage } from '../../firebase-config';
+import { doc, getDoc } from 'firebase/firestore';
 
 function StateDisplay() {
     const [count, setCount] = useState(0);
@@ -26,7 +26,7 @@ function StateDisplay() {
     //     loadGiveaway();
     // }, []);
 
-    
+
     //Run the query
     //Return the result
 
