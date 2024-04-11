@@ -1,11 +1,11 @@
 import { useState } from 'preact/hooks';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'; // Import Firebase auth functions
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
+//import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 
 function LoginComponent() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate(); // Hook for navigation
+    //const navigate = useNavigate(); // Hook for navigation
 
     const handleSubmit = async (event) => {
         event.preventDefault(); // Prevent the form from actually submitting
@@ -13,12 +13,12 @@ function LoginComponent() {
         const auth = getAuth(); // Initialize Firebase Auth
 
         try {
-            await signInWithEmailAndPassword(auth, email, password); // Sign in with email and password
+            await signInWithEmailAndPassword(auth, email, password);
             console.log('Login successful');
-            navigate('/dashboard'); // Redirect to dashboard upon successful login
+            window.location.href = '/dashboard'; // Redirect to dashboard
         } catch (error) {
             console.error('Login failed:', error);
-            // Handle login errors here, e.g., display an error message
+            // Handle login errors here
         }
     };
 
