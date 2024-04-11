@@ -44,9 +44,9 @@ function HostDashboardComponent() {
 
     return (
         <div>
-            <p>Current User's Email: {email} {emailLoading && <img src="loading.gif" alt="Loading..."/>}</p>
-            <p>Earnings: {earnings} {earningsLoading && <img src="loading.gif" alt="Loading..."/>}</p>
-            <p>Total Earnings: {earningsTotal} {earningsTotalLoading && <img src="loading.gif" alt="Loading..."/>}</p>
+            <p>Current User's Email: {email} {emailLoading && <img src="/images/loading.gif" alt="Loading..."/>}</p>
+            <p>Earnings: {earnings} {earningsLoading && <img src="/images/loading.gif" alt="Loading..."/>}</p>
+            <p>Total Earnings: {earningsTotal} {earningsTotalLoading && <img src="/images/loading.gif" alt="Loading..."/>}</p>
         </div>
     );
 }
