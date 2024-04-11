@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'preact/hooks';
-import { db, auth, storage } from '../firebase-config.js';
+import { db, auth, storage } from '../../firebase-config.js';
 import { doc, getDoc } from 'firebase/firestore';
 
 function StateDisplay() {
