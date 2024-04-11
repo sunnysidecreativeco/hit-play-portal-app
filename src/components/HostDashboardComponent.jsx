@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'preact/hooks'; // Import useEffect along with useState
 import { getAuth, onAuthStateChanged } from 'firebase/auth'; // Import getAuth and onAuthStateChanged
+import { db, auth, storage } from '../../firebase-config';
+import { doc, getDoc } from 'firebase/firestore';
 
 function HostDashboardComponent() {
     const [email, setEmail] = useState('');

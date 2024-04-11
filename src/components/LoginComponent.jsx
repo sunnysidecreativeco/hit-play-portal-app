@@ -1,4 +1,5 @@
 import { useState } from 'preact/hooks';
+import { db, auth, storage } from '../../firebase-config';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'; // Import Firebase auth functions
 //import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 
