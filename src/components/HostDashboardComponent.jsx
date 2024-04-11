@@ -24,9 +24,9 @@ function HostDashboardComponent() {
 
                 if (docSnap.exists()) {
                     const userData = docSnap.data();
-                    setEarnings(userData.earnings || 0);
+                    setEarnings(userData.earnings);
                     setEarningsLoading(false); // Set loading to false once earnings are fetched
-                    setEarningsTotal(userData.earningsTotal || 0);
+                    setEarningsTotal(userData.earningsTotal);
                     setEarningsTotalLoading(false); // Set loading to false once earningsTotal is fetched
                 } else {
                     console.log("No such document!");
