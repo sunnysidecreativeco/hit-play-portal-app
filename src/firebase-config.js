@@ -4,12 +4,13 @@ import "firebase/firestore";
 import "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID
+  apiKey: "AIzaSyC-SL5BdHNW4D8aSM6lQXt-GD5E0MF46nk",
+  authDomain: "planet-music-98c38.firebaseapp.com",
+  projectId: "planet-music-98c38",
+  storageBucket: "planet-music-98c38.appspot.com",
+  messagingSenderId: "981119710304",
+  appId: "1:981119710304:web:fc501eea4ad0b0f4aeff05"
+
 };
 
 // Initialize Firebase
