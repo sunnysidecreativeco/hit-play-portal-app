@@ -6,9 +6,9 @@ import { doc, getDoc } from 'firebase/firestore';
 function HostDashboardComponent() {
     const [email, setEmail] = useState('');
     const [emailLoading, setEmailLoading] = useState(true); // Loading state for email
-    const [earnings, setEarnings] = useState(0);
+    const [earnings, setEarnings] = useState(null);
     const [earningsLoading, setEarningsLoading] = useState(true); // Loading state for earnings
-    const [earningsTotal, setEarningsTotal] = useState(0);
+    const [earningsTotal, setEarningsTotal] = useState(null);
     const [earningsTotalLoading, setEarningsTotalLoading] = useState(true); // Loading state for earningsTotal
 
     useEffect(() => {
