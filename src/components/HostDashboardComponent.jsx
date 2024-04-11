@@ -47,6 +47,7 @@ function HostDashboardComponent() {
             <p>Current User's Email: {email} {emailLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
             <p>Earnings: {earnings} {earningsLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
             <p>Total Earnings: {earningsTotal} {earningsTotalLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
+            <button class="roomButton"><p>Enter Your Room</p></button>
         </div>
     );
 }
