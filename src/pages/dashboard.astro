@@ -63,6 +63,10 @@ import HostDashboardComponent from '../components/HostDashboardComponent.jsx';
       width: min(90vw, 900px);
       background-color: #b0b9b2;
     }
+.topContainer{
+    justify-content: 'center';
+    text-align: center;
+}
 
 
 </style>
@@ -75,9 +79,11 @@ import HostDashboardComponent from '../components/HostDashboardComponent.jsx';
 
   
     <div class="dashboard" style="width: 100%;">
-    <h1>This is the Host Dashboard</h1>
+        <div class="topContainer">
+        <h1>This is the Host Dashboard</h1>
 
-    <HostDashboardComponent client:load />
+        <HostDashboardComponent client:load />
+        </div>
     </div>
  
 </Layout>
