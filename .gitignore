@@ -23,4 +23,4 @@ _old/
 .netlify
 
 # ENV file
-.env
+#.env
