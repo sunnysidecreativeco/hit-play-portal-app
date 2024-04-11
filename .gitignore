@@ -22,5 +22,4 @@ _old/
 # Local Netlify folder
 .netlify
 
-# ENV file
-#.env
+

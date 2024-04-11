@@ -1,8 +1,10 @@
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/storage";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyC-SL5BdHNW4D8aSM6lQXt-GD5E0MF46nk",
   authDomain: "planet-music-98c38.firebaseapp.com",
@@ -10,16 +12,15 @@ const firebaseConfig = {
   storageBucket: "planet-music-98c38.appspot.com",
   messagingSenderId: "981119710304",
   appId: "1:981119710304:web:fc501eea4ad0b0f4aeff05"
-
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-// Initialize services
-const auth = firebase.auth();
-const db = firebase.firestore();
-const storage = firebase.storage();
+// Initialize Firebase services
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
 // Export services
 export { auth, db, storage };
