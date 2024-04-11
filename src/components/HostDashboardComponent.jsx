@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'preact/hooks'; // Import useEffect along with useState
 import { getAuth, onAuthStateChanged } from 'firebase/auth'; // Import getAuth and onAuthStateChanged
 
-function HostDashboard() {
+function HostDashboardComponent() {
     const [email, setEmail] = useState('');
 
     useEffect(() => {
@@ -28,4 +28,4 @@ function HostDashboard() {
     );
 }
 
-export default HostDashboard;
+export default HostDashboardComponent;

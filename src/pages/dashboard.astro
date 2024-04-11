@@ -1,6 +1,6 @@
 ---
 import Layout from '../components/layout.astro';
-import HostDashboard from '../components/HostDashboard.jsx';
+import HostDashboardComponent from '../components/HostDashboardComponent.jsx';
 
 ---
 
@@ -75,8 +75,10 @@ import HostDashboard from '../components/HostDashboard.jsx';
 
   <main class="main">
     <h1>This is the Host Dashboard</h1>
+
+    <HostDashboardComponent client:load />
   </main>
 </Layout>
 
-
+<!-- ../components/HostDashboardComponent.jsx -->
 
