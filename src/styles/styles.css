@@ -1,0 +1,11 @@
+.roomButton {
+    border: 5px solid #FFFFFF;
+    background-color: #b0b9b2;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.roomButton p {
+    margin: 0;
+}
