@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'preact/hooks';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { db } from '../../firebase-config';
+import { db, auth } from '../../firebase-config';
 import '../styles/styles.css';
 import {
     doc as firestoreDoc,
@@ -64,7 +64,7 @@ function LiveRoomComponent() {
     const [creditsEarnedLive, setCreditsEarnedLive] = useState(0);
     const [liveControlButton, setLiveControlButton] = useState("");
     const [modal, setModal] = useState('');
-    const user = auth.currentUser;
+    
 
     const B = (props) => <Text style={{color: '#3045bf'}}>{props.children}</Text>;
     const C = (props) => <Text style={{color: '#b33110'}}>{props.children}</Text>;
@@ -75,10 +75,9 @@ function LiveRoomComponent() {
 
 
     useEffect(() => {
-        const auth = getAuth();
+        const auth = getAuth(); // Ensure auth is initialized correctly
         const unsubscribeAuth = onAuthStateChanged(auth, user => {
             if (user) {
-                // Fetch the room name
                 const roomDocRef = doc(db, "liveRooms", user.uid);
                 const unsubscribeRoomDoc = onSnapshot(roomDocRef, docSnap => {
                     if (docSnap.exists()) {
@@ -92,13 +91,14 @@ function LiveRoomComponent() {
                     }
                 });
 
-                // Fetch songs by the user's UID
                 const songsRef = collection(db, `liveRooms/${user.uid}/upNext`);
                 fetchSongs(songsRef, 'true', 'true', setSongsSkipPlus);
                 fetchSongs(songsRef, 'true', 'false', setSongsSkip);
                 fetchSongs(songsRef, 'false', 'false', setSongs);
 
-                return () => unsubscribeRoomDoc();
+                return () => {
+                    unsubscribeRoomDoc();
+                };
             } else {
                 setShowModal(true);
                 console.log("User is not logged in.");
