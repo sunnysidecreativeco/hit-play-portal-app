@@ -6,6 +6,7 @@ import '../styles/styles.css';
 
 function LiveRoomComponent() {
     const [roomName, setRoomName] = useState('');
+    const [roomLoading, setRoomLoading] = useState(true); // State for tracking room name loading
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
@@ -18,10 +19,11 @@ function LiveRoomComponent() {
                     if (docSnap.exists()) {
                         const roomData = docSnap.data();
                         setRoomName(roomData.roomName); // Confirm the field name is correct
-                        console.log("Room data:", roomData); // Debugging line
+                        setRoomLoading(false); // Update loading state when data is fetched
                     } else {
                         console.log("No such room document!");
                         setRoomName(''); // Explicitly set roomName to empty if no document
+                        setRoomLoading(false); // Update loading state when no data found
                     }
                 });
 
@@ -52,7 +54,7 @@ function LiveRoomComponent() {
                 </div>
             )}
             <div>
-                <p>Room Name: {roomName || "Loading room name..."}</p>
+                <p>Room Name: {roomLoading ? <img src="/images/loading.gif" width="20px" alt="Loading..."/> : roomName || "No room assigned"}</p>
             </div>
         </div>
     );
