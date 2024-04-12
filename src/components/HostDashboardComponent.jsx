@@ -1,16 +1,17 @@
-import { useState, useEffect } from 'preact/hooks'; // Import useEffect along with useState
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'; // Import getAuth and onAuthStateChanged
-import { db, auth, storage } from '../../firebase-config';
-import { doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { useState, useEffect } from 'preact/hooks';
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { db } from '../../firebase-config';
+import { doc, onSnapshot } from 'firebase/firestore';
 import '../styles/styles.css';
 
 function HostDashboardComponent() {
     const [email, setEmail] = useState('');
-    const [emailLoading, setEmailLoading] = useState(true); // Loading state for email
+    const [emailLoading, setEmailLoading] = useState(true);
     const [earnings, setEarnings] = useState(null);
-    const [earningsLoading, setEarningsLoading] = useState(true); // Loading state for earnings
+    const [earningsLoading, setEarningsLoading] = useState(true);
     const [earningsTotal, setEarningsTotal] = useState(null);
-    const [earningsTotalLoading, setEarningsTotalLoading] = useState(true); // Loading state for earningsTotal
+    const [earningsTotalLoading, setEarningsTotalLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false); // State to control modal visibility
 
     useEffect(() => {
         const auth = getAuth();
@@ -19,10 +20,8 @@ function HostDashboardComponent() {
             if (user) {
                 setEmail(user.email);
                 setEmailLoading(false);
-
                 const docRef = doc(db, "users", user.uid);
 
-                // Subscribe to document changes
                 const unsubscribeDoc = onSnapshot(docRef, docSnap => {
                     if (docSnap.exists()) {
                         const userData = docSnap.data();
@@ -34,46 +33,49 @@ function HostDashboardComponent() {
                         console.log("No such document!");
                     }
                 });
-
-                // Return the unsubscribe function for the document listener
-                return () => {
-                    unsubscribeDoc();
-                };
+                return unsubscribeDoc;
             } else {
-                console.log("No user is currently signed in.");
-                window.location.href = '/'; // Redirect to home page if not logged in
+                setShowModal(true); // Show modal if not logged in
             }
         });
 
-        // Clean up the authentication subscription when the component unmounts
         return () => {
             unsubscribeAuth();
         };
     }, []);
 
-
     function handleEnterRoom() {
-        window.location.href = '/liveRoom'; // Redirect to the liveRoom page
+        window.location.href = '/liveRoom';
     }
 
     function handleSignOut() {
         const auth = getAuth();
         signOut(auth).then(() => {
-            console.log("User signed out successfully");
-            window.location.href = '/'; // Optionally redirect to home or login page
+            window.location.href = '/';
         }).catch((error) => {
             console.error("Sign out error:", error);
         });
     }
 
+    function handleModalOk() {
+        window.location.href = '/'; // Redirect to home page when "OK" is clicked
+    }
+
     return (
         <div>
+            {showModal && (
+                <div class="modal">
+                    <div class="modal-content">
+                        <p>You need to be logged in to access this page.</p>
+                        <button onClick={handleModalOk}>OK</button>
+                    </div>
+                </div>
+            )}
             <div>
                 <p>Current User's Email: {email} {emailLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
                 <p>Earnings: {earnings !== null ? earnings : earningsLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
                 <p>Total Earnings: {earningsTotal !== null ? earningsTotal : earningsTotalLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
                 <button class="roomButton" onClick={handleEnterRoom}><p>Enter Your Room</p></button>
-                
             </div>
             <div>
                 <button class="roomButton" onClick={handleSignOut}><p>Sign Out</p></button>
