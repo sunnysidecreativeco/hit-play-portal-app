@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'preact/hooks'; // Import useEffect along with useState
-import { getAuth, onAuthStateChanged } from 'firebase/auth'; // Import getAuth and onAuthStateChanged
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'; // Import getAuth and onAuthStateChanged
 import { db, auth, storage } from '../../firebase-config';
 import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 import '../styles/styles.css';
@@ -68,11 +68,16 @@ function HostDashboardComponent() {
 
     return (
         <div>
-            <p>Current User's Email: {email} {emailLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
-            <p>Earnings: {earnings !== null ? earnings : earningsLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
-            <p>Total Earnings: {earningsTotal !== null ? earningsTotal : earningsTotalLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
-            <button class="roomButton" onClick={handleEnterRoom}><p>Enter Your Room</p></button>
-            <button class="roomButton" onClick={handleSignOut}><p>Sign Out</p></button>
+            <div>
+                <p>Current User's Email: {email} {emailLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
+                <p>Earnings: {earnings !== null ? earnings : earningsLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
+                <p>Total Earnings: {earningsTotal !== null ? earningsTotal : earningsTotalLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
+                <button class="roomButton" onClick={handleEnterRoom}><p>Enter Your Room</p></button>
+                
+            </div>
+            <div>
+                <button class="roomButton" onClick={handleSignOut}><p>Sign Out</p></button>
+            </div>
         </div>
     );
 }
