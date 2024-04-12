@@ -1,39 +1,34 @@
 import { useState, useEffect } from 'preact/hooks';
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { db } from '../../firebase-config';
 import { doc, onSnapshot } from 'firebase/firestore';
 import '../styles/styles.css';
 
 function LiveRoomComponent() {
-    const [roomName, setRoomName] = useState(''); // Added state for roomName
-    const [showModal, setShowModal] = useState(false); // State to control modal visibility
+    const [roomName, setRoomName] = useState('');
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         const auth = getAuth();
 
         const unsubscribeAuth = onAuthStateChanged(auth, user => {
             if (user) {
-                setEmail(user.email);
-                setEmailLoading(false);
-
-
-                // Fetch room name from liveRooms collection
                 const roomDocRef = doc(db, "liveRooms", user.uid);
                 const unsubscribeRoomDoc = onSnapshot(roomDocRef, docSnap => {
                     if (docSnap.exists()) {
                         const roomData = docSnap.data();
-                        setRoomName(roomData.roomName); // Assuming the field is named 'roomName'
+                        setRoomName(roomData.roomName); // Confirm the field name is correct
+                        console.log("Room data:", roomData); // Debugging line
                     } else {
                         console.log("No such room document!");
+                        setRoomName(''); // Explicitly set roomName to empty if no document
                     }
                 });
 
-                // Return the unsubscribe function for the document listener
-                return () => {
-                    unsubscribeRoomDoc();
-                };
+                return () => unsubscribeRoomDoc();
             } else {
-                setShowModal(true); // Show modal if not logged in
+                setShowModal(true);
+                console.log("User is not logged in.");
             }
         });
 
@@ -41,7 +36,6 @@ function LiveRoomComponent() {
             unsubscribeAuth();
         };
     }, []);
-
 
     function handleModalOk() {
         window.location.href = '/'; // Redirect to home page when "OK" is clicked
@@ -58,9 +52,8 @@ function LiveRoomComponent() {
                 </div>
             )}
             <div>
-                <p>Room Name: {roomName}</p> {/* Display the room name */}
+                <p>Room Name: {roomName || "Loading room name..."}</p>
             </div>
-            
         </div>
     );
 }
