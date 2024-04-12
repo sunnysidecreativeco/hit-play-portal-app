@@ -36,16 +36,16 @@ function HostDashboardComponent() {
                 });
 
                 // Return the unsubscribe function for the document listener
-                return unsubscribeDoc;
+                return () => {
+                    unsubscribeDoc();
+                };
             } else {
                 console.log("No user is currently signed in.");
-                setEmailLoading(false); // Ensure loading states are cleared
-                setEarningsLoading(false);
-                setEarningsTotalLoading(false);
+                window.location.href = '/'; // Redirect to home page if not logged in
             }
         });
 
-        // Clean up both subscriptions when the component unmounts
+        // Clean up the authentication subscription when the component unmounts
         return () => {
             unsubscribeAuth();
         };
