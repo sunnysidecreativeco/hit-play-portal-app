@@ -94,10 +94,10 @@ function HostDashboardComponent() {
                 <p>Room Name: {roomName}</p> {/* Display the room name */}
                 <p>Earnings: {earnings !== null ? earnings : earningsLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
                 <p>Total Earnings: {earningsTotal !== null ? earningsTotal : earningsTotalLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
-                <button class="roomButton" onClick={handleEnterRoom}><p>Enter Your Room</p></button>
+                <button class="standardGreenButton" onClick={handleEnterRoom}><p>Enter Your Room</p></button>
             </div>
             <div>
-                <button class="roomButton" onClick={handleSignOut}><p>Sign Out</p></button>
+                <button class="standardGreenButton" onClick={handleSignOut}><p>Sign Out</p></button>
             </div>
         </div>
     );

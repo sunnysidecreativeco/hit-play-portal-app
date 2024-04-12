@@ -11,6 +11,19 @@
     margin: 0;
 }
 
+.standardGreenButton {
+    border: 2px solid #1B1B1B;
+    background-color: #b0b9b2;
+    box-shadow: 3px 3px 0px #1B1B1B;
+    padding: 10px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.standardGreenButton p {
+    margin: 0;
+}
+
 .modal {
     position: fixed;
     top: 0;
