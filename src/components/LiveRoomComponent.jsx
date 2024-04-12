@@ -4,7 +4,7 @@ import { db } from '../../firebase-config';
 import { doc, onSnapshot } from 'firebase/firestore';
 import '../styles/styles.css';
 
-function HostDashboardComponent() {
+function LiveRoomComponent() {
     const [roomName, setRoomName] = useState(''); // Added state for roomName
     const [showModal, setShowModal] = useState(false); // State to control modal visibility
 
@@ -65,4 +65,4 @@ function HostDashboardComponent() {
     );
 }
 
-export default HostDashboardComponent;
+export default LiveRoomComponent;
