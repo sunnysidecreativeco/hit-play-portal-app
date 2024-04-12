@@ -6,6 +6,7 @@ import '../styles/styles.css';
 
 function HostDashboardComponent() {
     const [email, setEmail] = useState('');
+    const [roomName, setRoomName] = useState(''); // Added state for roomName
     const [emailLoading, setEmailLoading] = useState(true);
     const [earnings, setEarnings] = useState(null);
     const [earningsLoading, setEarningsLoading] = useState(true);
@@ -20,9 +21,10 @@ function HostDashboardComponent() {
             if (user) {
                 setEmail(user.email);
                 setEmailLoading(false);
-                const docRef = doc(db, "users", user.uid);
 
-                const unsubscribeDoc = onSnapshot(docRef, docSnap => {
+                // Fetch user data
+                const userDocRef = doc(db, "users", user.uid);
+                const unsubscribeUserDoc = onSnapshot(userDocRef, docSnap => {
                     if (docSnap.exists()) {
                         const userData = docSnap.data();
                         setEarnings(userData.earnings);
@@ -30,10 +32,26 @@ function HostDashboardComponent() {
                         setEarningsTotal(userData.earningsTotal);
                         setEarningsTotalLoading(false);
                     } else {
-                        console.log("No such document!");
+                        console.log("No such user document!");
                     }
                 });
-                return unsubscribeDoc;
+
+                // Fetch room name from liveRooms collection
+                const roomDocRef = doc(db, "liveRooms", user.uid);
+                const unsubscribeRoomDoc = onSnapshot(roomDocRef, docSnap => {
+                    if (docSnap.exists()) {
+                        const roomData = docSnap.data();
+                        setRoomName(roomData.roomName); // Assuming the field is named 'roomName'
+                    } else {
+                        console.log("No such room document!");
+                    }
+                });
+
+                // Return the unsubscribe function for the document listener
+                return () => {
+                    unsubscribeUserDoc();
+                    unsubscribeRoomDoc();
+                };
             } else {
                 setShowModal(true); // Show modal if not logged in
             }
@@ -73,6 +91,7 @@ function HostDashboardComponent() {
             )}
             <div>
                 <p>Current User's Email: {email} {emailLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
+                <p>Room Name: {roomName}</p> {/* Display the room name */}
                 <p>Earnings: {earnings !== null ? earnings : earningsLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
                 <p>Total Earnings: {earningsTotal !== null ? earningsTotal : earningsTotalLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
                 <button class="roomButton" onClick={handleEnterRoom}><p>Enter Your Room</p></button>
