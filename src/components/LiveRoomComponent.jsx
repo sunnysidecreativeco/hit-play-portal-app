@@ -69,7 +69,7 @@ function LiveRoomComponent() {
     const B = (props) => <Text style={{color: '#3045bf'}}>{props.children}</Text>;
     const C = (props) => <Text style={{color: '#b33110'}}>{props.children}</Text>;
 
-    const navigation = useNavigation();
+    
 
     
 
