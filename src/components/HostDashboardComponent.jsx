@@ -51,12 +51,28 @@ function HostDashboardComponent() {
         };
     }, []);
 
+
+    function handleEnterRoom() {
+        window.location.href = '/liveRoom'; // Redirect to the liveRoom page
+    }
+
+    function handleSignOut() {
+        const auth = getAuth();
+        signOut(auth).then(() => {
+            console.log("User signed out successfully");
+            window.location.href = '/'; // Optionally redirect to home or login page
+        }).catch((error) => {
+            console.error("Sign out error:", error);
+        });
+    }
+
     return (
         <div>
             <p>Current User's Email: {email} {emailLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
             <p>Earnings: {earnings !== null ? earnings : earningsLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
             <p>Total Earnings: {earningsTotal !== null ? earningsTotal : earningsTotalLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
-            <button class="roomButton"><p>Enter Your Room</p></button>
+            <button class="roomButton" onClick={handleEnterRoom}><p>Enter Your Room</p></button>
+            <button class="roomButton" onClick={handleSignOut}><p>Sign Out</p></button>
         </div>
     );
 }
