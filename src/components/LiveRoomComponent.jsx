@@ -82,13 +82,20 @@ function LiveRoomComponent() {
                     if (docSnap.exists()) {
                         const roomData = docSnap.data();
                         setRoomName(roomData.roomName);
-                        setOnAirStatus(roomData.onAir);
+                        const onAirText = roomData.onAir;
+                        if(onAirText == true){
+                            setOnAirStatus("On Air");
+                        } else if(onAirText == false){
+                            setOnAirStatus("Off Air");
+                        }
                         setOnAirLoading(false);
                         setRoomLoading(false);
                     } else {
                         console.log("No such room document!");
                         setRoomName('');
+                        setOnAirStatus('');
                         setRoomLoading(false);
+                        setOnAirLoading(false);
                     }
                 });
 
