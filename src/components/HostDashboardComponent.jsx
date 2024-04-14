@@ -119,7 +119,7 @@ function HostDashboardComponent() {
                 <p>Current User's Email: {email} {emailLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
                 <p>Room Name: {roomName}</p> {/* Display the room name */}
                 <p>Earnings: {earnings !== null ? earnings : earningsLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
-                <p>Total Earnings: {earningsTotal !== null ? earningsTotal : earningsTotalLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
+                <p style="margin-bottom: 15px;">Total Earnings: {earningsTotal !== null ? earningsTotal : earningsTotalLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
                 <button class="standardGreenButton" onClick={handleGoLive}><p>Go Live</p></button>
             </div>
             <div>
