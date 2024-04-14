@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'preact/hooks';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { db } from '../../firebase-config';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import '../styles/styles.css';
 
 function HostDashboardComponent() {
