@@ -74,7 +74,7 @@ function LiveRoomComponent() {
 
 
     useEffect(() => {
-        const auth = getAuth(); // Ensure auth is initialized correctly
+        const auth = getAuth();
         const unsubscribeAuth = onAuthStateChanged(auth, user => {
             if (user) {
                 const roomDocRef = doc(db, "liveRooms", user.uid);
@@ -82,30 +82,24 @@ function LiveRoomComponent() {
                     if (docSnap.exists()) {
                         const roomData = docSnap.data();
                         setRoomName(roomData.roomName);
-                        const onAirText = roomData.onAir;
-                        if(onAirText == true){
-                            setOnAirStatus("On Air");
-                        } else if(onAirText == false){
-                            setOnAirStatus("Off Air");
-                        }
-                        setOnAirLoading(false);
-                        setRoomLoading(false);
+                        setOnAirStatus(roomData.onAir ? "On Air" : "Off Air");
                     } else {
                         console.log("No such room document!");
                         setRoomName('');
-                        setOnAirStatus('');
-                        setRoomLoading(false);
-                        setOnAirLoading(false);
+                        setOnAirStatus('Off Air');
                     }
                 });
 
                 const songsRef = collection(db, `liveRooms/${user.uid}/upNext`);
-                fetchSongs(songsRef, 'true', 'true', setSongsSkipPlus);
-                fetchSongs(songsRef, 'true', 'false', setSongsSkip);
-                fetchSongs(songsRef, 'false', 'false', setSongs);
+                const unsubscribeSongsPlus = subscribeToSongs(songsRef, 'true', 'true', setSongsSkipPlus);
+                const unsubscribeSongsSkip = subscribeToSongs(songsRef, 'true', 'false', setSongsSkip);
+                const unsubscribeSongs = subscribeToSongs(songsRef, 'false', 'false', setSongs);
 
                 return () => {
                     unsubscribeRoomDoc();
+                    unsubscribeSongsPlus();
+                    unsubscribeSongsSkip();
+                    unsubscribeSongs();
                 };
             } else {
                 setShowModal(true);
@@ -118,19 +112,20 @@ function LiveRoomComponent() {
         };
     }, []);
 
-    const fetchSongs = async (ref, skip, skipPlus, setState) => {
+    const subscribeToSongs = (ref, skip, skipPlus, setState) => {
         const q = query(
             ref,
             where('skip', '==', skip),
             where('skipPlus', '==', skipPlus),
             orderBy('timeEntered', 'asc')
         );
-        const querySnapshot = await getDocs(q);
-        const fetchedSongs = querySnapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-        }));
-        setState(fetchedSongs);
+        return onSnapshot(q, querySnapshot => {
+            const fetchedSongs = querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            setState(fetchedSongs);
+        });
     };
 
     function handleModalOk() {
@@ -148,8 +143,8 @@ function LiveRoomComponent() {
                 </div>
             )}
             <div>
-                <p>Room Name: {roomLoading ? "Loading..." : roomName || "No room assigned"}</p>
-                <p>Your room is: {onAirLoading ? "Loading..." : onAirStatus || "No room assigned"}</p>
+                <p>Room Name: {roomName || "No room assigned"}</p>
+                <p>Your room is: {onAirStatus || "No status available"}</p>
                 <div>
                     <h2>Skip Plus Songs</h2>
                     {songsSkipPlus.map(song => (
