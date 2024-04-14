@@ -62,9 +62,35 @@ function HostDashboardComponent() {
         };
     }, []);
 
-    function handleEnterRoom() {
-        window.location.href = '/liveRoom';
-    }
+
+
+    function handleGoLive() {
+        const auth = getAuth();
+        const user = auth.currentUser;
+      
+        if (user) {
+          const userId = user.uid;
+          const liveRoomRef = doc(db, "liveRooms", userId);
+      
+          // Update the onAir and lineOpen fields
+          updateDoc(liveRoomRef, {
+            onAir: true,
+            lineOpen: true, // Assuming the field name for open line is 'lineOpen'
+          })
+            .then(() => {
+              console.log("Live room is now active!");
+              window.location.href = '/liveRoom';
+            })
+            .catch((error) => {
+              console.error("Error updating live room:", error);
+            });
+        } else {
+          console.error("User is not logged in!");
+        }
+      }
+
+
+
 
     function handleSignOut() {
         const auth = getAuth();
@@ -94,7 +120,7 @@ function HostDashboardComponent() {
                 <p>Room Name: {roomName}</p> {/* Display the room name */}
                 <p>Earnings: {earnings !== null ? earnings : earningsLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
                 <p>Total Earnings: {earningsTotal !== null ? earningsTotal : earningsTotalLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
-                <button class="standardGreenButton" onClick={handleEnterRoom}><p>Enter Your Room</p></button>
+                <button class="standardGreenButton" onClick={handleGoLive}><p>Enter Your Room</p></button>
             </div>
             <div>
                 <button class="standardGreenButton" onClick={handleSignOut}><p>Sign Out</p></button>

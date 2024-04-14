@@ -23,6 +23,8 @@ import {
 function LiveRoomComponent() {
     const [roomName, setRoomName] = useState('');
     const [roomLoading, setRoomLoading] = useState(true); // State for tracking room name loading
+    const [onAirStatus, setOnAirStatus] = useState(false);
+    const [onAirLoading, setOnAirLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [refresh, setRefresh] = useState(true);
     const [credits, setCredits] = useState("");
@@ -69,9 +71,6 @@ function LiveRoomComponent() {
     const B = (props) => <Text style={{color: '#3045bf'}}>{props.children}</Text>;
     const C = (props) => <Text style={{color: '#b33110'}}>{props.children}</Text>;
 
-    
-
-    
 
 
     useEffect(() => {
@@ -83,6 +82,8 @@ function LiveRoomComponent() {
                     if (docSnap.exists()) {
                         const roomData = docSnap.data();
                         setRoomName(roomData.roomName);
+                        setOnAirStatus(roomData.onAir);
+                        setOnAirLoading(false);
                         setRoomLoading(false);
                     } else {
                         console.log("No such room document!");
@@ -141,26 +142,24 @@ function LiveRoomComponent() {
             )}
             <div>
                 <p>Room Name: {roomLoading ? "Loading..." : roomName || "No room assigned"}</p>
+                <p>Your room is: {onAirLoading ? "Loading..." : onAirStatus || "No room assigned"}</p>
                 <div>
                     <h2>Skip Plus Songs</h2>
                     {songsSkipPlus.map(song => (
                         <div key={song.id} className="song-item">
                             <p>{song.songName} by {song.artistName}</p>
-                            <button onClick={() => console.log('Play song', song.link)}>Play</button>
                         </div>
                     ))}
                     <h2>Skip Songs</h2>
                     {songsSkip.map(song => (
                         <div key={song.id} className="song-item">
                             <p>{song.songName} by {song.artistName}</p>
-                            <button onClick={() => console.log('Play song', song.link)}>Play</button>
                         </div>
                     ))}
                     <h2>Regular Songs</h2>
                     {songs.map(song => (
                         <div key={song.id} className="song-item">
                             <p>{song.songName} by {song.artistName}</p>
-                            <button onClick={() => console.log('Play song', song.link)}>Play</button>
                         </div>
                     ))}
                 </div>
