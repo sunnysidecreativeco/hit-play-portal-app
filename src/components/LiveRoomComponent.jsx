@@ -207,8 +207,8 @@ function LiveRoomComponent() {
             // Define the queries in order of priority
             const priorityQueries = [
                 { query: query(upNextRef, where("skipPlus", "==", true), orderBy("timeEntered", "asc")), priority: "High (skipPlus)" },
-                { query: query(upNextRef, where("skip", "==", true), where("skipPlus", "==", false), orderBy("timeEntered", "asc")), priority: "Medium (skip)" },
-                { query: query(upNextRef, orderBy("timeEntered", "asc")), priority: "Low (no flags)" } // This query will catch all songs if no prioritized ones are found
+                { query: query(upNextRef, where("skip", "==", true), orderBy("timeEntered", "asc")), priority: "Medium (skip)" },
+                { query: query(upNextRef, orderBy("timeEntered", "asc")), priority: "Low (no flags)" }
             ];
     
             for (const item of priorityQueries) {
@@ -217,7 +217,9 @@ function LiveRoomComponent() {
                     const songToMove = snapshot.docs[0].data();
                     const songId = snapshot.docs[0].id;
     
-                    // Check if the song actually meets the priority criteria
+                    console.log(`Processing song: ${songToMove.songName}, SkipPlus: ${songToMove.skipPlus}, Skip: ${songToMove.skip}`);
+    
+                    // Check if the song actually meets the priority criteria before moving it
                     if ((item.priority === "High (skipPlus)" && songToMove.skipPlus) ||
                         (item.priority === "Medium (skip)" && songToMove.skip && !songToMove.skipPlus) ||
                         (item.priority === "Low (no flags)" && !songToMove.skip && !songToMove.skipPlus)) {
@@ -236,7 +238,6 @@ function LiveRoomComponent() {
             console.log("No songs available to move to nowPlaying");
         } catch (error) {
             console.error("Failed to move next song to nowPlaying:", error);
-            // Include detailed Firestore error handling if specific
             if (error.code === 'permission-denied') {
                 console.log("Check Firestore permissions.");
             }
