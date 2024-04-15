@@ -86,38 +86,22 @@ function LiveRoomComponent() {
         const unsubscribeAuth = onAuthStateChanged(auth, user => {
             if (user) {
                 const roomDocRef = doc(db, "liveRooms", user.uid);
-                const unsubscribeRoomDoc = onSnapshot(roomDocRef, docSnap => {
+                onSnapshot(roomDocRef, docSnap => {
                     if (docSnap.exists()) {
-                        console.log("Room data:", docSnap.data());  // Debugging log
                         const roomData = docSnap.data();
                         setRoomName(roomData.roomName);
                         setOnAirStatus(roomData.onAir ? "On Air" : "Off Air");
                         setCreditsEarned(roomData.creditsEarned || 0);
                     } else {
                         console.log("No such room document!");
-                        setRoomName('');
-                        setOnAirStatus('Off Air');
-                        setCreditsEarned(0);
                     }
                 });
 
-                const nowPlayingRef = collection(db, `liveRooms/${user.uid}/nowPlaying`);
-                const unsubscribeNowPlaying = onSnapshot(nowPlayingRef, (querySnapshot) => {
-                    console.log("Now Playing data:", querySnapshot.docs.map(doc => doc.data()));  // Debugging log
-                    const updatedSongs = querySnapshot.docs.map(doc => ({
-                        id: doc.id,
-                        ...doc.data()
-                    }));
-                    setNowPlaying(updatedSongs);
-                    if (updatedSongs.length > 0 && updatedSongs[0].artistId) {
-                        fetchSongUrl(updatedSongs[0].artistId, updatedSongs[0].songFileName);
-                    }
-                });
-
-                return () => {
-                    unsubscribeRoomDoc();
-                    unsubscribeNowPlaying();
-                };
+                // Fetch songs in each category
+                fetchSongs(user.uid, 'upNext', setSongs);
+                fetchSongs(user.uid, 'upNextSkip', setSongsSkip);
+                fetchSongs(user.uid, 'upNextSkipPlus', setSongsSkipPlus);
+                fetchNowPlaying(user.uid);
             } else {
                 setShowModal(true);
             }
@@ -125,6 +109,27 @@ function LiveRoomComponent() {
 
         return () => unsubscribeAuth();
     }, []);
+
+    function fetchSongs(userId, collectionName, setState) {
+        const songsRef = collection(db, `liveRooms/${userId}/${collectionName}`);
+        onSnapshot(songsRef, (querySnapshot) => {
+            const fetchedSongs = querySnapshot.docs.map(doc => doc.data());
+            console.log(`Fetched ${collectionName}:`, fetchedSongs); // Debugging log
+            setState(fetchedSongs);
+        }, error => console.log(`Error fetching ${collectionName}:`, error));
+    }
+
+    function fetchNowPlaying(userId) {
+        const nowPlayingRef = collection(db, `liveRooms/${userId}/nowPlaying`);
+        onSnapshot(nowPlayingRef, (querySnapshot) => {
+            const updatedSongs = querySnapshot.docs.map(doc => doc.data());
+            console.log("Now Playing Data:", updatedSongs); // Debugging log
+            setNowPlaying(updatedSongs);
+            if (updatedSongs.length > 0 && updatedSongs[0].artistId) {
+                fetchSongUrl(updatedSongs[0].artistId, updatedSongs[0].songFileName);
+            }
+        });
+    }
 
     const fetchSongUrl = (artistId, fileName) => {
         const songPath = `songs/${artistId}/${fileName}`;
