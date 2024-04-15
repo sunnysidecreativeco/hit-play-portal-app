@@ -50,6 +50,7 @@ function LiveRoomComponent() {
     const [songs, setSongs] = useState([]);
     const [songsSkip, setSongsSkip] = useState([]);
     const [songsSkipPlus, setSongsSkipPlus] = useState([]);
+    const [nowPlaying, setNowPlaying] = useState([]);
     const [nowPlayingControls, setNowPlayingControls] = useState("")
     const [songsInLine, setSongsInLine] = useState(0);
     const [skipStatus, setSkipStatus] = useState(false)
@@ -79,21 +80,33 @@ function LiveRoomComponent() {
         const auth = getAuth();
         const unsubscribeAuth = onAuthStateChanged(auth, user => {
             if (user) {
+                // Listener for room data
                 const roomDocRef = doc(db, "liveRooms", user.uid);
                 const unsubscribeRoomDoc = onSnapshot(roomDocRef, docSnap => {
                     if (docSnap.exists()) {
                         const roomData = docSnap.data();
                         setRoomName(roomData.roomName);
                         setOnAirStatus(roomData.onAir ? "On Air" : "Off Air");
-                        setCreditsEarned(roomData.creditsEarned || 0); // Update credits earned from the document
+                        setCreditsEarned(roomData.creditsEarned || 0);
                     } else {
                         console.log("No such room document!");
                         setRoomName('');
                         setOnAirStatus('Off Air');
-                        setCreditsEarned(0); // Reset if no document is found
+                        setCreditsEarned(0);
                     }
                 });
 
+                // Listener for now playing songs
+                const nowPlayingRef = collection(db, `liveRooms/${user.uid}/nowPlaying`);
+                const unsubscribeNowPlaying = onSnapshot(nowPlayingRef, (querySnapshot) => {
+                    const updatedSongs = querySnapshot.docs.map(doc => ({
+                        id: doc.id,
+                        ...doc.data()
+                    }));
+                    setNowPlaying(updatedSongs);
+                });
+
+                // Listeners for songs in upNext collection
                 const songsRef = collection(db, `liveRooms/${user.uid}/upNext`);
                 const unsubscribeSongsPlus = subscribeToSongs(songsRef, 'true', 'true', setSongsSkipPlus);
                 const unsubscribeSongsSkip = subscribeToSongs(songsRef, 'true', 'false', setSongsSkip);
@@ -101,6 +114,7 @@ function LiveRoomComponent() {
 
                 return () => {
                     unsubscribeRoomDoc();
+                    unsubscribeNowPlaying();
                     unsubscribeSongsPlus();
                     unsubscribeSongsSkip();
                     unsubscribeSongs();
@@ -111,18 +125,11 @@ function LiveRoomComponent() {
             }
         });
 
-        return () => {
-            unsubscribeAuth();
-        };
+        return () => unsubscribeAuth();
     }, []);
 
     const subscribeToSongs = (ref, skip, skipPlus, setState) => {
-        const q = query(
-            ref,
-            where('skip', '==', skip),
-            where('skipPlus', '==', skipPlus),
-            orderBy('timeEntered', 'asc')
-        );
+        const q = query(ref, where('skip', '==', skip), where('skipPlus', '==', skipPlus), orderBy('timeEntered', 'asc'));
         return onSnapshot(q, querySnapshot => {
             const fetchedSongs = querySnapshot.docs.map(doc => ({
                 id: doc.id,
@@ -135,7 +142,6 @@ function LiveRoomComponent() {
     function handleModalOk() {
         window.location.href = '/';
     }
-
     return (
         <div>
             {showModal && (
@@ -147,28 +153,40 @@ function LiveRoomComponent() {
                 </div>
             )}
             <div>
-                <p>Room Name: {roomName || "No room assigned"}</p>
+            <p>Room Name: {roomName || "No room assigned"}</p>
                 <p>Your room is: {onAirStatus || "No status available"}</p>
                 <p>Credits this live: {creditsEarned}</p>
                 <div>
+                    <h2>Now Playing</h2>
+                    {nowPlaying.length > 0 ? nowPlaying.map(song => (
+                        <div key={song.id} className="song-item">
+                            <p>{song.songName} by {song.artistName}</p>
+                        </div>
+                    )) : <p>No songs currently playing.</p>}
+
                     <h2>Skip Plus Songs</h2>
                     {songsSkipPlus.map(song => (
                         <div key={song.id} className="song-item">
                             <p>{song.songName} by {song.artistName}</p>
                         </div>
                     ))}
+                    {songsSkipPlus.length === 0 && <p>No skip plus songs.</p>}
+
                     <h2>Skip Songs</h2>
                     {songsSkip.map(song => (
                         <div key={song.id} className="song-item">
                             <p>{song.songName} by {song.artistName}</p>
                         </div>
                     ))}
+                    {songsSkip.length === 0 && <p>No skip songs.</p>}
+
                     <h2>Regular Songs</h2>
                     {songs.map(song => (
                         <div key={song.id} className="song-item">
                             <p>{song.songName} by {song.artistName}</p>
                         </div>
                     ))}
+                    {songs.length === 0 && <p>No regular songs queued.</p>}
                 </div>
             </div>
         </div>
