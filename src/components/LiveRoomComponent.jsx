@@ -107,8 +107,8 @@ function LiveRoomComponent() {
                         ...doc.data()
                     }));
                     setNowPlaying(updatedSongs);
-                    if (updatedSongs.length > 0) {
-                        fetchSongUrl(updatedSongs[0].artistIdNow, updatedSongs[0].songFileName);
+                    if (updatedSongs.length > 0 && updatedSongs[0].artistId) {
+                        fetchSongUrl(updatedSongs[0].artistId, updatedSongs[0].songFileName);
                     }
                 });
 
@@ -153,12 +153,6 @@ function LiveRoomComponent() {
             setCurrentTime(audioRef.current.currentTime);
             setDuration(audioRef.current.duration);
         }
-    };
-
-    const handleSeek = (e) => {
-        const newTime = e.target.value;
-        audioRef.current.currentTime = newTime;
-        setCurrentTime(newTime);
     };
 
     function handleModalOk() {
