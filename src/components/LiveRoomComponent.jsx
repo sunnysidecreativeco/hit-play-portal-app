@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'preact/hooks';
+import { useState, useEffect, useRef } from 'preact/hooks';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { db, auth, storage } from '../../firebase-config';
 import { ref as storageRef, getDownloadURL } from 'firebase/storage';
