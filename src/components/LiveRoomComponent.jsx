@@ -196,32 +196,43 @@ function LiveRoomComponent() {
     
         try {
             const upNextRef = collection(db, `liveRooms/${userUid}/upNext`);
-            // First try to find songs with skipPlus or skip true
-            let queryRef = query(upNextRef, where("skipPlus", "==", true), orderBy("timeEntered", "asc"));
-            let snapshot = await getDocs(queryRef);
+            let queryRef;
+            let snapshot;
+    
+            // Check for songs with 'skipPlus' set to true
+            queryRef = query(upNextRef, where("skipPlus", "==", true), orderBy("timeEntered", "asc"));
+            snapshot = await getDocs(queryRef);
             if (snapshot.empty) {
+                // If no 'skipPlus' songs, check for 'skip' set to true
                 queryRef = query(upNextRef, where("skip", "==", true), orderBy("timeEntered", "asc"));
                 snapshot = await getDocs(queryRef);
-            } else {
-                if (snapshot.empty) {
-                    queryRef = query(upNextRef, orderBy("timeEntered", "asc")); // Default to any song if no skip or skipPlus
-                    snapshot = await getDocs(queryRef);
-                } else {
-                    if (!snapshot.empty) {
-                        const songToMove = snapshot.docs[0].data();
-                        const songId = snapshot.docs[0].id;
-                        // Add to nowPlaying
-                        await setDoc(doc(db, `liveRooms/${userUid}/nowPlaying`, songId), songToMove);
-                        // Remove from upNext
-                        await deleteDoc(doc(db, `liveRooms/${userUid}/upNext`, songId));
-                        console.log("Moved song to nowPlaying:", songToMove);
-                    } else {
-                        console.log("No songs available to move to nowPlaying");
-                    }
-                }
+            }
+            if (snapshot.empty) {
+                // If no 'skip' songs, select any song
+                queryRef = query(upNextRef, orderBy("timeEntered", "asc"));
+                snapshot = await getDocs(queryRef);
             }
     
-            
+            // Clear the nowPlaying collection before adding new song
+            const nowPlayingRef = collection(db, `liveRooms/${userUid}/nowPlaying`);
+            const currentSongs = await getDocs(nowPlayingRef);
+            for (const doc of currentSongs.docs) {
+                await deleteDoc(doc.ref);
+            }
+    
+            // If a song is found, move it to nowPlaying
+            if (!snapshot.empty) {
+                const songToMove = snapshot.docs[0].data();
+                const songId = snapshot.docs[0].id;
+    
+                // Add to nowPlaying
+                await setDoc(doc(db, `liveRooms/${userUid}/nowPlaying`, songId), songToMove);
+                // Remove from upNext
+                await deleteDoc(doc(db, `liveRooms/${userUid}/upNext`, songId));
+                console.log("Moved song to nowPlaying:", songToMove);
+            } else {
+                console.log("No songs available to move to nowPlaying");
+            }
         } catch (error) {
             console.error("Failed to move next song to nowPlaying:", error);
         }
