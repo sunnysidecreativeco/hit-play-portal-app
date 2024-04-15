@@ -205,7 +205,7 @@ function LiveRoomComponent() {
             let songId = null;
     
             // Try to find songs with skipPlus set to true
-            let queryRef = query(upNextRef, where("skipPlus", "==", true), where("skip", "==", true), orderBy("timeEntered", "asc"));
+            let queryRef = query(upNextRef, where("skipPlus", "==", true), orderBy("timeEntered", "asc"));
             let snapshot = await getDocs(queryRef);
             if (!snapshot.empty) {
                 console.log('a skipPlus song was found')
