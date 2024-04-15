@@ -184,6 +184,46 @@ function LiveRoomComponent() {
         }
     };
 
+
+    const moveNextSongToNowPlaying = async () => {
+        const userUid = getAuth().currentUser?.uid; // Ensure the user is authenticated
+        if (!userUid) {
+            console.log("User not authenticated");
+            return;
+        }
+    
+        try {
+            const upNextRef = collection(db, `liveRooms/${userUid}/upNext`);
+            // First try to find songs with skipPlus or skip true
+            let queryRef = query(upNextRef, where("skipPlus", "==", true), orderBy("timeEntered", "asc"));
+            let snapshot = await getDocs(queryRef);
+            if (snapshot.empty) {
+                queryRef = query(upNextRef, where("skip", "==", true), orderBy("timeEntered", "asc"));
+                snapshot = await getDocs(queryRef);
+            }
+            if (snapshot.empty) {
+                queryRef = query(upNextRef, orderBy("timeEntered", "asc")); // Default to any song if no skip or skipPlus
+                snapshot = await getDocs(queryRef);
+            }
+    
+            if (!snapshot.empty) {
+                const songToMove = snapshot.docs[0].data();
+                const songId = snapshot.docs[0].id;
+                // Add to nowPlaying
+                await setDoc(doc(db, `liveRooms/${userUid}/nowPlaying`, songId), songToMove);
+                // Remove from upNext
+                await deleteDoc(doc(db, `liveRooms/${userUid}/upNext`, songId));
+                console.log("Moved song to nowPlaying:", songToMove);
+            } else {
+                console.log("No songs available to move to nowPlaying");
+            }
+        } catch (error) {
+            console.error("Failed to move next song to nowPlaying:", error);
+        }
+    };
+
+
+
     function handleModalOk() {
         window.location.href = '/';
     }
@@ -202,6 +242,7 @@ function LiveRoomComponent() {
                 <p>Room Name: {roomName || "No room assigned"}</p>
                 <p>Your room is: {onAirStatus || "No status available"}</p>
                 <p>Credits this live: {creditsEarned}</p>
+                <button style="margin-bottom: 15px;" class="standardGreenButton" onClick={moveNextSongToNowPlaying}><p>Next Song</p></button>
                 <div>
                     <h2>Now Playing</h2>
                     {nowPlaying.length > 0 ? nowPlaying.map(song => (
