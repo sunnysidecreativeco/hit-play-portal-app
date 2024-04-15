@@ -25,6 +25,8 @@ function LiveRoomComponent() {
     const [roomLoading, setRoomLoading] = useState(true); // State for tracking room name loading
     const [onAirStatus, setOnAirStatus] = useState(false);
     const [onAirLoading, setOnAirLoading] = useState(true);
+    const [creditsEarned, setCreditsEarned] = useState(false);
+    const [creditsEarnedLoading, setCreditsEarnedLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [refresh, setRefresh] = useState(true);
     const [credits, setCredits] = useState("");
@@ -83,10 +85,12 @@ function LiveRoomComponent() {
                         const roomData = docSnap.data();
                         setRoomName(roomData.roomName);
                         setOnAirStatus(roomData.onAir ? "On Air" : "Off Air");
+                        setCreditsEarned(roomData.creditsEarned || 0); // Update credits earned from the document
                     } else {
                         console.log("No such room document!");
                         setRoomName('');
                         setOnAirStatus('Off Air');
+                        setCreditsEarned(0); // Reset if no document is found
                     }
                 });
 
@@ -145,6 +149,7 @@ function LiveRoomComponent() {
             <div>
                 <p>Room Name: {roomName || "No room assigned"}</p>
                 <p>Your room is: {onAirStatus || "No status available"}</p>
+                <p>Credits this live: {creditsEarned}</p>
                 <div>
                     <h2>Skip Plus Songs</h2>
                     {songsSkipPlus.map(song => (
