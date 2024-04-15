@@ -204,57 +204,36 @@ function LiveRoomComponent() {
                 await deleteDoc(doc.ref);
             }
     
-            // Start with the highest priority: songs with skipPlus set to true
-            let queryRef = query(upNextRef, where("skipPlus", "==", true), orderBy("timeEntered", "asc"));
-            let snapshot = await getDocs(queryRef);
-            if (!snapshot.empty) {
-                const songToMove = snapshot.docs[0].data();
-                const songId = snapshot.docs[0].id;
-
-                // Add to nowPlaying
-                await setDoc(doc(db, `liveRooms/${userUid}/nowPlaying`, songId), songToMove);
-                // Remove from upNext
-                await deleteDoc(doc(db, `liveRooms/${userUid}/upNext`, songId));
-                console.log("Moved song to nowPlaying:", songToMove);
-            } else {
-                console.log("No songs in skipPlus");
-                let queryRef2 = query(upNextRef, where("skip", "==", true), orderBy("timeEntered", "asc"));
-                let snapshot2 = await getDocs(queryRef2);
-                if (!snapshot2.empty) {
+            // Process songs by priority: first skipPlus, then skip, finally any song
+            const queries = [
+                query(upNextRef, where("skipPlus", "==", true), orderBy("timeEntered", "asc")),
+                query(upNextRef, where("skip", "==", true), orderBy("timeEntered", "asc")),
+                query(upNextRef, orderBy("timeEntered", "asc"))
+            ];
+    
+            for (const queryRef of queries) {
+                const snapshot = await getDocs(queryRef);
+                if (!snapshot.empty) {
                     const songToMove = snapshot.docs[0].data();
                     const songId = snapshot.docs[0].id;
-        
-                    // Add to nowPlaying
+    
+                    // Move song to nowPlaying and remove from upNext
                     await setDoc(doc(db, `liveRooms/${userUid}/nowPlaying`, songId), songToMove);
-                    // Remove from upNext
                     await deleteDoc(doc(db, `liveRooms/${userUid}/upNext`, songId));
-                    console.log("Moved song to nowPlaying:", songToMove);
-                } else {
-                    console.log("No songs in skip");
-                    let queryRef3 = query(upNextRef, where("skip", "==", false), orderBy("timeEntered", "asc"));
-                    let snapshot3 = await getDocs(queryRef3);
-                    if (!snapshot3.empty) {
-                        const songToMove = snapshot.docs[0].data();
-                        const songId = snapshot.docs[0].id;
-            
-                        // Add to nowPlaying
-                        await setDoc(doc(db, `liveRooms/${userUid}/nowPlaying`, songId), songToMove);
-                        // Remove from upNext
-                        await deleteDoc(doc(db, `liveRooms/${userUid}/upNext`, songId));
-                        console.log("Moved song to nowPlaying:", songToMove);
-                    } else {
-                        console.log("No songs available to move to nowPlaying");
-                    }
+                    console.log("Moved song to nowPlaying:", songToMove.songName, "with priority:", songToMove.skipPlus ? "High (skipPlus)" : songToMove.skip ? "Medium (skip)" : "Low (no flags)");
+                    return; // Stop after moving a song
                 }
             }
-            
-            
-            
+    
+            console.log("No songs available to move to nowPlaying");
         } catch (error) {
             console.error("Failed to move next song to nowPlaying:", error);
+            // Include detailed Firestore error handling if specific
+            if (error.code === 'permission-denied') {
+                console.log("Check Firestore permissions.");
+            }
         }
     };
-
 
 
     
