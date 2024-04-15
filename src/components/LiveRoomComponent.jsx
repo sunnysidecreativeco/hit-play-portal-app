@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'preact/hooks';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { db, auth } from '../../firebase-config';
+import { db, auth, storage } from '../../firebase-config';
+import { ref as storageRef, getDownloadURL } from 'firebase/storage';
 import '../styles/styles.css';
 import {
     doc as firestoreDoc,
@@ -22,12 +23,19 @@ import {
 
 function LiveRoomComponent() {
     const [roomName, setRoomName] = useState('');
-    const [roomLoading, setRoomLoading] = useState(true); // State for tracking room name loading
     const [onAirStatus, setOnAirStatus] = useState(false);
-    const [onAirLoading, setOnAirLoading] = useState(true);
-    const [creditsEarned, setCreditsEarned] = useState(false);
-    const [creditsEarnedLoading, setCreditsEarnedLoading] = useState(true);
+    const [creditsEarned, setCreditsEarned] = useState(0);
     const [showModal, setShowModal] = useState(false);
+    const [nowPlaying, setNowPlaying] = useState([]);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(0);
+    const audioRef = useRef(null);
+    const [songs, setSongs] = useState([]);
+    const [songsSkip, setSongsSkip] = useState([]);
+    const [songsSkipPlus, setSongsSkipPlus] = useState([]);
+
+    
     const [refresh, setRefresh] = useState(true);
     const [credits, setCredits] = useState("");
     const [songsList, setSongsList] = useState([]);
@@ -47,10 +55,7 @@ function LiveRoomComponent() {
     const [lineButtonNote, setLineButtonNote] = useState("");
     const [yourSongsTitle, setYourSongsTitle] = useState("");
     const [onAirButton, setOnAirButton] = useState("");
-    const [songs, setSongs] = useState([]);
-    const [songsSkip, setSongsSkip] = useState([]);
-    const [songsSkipPlus, setSongsSkipPlus] = useState([]);
-    const [nowPlaying, setNowPlaying] = useState([]);
+    
     const [nowPlayingControls, setNowPlayingControls] = useState("")
     const [songsInLine, setSongsInLine] = useState(0);
     const [skipStatus, setSkipStatus] = useState(false)
@@ -80,7 +85,6 @@ function LiveRoomComponent() {
         const auth = getAuth();
         const unsubscribeAuth = onAuthStateChanged(auth, user => {
             if (user) {
-                // Listener for room data
                 const roomDocRef = doc(db, "liveRooms", user.uid);
                 const unsubscribeRoomDoc = onSnapshot(roomDocRef, docSnap => {
                     if (docSnap.exists()) {
@@ -96,7 +100,6 @@ function LiveRoomComponent() {
                     }
                 });
 
-                // Listener for now playing songs
                 const nowPlayingRef = collection(db, `liveRooms/${user.uid}/nowPlaying`);
                 const unsubscribeNowPlaying = onSnapshot(nowPlayingRef, (querySnapshot) => {
                     const updatedSongs = querySnapshot.docs.map(doc => ({
@@ -104,44 +107,68 @@ function LiveRoomComponent() {
                         ...doc.data()
                     }));
                     setNowPlaying(updatedSongs);
+                    if (updatedSongs.length > 0) {
+                        fetchSongUrl(updatedSongs[0].artistIdNow, updatedSongs[0].songFileName);
+                    }
                 });
-
-                // Listeners for songs in upNext collection
-                const songsRef = collection(db, `liveRooms/${user.uid}/upNext`);
-                const unsubscribeSongsPlus = subscribeToSongs(songsRef, 'true', 'true', setSongsSkipPlus);
-                const unsubscribeSongsSkip = subscribeToSongs(songsRef, 'true', 'false', setSongsSkip);
-                const unsubscribeSongs = subscribeToSongs(songsRef, 'false', 'false', setSongs);
 
                 return () => {
                     unsubscribeRoomDoc();
                     unsubscribeNowPlaying();
-                    unsubscribeSongsPlus();
-                    unsubscribeSongsSkip();
-                    unsubscribeSongs();
                 };
             } else {
                 setShowModal(true);
-                console.log("User is not logged in.");
             }
         });
 
         return () => unsubscribeAuth();
     }, []);
 
-    const subscribeToSongs = (ref, skip, skipPlus, setState) => {
-        const q = query(ref, where('skip', '==', skip), where('skipPlus', '==', skipPlus), orderBy('timeEntered', 'asc'));
-        return onSnapshot(q, querySnapshot => {
-            const fetchedSongs = querySnapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            }));
-            setState(fetchedSongs);
-        });
+    const fetchSongUrl = (artistId, fileName) => {
+        const songPath = `songs/${artistId}/${fileName}`;
+        const songRef = storageRef(storage, songPath);
+        getDownloadURL(songRef)
+            .then(url => {
+                audioRef.current.src = url;
+                audioRef.current.load(); // Load the new audio file
+            })
+            .catch(error => {
+                console.error('Error fetching song file:', error);
+            });
+    };
+
+    const togglePlay = () => {
+        if (audioRef.current) {
+            if (isPlaying) {
+                audioRef.current.pause();
+            } else {
+                audioRef.current.play();
+            }
+            setIsPlaying(!isPlaying);
+        }
+    };
+
+    const handleTimeUpdate = () => {
+        if (audioRef.current) {
+            setCurrentTime(audioRef.current.currentTime);
+            setDuration(audioRef.current.duration);
+        }
+    };
+
+    const handleSeek = (e) => {
+        const newTime = e.target.value;
+        audioRef.current.currentTime = newTime;
+        setCurrentTime(newTime);
     };
 
     function handleModalOk() {
         window.location.href = '/';
     }
+
+
+
+
+
     return (
         <div>
             {showModal && (
@@ -153,7 +180,7 @@ function LiveRoomComponent() {
                 </div>
             )}
             <div>
-            <p>Room Name: {roomName || "No room assigned"}</p>
+                <p>Room Name: {roomName || "No room assigned"}</p>
                 <p>Your room is: {onAirStatus || "No status available"}</p>
                 <p>Credits this live: {creditsEarned}</p>
                 <div>
@@ -161,9 +188,20 @@ function LiveRoomComponent() {
                     {nowPlaying.length > 0 ? nowPlaying.map(song => (
                         <div key={song.id} className="song-item">
                             <p>{song.songName} by {song.artistName}</p>
+                            <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} onEnded={() => setIsPlaying(false)} />
+                            <div>
+                                <button onClick={togglePlay}>{isPlaying ? 'Pause' : 'Play'}</button>
+                                <input type="range" min="0" max={duration || 1} value={currentTime} onChange={(e) => {
+                                    audioRef.current.currentTime = e.target.value;
+                                    setCurrentTime(e.target.value);
+                                }} />
+                                <span>{Math.floor(currentTime / 60)}:{('0' + Math.floor(currentTime % 60)).slice(-2)}</span>
+                                <span> / </span>
+                                <span>{Math.floor(duration / 60)}:{('0' + Math.floor(duration % 60)).slice(-2)}</span>
+                            </div>
                         </div>
                     )) : <p>No songs currently playing.</p>}
-
+    
                     <h2>Skip Plus Songs</h2>
                     {songsSkipPlus.map(song => (
                         <div key={song.id} className="song-item">
@@ -171,7 +209,7 @@ function LiveRoomComponent() {
                         </div>
                     ))}
                     {songsSkipPlus.length === 0 && <p>No skip plus songs.</p>}
-
+    
                     <h2>Skip Songs</h2>
                     {songsSkip.map(song => (
                         <div key={song.id} className="song-item">
@@ -179,7 +217,7 @@ function LiveRoomComponent() {
                         </div>
                     ))}
                     {songsSkip.length === 0 && <p>No skip songs.</p>}
-
+    
                     <h2>Regular Songs</h2>
                     {songs.map(song => (
                         <div key={song.id} className="song-item">
