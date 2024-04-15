@@ -193,6 +193,13 @@ function LiveRoomComponent() {
         }
     
         try {
+            // Clear the nowPlaying collection first
+            const nowPlayingRef = collection(db, `liveRooms/${userUid}/nowPlaying`);
+            const currentSongs = await getDocs(nowPlayingRef);
+            for (const doc of currentSongs.docs) {
+                await deleteDoc(doc.ref);
+            }
+    
             const upNextRef = collection(db, `liveRooms/${userUid}/upNext`);
             let songToMove = null;
             let songId = null;
@@ -200,28 +207,20 @@ function LiveRoomComponent() {
             // Try to find songs with skipPlus set to true
             let queryRef = query(upNextRef, where("skipPlus", "==", true), orderBy("timeEntered", "asc"));
             let snapshot = await getDocs(queryRef);
+            if (snapshot.empty) {
+                // If no skipPlus songs, try to find songs with skip set to true
+                queryRef = query(upNextRef, where("skipPlus", "==", false), where("skip", "==", true), orderBy("timeEntered", "asc"));
+                snapshot = await getDocs(queryRef);
+            }
+            if (snapshot.empty) {
+                // If no skip songs, default to any song
+                queryRef = query(upNextRef, where("skip", "==", false), where("skipPlus", "==", false), orderBy("timeEntered", "asc"));
+                snapshot = await getDocs(queryRef);
+            }
+    
             if (!snapshot.empty) {
                 songToMove = snapshot.docs[0].data();
                 songId = snapshot.docs[0].id;
-            } else {
-                // If no skipPlus songs, try to find songs with skip set to true
-                queryRef = query(upNextRef, where("skip", "==", true), orderBy("timeEntered", "asc"));
-                snapshot = await getDocs(queryRef);
-                if (!snapshot.empty) {
-                    songToMove = snapshot.docs[0].data();
-                    songId = snapshot.docs[0].id;
-                } else {
-                    // If no skip songs, default to any song
-                    queryRef = query(upNextRef, orderBy("timeEntered", "asc"));
-                    snapshot = await getDocs(queryRef);
-                    if (!snapshot.empty) {
-                        songToMove = snapshot.docs[0].data();
-                        songId = snapshot.docs[0].id;
-                    }
-                }
-            }
-    
-            if (songToMove && songId) {
                 // Add to nowPlaying
                 await setDoc(doc(db, `liveRooms/${userUid}/nowPlaying`, songId), songToMove);
                 // Remove from upNext
