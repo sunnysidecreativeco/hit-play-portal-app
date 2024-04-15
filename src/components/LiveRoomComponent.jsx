@@ -221,7 +221,7 @@ function LiveRoomComponent() {
                     songId = snapshot.docs[0].id;
                 } else {
                     // If no skip songs, default to any song
-                    queryRef = query(upNextRef, where("skipPlus", "==", false), where("skip", "==", false), orderBy("timeEntered", "asc"));
+                    queryRef = query(upNextRef, where("skip", "==", false), orderBy("timeEntered", "asc"));
                     snapshot = await getDocs(queryRef);
                     if (!snapshot.empty) {
                         console.log('a regular song was found')
