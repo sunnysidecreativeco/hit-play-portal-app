@@ -151,6 +151,11 @@ function LiveRoomComponent() {
     const handleTimeUpdate = () => {
         if (audioRef.current) {
             setCurrentTime(audioRef.current.currentTime);
+        }
+    };
+
+    const handleLoadedMetadata = () => {
+        if (audioRef.current) {
             setDuration(audioRef.current.duration);
         }
     };
@@ -182,16 +187,18 @@ function LiveRoomComponent() {
                     {nowPlaying.length > 0 ? nowPlaying.map(song => (
                         <div key={song.id} className="song-item">
                             <p>{song.songName} by {song.artistName}</p>
-                            <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} onEnded={() => setIsPlaying(false)} />
+                            <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleLoadedMetadata} onEnded={() => setIsPlaying(false)} />
                             <div>
                                 <button onClick={togglePlay}>{isPlaying ? 'Pause' : 'Play'}</button>
                                 <input type="range" min="0" max={duration || 1} value={currentTime} onChange={(e) => {
                                     audioRef.current.currentTime = e.target.value;
                                     setCurrentTime(e.target.value);
                                 }} />
-                                <span>{Math.floor(currentTime / 60)}:{('0' + Math.floor(currentTime % 60)).slice(-2)}</span>
-                                <span> / </span>
-                                <span>{Math.floor(duration / 60)}:{('0' + Math.floor(duration % 60)).slice(-2)}</span>
+                                <div>
+                                    <span>{Math.floor(currentTime / 60)}:{('0' + Math.floor(currentTime % 60)).slice(-2)}</span>
+                                    <span> / </span>
+                                    <span>{Math.floor(duration / 60)}:{('0' + Math.floor(duration % 60)).slice(-2)}</span>
+                                </div>
                             </div>
                         </div>
                     )) : <p>No songs currently playing.</p>}
