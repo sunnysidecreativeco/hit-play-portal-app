@@ -194,21 +194,34 @@ function LiveRoomComponent() {
     
         try {
             const upNextRef = collection(db, `liveRooms/${userUid}/upNext`);
-            // First try to find songs with skipPlus or skip true
+            let songToMove = null;
+            let songId = null;
+    
+            // Try to find songs with skipPlus set to true
             let queryRef = query(upNextRef, where("skipPlus", "==", true), orderBy("timeEntered", "asc"));
             let snapshot = await getDocs(queryRef);
-            if (snapshot.empty) {
+            if (!snapshot.empty) {
+                songToMove = snapshot.docs[0].data();
+                songId = snapshot.docs[0].id;
+            } else {
+                // If no skipPlus songs, try to find songs with skip set to true
                 queryRef = query(upNextRef, where("skip", "==", true), orderBy("timeEntered", "asc"));
                 snapshot = await getDocs(queryRef);
-            }
-            if (snapshot.empty) {
-                queryRef = query(upNextRef, orderBy("timeEntered", "asc")); // Default to any song if no skip or skipPlus
-                snapshot = await getDocs(queryRef);
+                if (!snapshot.empty) {
+                    songToMove = snapshot.docs[0].data();
+                    songId = snapshot.docs[0].id;
+                } else {
+                    // If no skip songs, default to any song
+                    queryRef = query(upNextRef, orderBy("timeEntered", "asc"));
+                    snapshot = await getDocs(queryRef);
+                    if (!snapshot.empty) {
+                        songToMove = snapshot.docs[0].data();
+                        songId = snapshot.docs[0].id;
+                    }
+                }
             }
     
-            if (!snapshot.empty) {
-                const songToMove = snapshot.docs[0].data();
-                const songId = snapshot.docs[0].id;
+            if (songToMove && songId) {
                 // Add to nowPlaying
                 await setDoc(doc(db, `liveRooms/${userUid}/nowPlaying`, songId), songToMove);
                 // Remove from upNext
