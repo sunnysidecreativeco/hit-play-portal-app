@@ -207,8 +207,8 @@ function LiveRoomComponent() {
             // Queries for songs in priority order
             const queries = [
                 query(upNextRef, where("skipPlus", "==", true), orderBy("timeEntered", "asc")),
-                query(upNextRef, where("skip", "==", true), orderBy("timeEntered", "asc")),
-                query(upNextRef, orderBy("timeEntered", "asc"))
+                query(upNextRef, where("skipPlus", "==", false), where("skip", "==", true), orderBy("timeEntered", "asc")),
+                query(upNextRef, where("skipPlus", "==", false), where("skip", "==", false), orderBy("timeEntered", "asc"))
             ];
     
             for (const q of queries) {
