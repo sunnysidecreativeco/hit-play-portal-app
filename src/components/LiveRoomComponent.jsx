@@ -88,6 +88,7 @@ function LiveRoomComponent() {
                 const roomDocRef = doc(db, "liveRooms", user.uid);
                 const unsubscribeRoomDoc = onSnapshot(roomDocRef, docSnap => {
                     if (docSnap.exists()) {
+                        console.log("Room data:", docSnap.data());  // Debugging log
                         const roomData = docSnap.data();
                         setRoomName(roomData.roomName);
                         setOnAirStatus(roomData.onAir ? "On Air" : "Off Air");
@@ -102,6 +103,7 @@ function LiveRoomComponent() {
 
                 const nowPlayingRef = collection(db, `liveRooms/${user.uid}/nowPlaying`);
                 const unsubscribeNowPlaying = onSnapshot(nowPlayingRef, (querySnapshot) => {
+                    console.log("Now Playing data:", querySnapshot.docs.map(doc => doc.data()));  // Debugging log
                     const updatedSongs = querySnapshot.docs.map(doc => ({
                         id: doc.id,
                         ...doc.data()
