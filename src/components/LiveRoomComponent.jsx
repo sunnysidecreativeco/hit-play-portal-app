@@ -218,8 +218,8 @@ function LiveRoomComponent() {
                 console.log("Moved song to nowPlaying:", songToMove);
             } else {
                 console.log("No songs in skipPlus");
-                let queryRef = query(upNextRef, where("skip", "==", true), orderBy("timeEntered", "asc"));
-                let snapshot2 = await getDocs(queryRef);
+                let queryRef2 = query(upNextRef, where("skip", "==", true), orderBy("timeEntered", "asc"));
+                let snapshot2 = await getDocs(queryRef2);
                 if (!snapshot2.empty) {
                     const songToMove = snapshot.docs[0].data();
                     const songId = snapshot.docs[0].id;
@@ -231,8 +231,8 @@ function LiveRoomComponent() {
                     console.log("Moved song to nowPlaying:", songToMove);
                 } else {
                     console.log("No songs in skip");
-                    let queryRef = query(upNextRef, where("skip", "==", false), orderBy("timeEntered", "asc"));
-                    let snapshot3 = await getDocs(queryRef);
+                    let queryRef3 = query(upNextRef, where("skip", "==", false), orderBy("timeEntered", "asc"));
+                    let snapshot3 = await getDocs(queryRef3);
                     if (!snapshot3.empty) {
                         const songToMove = snapshot.docs[0].data();
                         const songId = snapshot.docs[0].id;
