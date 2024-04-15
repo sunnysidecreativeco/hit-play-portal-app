@@ -205,33 +205,28 @@ function LiveRoomComponent() {
             }
     
             // Define the queries in order of priority
-            const priorityQueries = [
+            const queries = [
                 { query: query(upNextRef, where("skipPlus", "==", true), orderBy("timeEntered", "asc")), priority: "High (skipPlus)" },
                 { query: query(upNextRef, where("skip", "==", true), orderBy("timeEntered", "asc")), priority: "Medium (skip)" },
                 { query: query(upNextRef, orderBy("timeEntered", "asc")), priority: "Low (no flags)" }
             ];
     
-            for (const item of priorityQueries) {
+            for (const item of queries) {
+                console.log(`Checking for ${item.priority} songs...`);
                 const snapshot = await getDocs(item.query);
+                console.log(`Found ${snapshot.size} songs for ${item.priority}`);
+    
                 if (!snapshot.empty) {
                     const songToMove = snapshot.docs[0].data();
                     const songId = snapshot.docs[0].id;
     
-                    console.log(`Processing song: ${songToMove.songName}, SkipPlus: ${songToMove.skipPlus}, Skip: ${songToMove.skip}`);
+                    console.log(`Processing song: ${songToMove.songName}, SkipPlus: ${songToMove.skipPlus}, Skip: ${songToMove.skip}, Priority: ${item.priority}`);
     
-                    // Check if the song actually meets the priority criteria before moving it
-                    if ((item.priority === "High (skipPlus)" && songToMove.skipPlus) ||
-                        (item.priority === "Medium (skip)" && songToMove.skip && !songToMove.skipPlus) ||
-                        (item.priority === "Low (no flags)" && !songToMove.skip && !songToMove.skipPlus)) {
-    
-                        // Move song to nowPlaying and remove from upNext
-                        await setDoc(doc(db, `liveRooms/${userUid}/nowPlaying`, songId), songToMove);
-                        await deleteDoc(doc(db, `liveRooms/${userUid}/upNext`, songId));
-                        console.log("Moved song to nowPlaying:", songToMove.songName, "with priority:", item.priority);
-                        return; // Stop after moving a song
-                    } else {
-                        console.log("Priority mismatch detected, checking next priority.");
-                    }
+                    // Move song to nowPlaying and remove from upNext
+                    await setDoc(doc(db, `liveRooms/${userUid}/nowPlaying`, songId), songToMove);
+                    await deleteDoc(doc(db, `liveRooms/${userUid}/upNext`, songId));
+                    console.log("Moved song to nowPlaying:", songToMove.songName, "with priority:", item.priority);
+                    return; // Stop after moving a song
                 }
             }
     
