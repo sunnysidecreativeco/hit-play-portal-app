@@ -205,16 +205,18 @@ function LiveRoomComponent() {
             let songId = null;
     
             // Try to find songs with skipPlus set to true
-            let queryRef = query(upNextRef, where("skipPlus", "==", true),  where("skip", "==", true), orderBy("timeEntered", "asc"));
+            let queryRef = query(upNextRef, where("skipPlus", "==", true), where("skip", "==", true), orderBy("timeEntered", "asc"));
             let snapshot = await getDocs(queryRef);
             if (!snapshot.empty) {
+                console.log('a skipPlus song was found')
                 songToMove = snapshot.docs[0].data();
                 songId = snapshot.docs[0].id;
             } else {
                 // If no skipPlus songs, try to find songs with skip set to true
-                queryRef = query(upNextRef, where("skipPlus", "==", false), where("skip", "==", true), orderBy("timeEntered", "asc"));
+                queryRef = query(upNextRef, where("skip", "==", true), orderBy("timeEntered", "asc"));
                 snapshot = await getDocs(queryRef);
                 if (!snapshot.empty) {
+                    console.log('a skip song was found')
                     songToMove = snapshot.docs[0].data();
                     songId = snapshot.docs[0].id;
                 } else {
@@ -222,6 +224,7 @@ function LiveRoomComponent() {
                     queryRef = query(upNextRef, where("skipPlus", "==", false), where("skip", "==", false), orderBy("timeEntered", "asc"));
                     snapshot = await getDocs(queryRef);
                     if (!snapshot.empty) {
+                        console.log('a regular song was found')
                         songToMove = snapshot.docs[0].data();
                         songId = snapshot.docs[0].id;
                     } else {
