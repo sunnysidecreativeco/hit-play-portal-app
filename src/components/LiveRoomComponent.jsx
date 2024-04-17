@@ -281,7 +281,7 @@ function LiveRoomComponent() {
             <div>
                 <p>Room Name: {roomName || "No room assigned"}</p>
                 <p>Your room is: {onAirStatus || "No status available"}</p>
-                <p>Your line is: {lineOpenStatus || "No status available"}</p>
+                <p>Your line is: {lineOpenStatus ? "Open" : "Closed"}</p>
                 <p>Credits this live: {creditsEarned}</p>
                 <button style="margin-bottom: 15px;" class="standardGreenButton" onClick={moveNextSongToNowPlaying}><p>NEXT SONG</p></button>
                 <div>
