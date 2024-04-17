@@ -361,13 +361,17 @@ function LiveRoomComponent() {
                     {songs.length === 0 && <p>No regular songs queued.</p>}
 
 
-                    <button onClick={toggleLineStatus} className="standardGreenButton">
-                        {lineOpenStatus ? "Close the Line" : "Open the Line"}
-                    </button>
+                    <div>
+                        <button onClick={toggleLineStatus} className="standardGreenButton">
+                            {lineOpenStatus ? "Close the Line" : "Open the Line"}
+                        </button>
+                    </div>
                     
-                    <button style="margin-top: 20px;" className="standardGreenButton" onClick={goOffAir}>
-                        Go Off Air
-                    </button>
+                    <div>
+                        <button style="margin-top: 20px;" className="standardGreenButton" onClick={goOffAir}>
+                            Go Off Air
+                        </button>
+                    </div>
 
                 </div>
             </div>
