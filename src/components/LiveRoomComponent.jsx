@@ -93,13 +93,13 @@ function LiveRoomComponent() {
                         const roomData = docSnap.data();
                         setRoomName(roomData.roomName);
                         setOnAirStatus(roomData.onAir ? "On Air" : "Off Air");
-                        setLineOpen(roomData.lineOpen ? "Open" : "Closed");
+                        setLineOpen(roomData.lineOpen);
                         setCreditsEarned(roomData.creditsEarned || 0);
                     } else {
                         console.log("No such room document!");
                         setRoomName('');
                         setOnAirStatus('Off Air');
-                        setLineOpen('Closed');
+                        setLineOpen(false);
                         setCreditsEarned(0);
                     }
                 });
