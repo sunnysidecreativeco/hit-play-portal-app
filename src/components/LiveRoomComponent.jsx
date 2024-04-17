@@ -93,13 +93,13 @@ function LiveRoomComponent() {
                         const roomData = docSnap.data();
                         setRoomName(roomData.roomName);
                         setOnAirStatus(roomData.onAir ? "On Air" : "Off Air");
-                        setLineOpenStatus(roomData.lineOpen ? "Open" : "Closed");
+                        setLineOpenStatus(roomData.lineOpen);
                         setCreditsEarned(roomData.creditsEarned || 0);
                     } else {
                         console.log("No such room document!");
                         setRoomName('');
                         setOnAirStatus('Off Air');
-                        setLineOpenStatus('Closed');
+                        setLineOpenStatus(false);
                         setCreditsEarned(0);
                     }
                 });
@@ -247,16 +247,15 @@ function LiveRoomComponent() {
     const toggleLineStatus = async () => {
         const userUid = getAuth().currentUser?.uid;
         if (!userUid) {
-            console.log("User not authenticated");
+            console.error("User not authenticated");
             return;
         }
-        const roomDocRef = doc(db, "liveRooms", userUid);
+        const roomDocRef = doc(db, `liveRooms/${userUid}`);
         try {
             await updateDoc(roomDocRef, {
-                lineOpen: !lineOpen
+                lineOpen: !lineOpenStatus // Toggle the current Firestore state based on UI state
             });
-            setLineOpenStatus(!lineOpen);
-            console.log(`Line is now ${(lineOpen ? "closed" : "open")}.`);
+            setLineOpenStatus(!lineOpenStatus); // Toggle UI state
         } catch (error) {
             console.error("Failed to toggle line status:", error);
         }
@@ -332,7 +331,7 @@ function LiveRoomComponent() {
 
 
                     <button onClick={toggleLineStatus} className="standardGreenButton">
-                        {lineOpen ? "Close the Line" : "Open the Line"}
+                        {lineOpenStatus ? "Close the Line" : "Open the Line"}
                     </button>
 
                 </div>
