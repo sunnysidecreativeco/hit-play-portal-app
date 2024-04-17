@@ -242,6 +242,26 @@ function LiveRoomComponent() {
     };
 
 
+
+
+    const toggleLineStatus = async () => {
+        const userUid = getAuth().currentUser?.uid;
+        if (!userUid) {
+            console.log("User not authenticated");
+            return;
+        }
+        const roomDocRef = doc(db, "liveRooms", userUid);
+        try {
+            await updateDoc(roomDocRef, {
+                lineOpen: !lineOpen
+            });
+            setLineOpen(!lineOpen);
+            console.log(`Line is now ${(lineOpen ? "closed" : "open")}.`);
+        } catch (error) {
+            console.error("Failed to toggle line status:", error);
+        }
+    };
+
     
 
 
@@ -264,7 +284,7 @@ function LiveRoomComponent() {
                 <p>Your room is: {onAirStatus || "No status available"}</p>
                 <p>Your line is: {lineOpenStatus || "No status available"}</p>
                 <p>Credits this live: {creditsEarned}</p>
-                <button style="margin-bottom: 15px;" class="standardGreenButton" onClick={moveNextSongToNowPlaying}><p>Next Song</p></button>
+                <button style="margin-bottom: 15px;" class="standardGreenButton" onClick={moveNextSongToNowPlaying}><p>NEXT SONG</p></button>
                 <div>
                     <h2>Now Playing</h2>
                     {nowPlaying.length > 0 ? nowPlaying.map(song => (
@@ -309,6 +329,12 @@ function LiveRoomComponent() {
                         </div>
                     ))}
                     {songs.length === 0 && <p>No regular songs queued.</p>}
+
+
+                    <button onClick={toggleLineStatus} className="standardGreenButton">
+                        {lineOpen ? "Close the Line" : "Open the Line"}
+                    </button>
+
                 </div>
             </div>
         </div>
