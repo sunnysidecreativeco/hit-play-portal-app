@@ -261,7 +261,38 @@ function LiveRoomComponent() {
         }
     };
 
-    
+
+    const goOffAir = async () => {
+        const userUid = getAuth().currentUser?.uid;
+        if (!userUid) {
+            console.log("User not authenticated");
+            return;
+        }
+        const roomDocRef = doc(db, `liveRooms/${userUid}`);
+        const upNextRef = collection(db, `liveRooms/${userUid}/upNext`);
+
+        try {
+            await updateDoc(roomDocRef, { onAir: false });
+
+            const entriesSnapshot = await getDocs(upNextRef);
+            for (const doc of entriesSnapshot.docs) {
+                const entry = doc.data();
+                if (entry.skip === "true") {
+                    const creditsToAdd = entry.skipPlus === "true" ? skipPlusRate * 2 : skipRate;
+                    const userRef = doc(db, `users/${entry.artistId}`);
+                    await updateDoc(userRef, {
+                        credits: increment(creditsToAdd)
+                    });
+                }
+                await deleteDoc(doc.ref);
+            }
+
+            window.location.href = '/dashboard';
+        } catch (error) {
+            console.error("Failed to go off air:", error);
+        }
+    };
+
 
 
     function handleModalOk() {
@@ -332,6 +363,10 @@ function LiveRoomComponent() {
 
                     <button onClick={toggleLineStatus} className="standardGreenButton">
                         {lineOpenStatus ? "Close the Line" : "Open the Line"}
+                    </button>
+
+                    <button className="standardGreenButton" onClick={goOffAir}>
+                        Go Off Air
                     </button>
 
                 </div>
