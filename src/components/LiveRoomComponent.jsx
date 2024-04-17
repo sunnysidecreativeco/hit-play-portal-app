@@ -24,6 +24,7 @@ import {
 function LiveRoomComponent() {
     const [roomName, setRoomName] = useState('');
     const [onAirStatus, setOnAirStatus] = useState(false);
+    const [lineOpenStatus, setLineOpenStatus] = useState(false);
     const [creditsEarned, setCreditsEarned] = useState(0);
     const [showModal, setShowModal] = useState(false);
     const [nowPlaying, setNowPlaying] = useState([]);
@@ -92,11 +93,13 @@ function LiveRoomComponent() {
                         const roomData = docSnap.data();
                         setRoomName(roomData.roomName);
                         setOnAirStatus(roomData.onAir ? "On Air" : "Off Air");
+                        setLineOpenStatus(roomData.lineOpen ? "Open" : "Closed");
                         setCreditsEarned(roomData.creditsEarned || 0);
                     } else {
                         console.log("No such room document!");
                         setRoomName('');
                         setOnAirStatus('Off Air');
+                        setLineOpenStatus('Closed');
                         setCreditsEarned(0);
                     }
                 });
@@ -259,6 +262,7 @@ function LiveRoomComponent() {
             <div>
                 <p>Room Name: {roomName || "No room assigned"}</p>
                 <p>Your room is: {onAirStatus || "No status available"}</p>
+                <p>Your line is: {lineOpenStatus || "No status available"}</p>
                 <p>Credits this live: {creditsEarned}</p>
                 <button style="margin-bottom: 15px;" class="standardGreenButton" onClick={moveNextSongToNowPlaying}><p>Next Song</p></button>
                 <div>
