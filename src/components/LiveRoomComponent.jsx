@@ -365,7 +365,7 @@ function LiveRoomComponent() {
                         {lineOpenStatus ? "Close the Line" : "Open the Line"}
                     </button>
                     
-                    <button style="display: block; margin-top: 20px;" className="standardGreenButton" onClick={goOffAir}>
+                    <button style="margin-top: 20px;" className="standardGreenButton" onClick={goOffAir}>
                         Go Off Air
                     </button>
 
