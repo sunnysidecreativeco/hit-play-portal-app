@@ -66,7 +66,7 @@ function LiveRoomComponent() {
     const [songFileNameNow, setSongFileNameNow] = useState("");
     const [songLink, setSongLink] = useState("");
     const [roomId, setRoomId] = useState("");
-    const [lineOpen, setLineOpen] = useState(null)
+    //const [lineOpen, setLineOpen] = useState(null)
     //const [genres, setGenres] = useState("");
     const [skipRate, setSkipRate] = useState(0);
     const [skipPlusRate, setSkipPlusRate] = useState(0);
@@ -93,13 +93,13 @@ function LiveRoomComponent() {
                         const roomData = docSnap.data();
                         setRoomName(roomData.roomName);
                         setOnAirStatus(roomData.onAir ? "On Air" : "Off Air");
-                        setLineOpen(roomData.lineOpen);
+                        setLineOpenStatus(roomData.lineOpen ? "Open" : "Closed");
                         setCreditsEarned(roomData.creditsEarned || 0);
                     } else {
                         console.log("No such room document!");
                         setRoomName('');
                         setOnAirStatus('Off Air');
-                        setLineOpen(false);
+                        setLineOpenStatus('Closed');
                         setCreditsEarned(0);
                     }
                 });
@@ -247,15 +247,16 @@ function LiveRoomComponent() {
     const toggleLineStatus = async () => {
         const userUid = getAuth().currentUser?.uid;
         if (!userUid) {
-            console.error("User not authenticated");
+            console.log("User not authenticated");
             return;
         }
-        const roomDocRef = doc(db, `liveRooms/${userUid}`);
+        const roomDocRef = doc(db, "liveRooms", userUid);
         try {
             await updateDoc(roomDocRef, {
-                lineOpen: !lineOpen // Toggle the current state
+                lineOpen: !lineOpen
             });
-            setLineOpen(!lineOpen); // Ensure UI updates to reflect change
+            setLineOpenStatus(!lineOpen);
+            console.log(`Line is now ${(lineOpen ? "closed" : "open")}.`);
         } catch (error) {
             console.error("Failed to toggle line status:", error);
         }
@@ -331,7 +332,7 @@ function LiveRoomComponent() {
 
 
                     <button onClick={toggleLineStatus} className="standardGreenButton">
-                        {lineOpen ? "CLOSE THE LINE" : "OPEN THE LINE"}
+                        {lineOpen ? "Close the Line" : "Open the Line"}
                     </button>
 
                 </div>
