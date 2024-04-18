@@ -19,6 +19,7 @@ import {
     where,
     serverTimestamp,
     limit,
+    runTransaction,
 } from "firebase/firestore";
 
 function LiveRoomComponent() {
@@ -279,7 +280,7 @@ function LiveRoomComponent() {
             const roomDoc = await getDoc(roomDocRef);
             const skipRate = roomDoc.data().skipRate;
             const skipPlusRate = skipRate * 2; // Assuming skipPlusRate is always double the skipRate
-    
+            console.log('the skipPlus rate is', skipRate);
             // Retrieve all entries from upNext
             const entriesSnapshot = await getDocs(upNextRef);
             entriesSnapshot.docs.forEach(async (doc) => {
@@ -288,11 +289,14 @@ function LiveRoomComponent() {
                 let creditsToAdd = 0;
                 if (entry.skip === "true" && entry.skipPlus === "true") {
                     creditsToAdd = skipPlusRate; // Double refund for skipPlus entries
+                    console.log('credits to add has been set to 10');
                 } else if (entry.skip === "true" && entry.skipPlus === "false") {
                     creditsToAdd = skipRate; // Normal refund for skip entries
+                    console.log('credits to add has been set to 5');
                 }
     
                 if (creditsToAdd > 0) {
+                    console.log('credits to add is > 0')
                     const userRef = doc(db, `users/${entry.artistId}`);
                     // Use a transaction to safely increment user credits
                     await runTransaction(db, async (transaction) => {
@@ -311,6 +315,7 @@ function LiveRoomComponent() {
     
             // Redirect to dashboard after processing
             window.location.href = '/dashboard';
+            console.log('the goOffAir function was ran.');
         } catch (error) {
             console.error("Failed to go off air:", error);
         }
