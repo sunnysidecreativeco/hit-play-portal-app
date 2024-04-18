@@ -8,7 +8,18 @@ function LoginComponent() {
     const [password, setPassword] = useState('');
 
     const labelStyle = {
-        fontFamily: '"IBMPlexSerif", serif'
+        fontFamily: '"IBMPlexSerif", serif',
+    };
+    const buttonStyle = {
+        fontFamily: "'ChicagoFLF', serif",
+        marginTop: 15,
+        paddingTop: 13,
+        paddingBottom: 13,
+        paddingLeft: 8,
+        paddingRight: 8,
+        borderRadius: 5,
+        boxShadow: '3px 3px 5px 0px rgba(0,0,0,0.3)',  // Proper CSS shadow syntax
+        border: '2px solid #1b1b1b'  // Proper CSS border syntax
     };
 
     const handleSubmit = async (event) => {
@@ -27,7 +38,7 @@ function LoginComponent() {
     return (
         <div>
             <form id="hostForm" onSubmit={handleSubmit}>
-                <div style="margin-bottom: 15px;">
+                <div style="margin-bottom: 10px;">
                     <label style={labelStyle} htmlFor="email">Email: </label>
                     <input 
                         style="border-radius: 5px; height: 27px; width: 250px;"
@@ -49,7 +60,7 @@ function LoginComponent() {
                         required
                     />
                 </div>
-                <button type="submit">Login</button>
+                <button style={buttonStyle} type="submit">Login</button>
             </form>
         </div>
     );
