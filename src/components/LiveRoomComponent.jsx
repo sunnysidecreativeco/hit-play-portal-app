@@ -103,7 +103,7 @@ function LiveRoomComponent() {
                         setCreditsEarned(0);
                     }
                 });
-
+    
                 // Listener for now playing songs
                 const nowPlayingRef = collection(db, `liveRooms/${user.uid}/nowPlaying`);
                 const unsubscribeNowPlaying = onSnapshot(nowPlayingRef, (querySnapshot) => {
@@ -116,26 +116,32 @@ function LiveRoomComponent() {
                         fetchSongUrl(updatedSongs[0].artistId, updatedSongs[0].songFileName);
                     }
                 });
-
+    
                 // Fetch other songs
                 const songsRef = collection(db, `liveRooms/${user.uid}/upNext`);
                 const unsubscribeSongsPlus = subscribeToSongs(songsRef, 'true', 'true', setSongsSkipPlus);
                 const unsubscribeSongsSkip = subscribeToSongs(songsRef, 'true', 'false', setSongsSkip);
                 const unsubscribeSongs = subscribeToSongs(songsRef, 'false', 'false', setSongs);
-
+    
+                // Real-time update of total songs in upNext
+                const unsubscribeUpNext = onSnapshot(songsRef, (querySnapshot) => {
+                    setSongsInLine(querySnapshot.size); // Update the total count of songs in upNext in real-time
+                });
+    
                 return () => {
                     unsubscribeRoomDoc();
                     unsubscribeNowPlaying();
                     unsubscribeSongsPlus();
                     unsubscribeSongsSkip();
                     unsubscribeSongs();
+                    unsubscribeUpNext(); // Make sure to unsubscribe from this listener as well
                 };
             } else {
                 setShowModal(true);
                 console.log("User is not logged in.");
             }
         });
-
+    
         return () => unsubscribeAuth();
     }, []);
 
@@ -373,6 +379,7 @@ function LiveRoomComponent() {
                 <p>Room Name: {roomName || "No room assigned"}</p>
                 <p>Your room is: {onAirStatus || "No status available"}</p>
                 <p>Your line is: {lineOpenStatus ? "Open" : "Closed"}</p>
+                <p>Songs in the queue: {songsInLine}</p>
                 <p>Credits this live: {creditsEarned}</p>
                 <button style="margin-bottom: 15px;" class="standardGreenButton" onClick={moveNextSongToNowPlaying}><p>NEXT SONG</p></button>
                 <div>
