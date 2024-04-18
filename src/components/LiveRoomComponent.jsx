@@ -314,7 +314,7 @@ function LiveRoomComponent() {
     
             console.log("Go Off Air function completed.");
             // Redirect to dashboard after processing
-            // window.location.href = '/dashboard';
+            window.location.href = '/dashboard';
         } catch (error) {
             console.error("Failed to go off air:", error);
         }
