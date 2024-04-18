@@ -280,32 +280,32 @@ function LiveRoomComponent() {
             // Retrieve the current rates
             const roomDoc = await getDoc(roomDocRef);
             const skipRate = roomDoc.data().skipRate;
-            const skipPlusRate = skipRate * 2; // Assuming skipPlusRate is always double the skipRate
+            const skipPlusRate = skipRate * 2;
     
             // Retrieve all entries from upNext
             const entriesSnapshot = await getDocs(upNextRef);
-            entriesSnapshot.docs.forEach(async (doc) => {
+            for (const doc of entriesSnapshot.docs) {
                 const entry = doc.data();
-                // Determine the number of credits to add back
-                const creditsToAdd = entry.skipPlus === "true" ? skipPlusRate : (entry.skip === "true" ? skipRate : 0);
+                let creditsToAdd = 0;
+                if (entry.skip === "true") {
+                    creditsToAdd = entry.skipPlus === "true" ? skipPlusRate : skipRate;
+                }
     
                 if (creditsToAdd > 0) {
                     const userRef = doc(db, `users/${entry.artistId}`);
-                    // Use a transaction to safely increment user credits
                     await runTransaction(db, async (transaction) => {
                         const userDoc = await transaction.get(userRef);
                         if (!userDoc.exists()) {
                             throw "Document does not exist!";
                         }
-                        transaction.update(userRef, { credits: increment(creditsToAdd) });
+                        const currentCredits = userDoc.data().credits || 0;
+                        transaction.update(userRef, { credits: currentCredits + creditsToAdd });
                     });
                 }
     
-                // Delete the entry from upNext after processing
                 await deleteDoc(doc.ref);
-            });
+            }
     
-            // Redirect to dashboard after processing
             console.log("Go Off Air function completed.");
         } catch (error) {
             console.error("Failed to go off air:", error);
