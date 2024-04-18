@@ -6,47 +6,50 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'; // Import F
 function LoginComponent() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    //const navigate = useNavigate(); // Hook for navigation
+
+    const labelStyle = {
+        fontFamily: '"IBMPlexSerif", serif'
+    };
 
     const handleSubmit = async (event) => {
-        event.preventDefault(); // Prevent the form from actually submitting
-
-        const auth = getAuth(); // Initialize Firebase Auth
+        event.preventDefault();
+        const auth = getAuth();
 
         try {
             await signInWithEmailAndPassword(auth, email, password);
             console.log('Login successful');
-            window.location.href = '/dashboard'; // Redirect to dashboard
+            window.location.href = '/dashboard';
         } catch (error) {
             console.error('Login failed:', error);
-            // Handle login errors here
         }
     };
 
     return (
-        <form id="hostForm" onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="email">Email:</label>
-                <input
-                    type="email"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-            </div>
-            <div>
-                <label htmlFor="password">Password:</label>
-                <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-            </div>
-            <button type="submit">Login</button>
-        </form>
+        <div>
+            <form id="hostForm" onSubmit={handleSubmit}>
+                <div>
+                    <label style={labelStyle} htmlFor="email">Email:</label>
+                    <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label style={labelStyle} htmlFor="password">Password:</label>
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
     );
 }
 
