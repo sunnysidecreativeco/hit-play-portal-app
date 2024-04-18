@@ -27,7 +27,7 @@ function LoginComponent() {
     return (
         <div>
             <form id="hostForm" onSubmit={handleSubmit}>
-                <div>
+                <div style="margin-bottom: 15px;">
                     <label style={labelStyle} htmlFor="email">Email: </label>
                     <input 
                         style="border-radius: 5px; height: 27px; width: 250px;"
