@@ -298,6 +298,7 @@ function LiveRoomComponent() {
                 }
 
                 if (creditsToAdd > 0) {
+                    console.log('the artisId is', entry.artistId)
                     const userRef = doc(db, `users/${entry.artistId}`);
                     await updateDoc(userRef, {
                         credits: increment(creditsToAdd)
@@ -310,7 +311,7 @@ function LiveRoomComponent() {
 
             console.log("Go Off Air function completed.");
             // Redirect to dashboard after processing
-            window.location.href = '/dashboard';
+            //window.location.href = '/dashboard';
         } catch (error) {
             console.error("Failed to go off air:", error);
         }
