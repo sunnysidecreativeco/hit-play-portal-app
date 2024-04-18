@@ -288,8 +288,8 @@ function LiveRoomComponent() {
     
             // Process each upNext entry to refund credits if necessary
             const entriesSnapshot = await getDocs(upNextRef);
-            entriesSnapshot.forEach(async (doc) => {
-                const entry = doc.data();
+            entriesSnapshot.forEach(async (entryDoc) => {
+                const entry = entryDoc.data();
                 let creditsToAdd = 0;
                 if (entry.skip === "true") {
                     creditsToAdd = entry.skipPlus === "true" ? skipPlusRate : skipRate;
@@ -309,7 +309,7 @@ function LiveRoomComponent() {
                 }
     
                 // Delete the entry from upNext after processing
-                await deleteDoc(doc.ref);
+                await deleteDoc(entryDoc.ref);
             });
     
             console.log("Go Off Air function completed.");
