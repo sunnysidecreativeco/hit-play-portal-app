@@ -5,10 +5,6 @@ import LoginComponent from '../components/LoginComponent.jsx';
 ---
 
 
-
-
-
-
 <style>
   @font-face {
     font-family: 'ChicagoFLF';
@@ -28,7 +24,7 @@ import LoginComponent from '../components/LoginComponent.jsx';
     font-family: 'ChicagoFLF', sans-serif;
   }
   
-  p {
+  p, label { /* Apply IBM Plex Serif to paragraphs and labels */
     font-family: 'IBMPlexSerif', serif;
   }
   
@@ -79,7 +75,11 @@ import LoginComponent from '../components/LoginComponent.jsx';
     width: min(90vw, 900px);
     background-color: #b0b9b2;
   }
-  </style>
+
+  #hostForm {
+    text-align: center;
+  }
+</style>
   
   <Layout>
     <header class="headercontainer">

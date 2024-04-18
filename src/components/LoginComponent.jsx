@@ -24,7 +24,7 @@ function LoginComponent() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form id="hostForm" onSubmit={handleSubmit}>
             <div>
                 <label htmlFor="email">Email:</label>
                 <input
