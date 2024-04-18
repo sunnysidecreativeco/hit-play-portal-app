@@ -15,8 +15,8 @@ function LoginComponent() {
         marginTop: 15,
         paddingTop: 13,
         paddingBottom: 13,
-        paddingLeft: 150,
-        paddingRight: 150,
+        paddingLeft: 147,
+        paddingRight: 147,
         borderRadius: 5,
         boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
         border: '2px solid #1b1b1b'  // Proper CSS border syntax
@@ -41,7 +41,7 @@ function LoginComponent() {
                 <div style="margin-bottom: 10px;">
                     <label style={labelStyle} htmlFor="email">Email: </label>
                     <input 
-                        style="border-radius: 5px; height: 27px; width: 275px;"
+                        style="border-radius: 5px; height: 27px; width: 283px;"
                         type="email"
                         id="email"
                         value={email}
