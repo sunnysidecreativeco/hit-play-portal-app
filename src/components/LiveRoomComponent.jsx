@@ -274,15 +274,15 @@ function LiveRoomComponent() {
         const upNextRef = collection(db, `liveRooms/${userUid}/upNext`);
     
         try {
-            // Set onAir to false and reset creditsEarned
+            // Set onAir to false and reset creditsEarned to zero
             await updateDoc(roomDocRef, { onAir: false, creditsEarned: 0 });
     
-            // Fetch skip rates
+            // Retrieve the current rates
             const roomDoc = await getDoc(roomDocRef);
             const skipRate = roomDoc.data().skipRate;
-            const skipPlusRate = skipRate * 2;
+            const skipPlusRate = skipRate * 2; // Assuming skipPlusRate is always double the skipRate
     
-            // Process each entry in upNext
+            // Retrieve all entries from upNext
             const entriesSnapshot = await getDocs(upNextRef);
             entriesSnapshot.forEach(async (doc) => {
                 const entry = doc.data();
@@ -293,20 +293,22 @@ function LiveRoomComponent() {
     
                 if (creditsToAdd > 0) {
                     const userRef = doc(db, `users/${entry.artistId}`);
-                    // Atomically increment user credits
-                    console.log('the artistId is', entry.artistId)
+                    // Use a transaction to safely increment user credits
                     await runTransaction(db, async (transaction) => {
                         const userDoc = await transaction.get(userRef);
-                        const newCredits = increment(creditsToAdd);
-                        transaction.update(userRef, { credits: newCredits });
+                        if (!userDoc.exists()) {
+                            throw "Document does not exist!";
+                        }
+                        transaction.update(userRef, { credits: increment(creditsToAdd) });
                     });
                 }
     
-                // Delete the entry from upNext
+                // Delete the entry from upNext after processing
                 await deleteDoc(doc.ref);
             });
     
-            console.log("Go Off Air function completed.");
+            // Redirect to dashboard after processing
+            console.log('Go Off Air function completed.');
         } catch (error) {
             console.error("Failed to go off air:", error);
         }
