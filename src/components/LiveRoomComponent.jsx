@@ -204,30 +204,38 @@ function LiveRoomComponent() {
         try {
             // Clear the nowPlaying collection first
             const currentSongsSnapshot = await getDocs(nowPlayingRef);
-            for (const doc of currentSongsSnapshot.docs) {
+            currentSongsSnapshot.forEach(async (doc) => {
                 await deleteDoc(doc.ref);
+            });
+    
+            // Fetch the current skip rate and user data
+            const roomDoc = await getDoc(roomDocRef);
+            const userRef = doc(db, `users/${userUid}`);
+            const userDoc = await getDoc(userRef);
+    
+            if (!roomDoc.exists() || !userDoc.exists()) {
+                console.log("Necessary data not found");
+                return;
             }
     
-            // Fetch the current skip rate from the room document
-            const roomDoc = await getDoc(roomDocRef);
-            const skipRate = roomDoc.exists() ? roomDoc.data().skipRate : 0;
-            let creditsEarnedToAdd = 0;
+            const skipRate = roomDoc.data().skipRate || 0;
+            const ratePerRound = (userDoc.data().ratePerRound || 0) * 0.01;  // Convert to percentage
     
             // Determine which song to move based on priority
             const queries = [
                 query(upNextRef, where("skipPlus", "==", "true"), orderBy("timeEntered", "asc")),
                 query(upNextRef, where("skip", "==", "true"), where("skipPlus", "==", "false"), orderBy("timeEntered", "asc")),
-                query(upNextRef, where("skip", "==", "false"), where("skipPlus", "==", "false"), orderBy("timeEntered", "asc"))
+                query(upNextRef, orderBy("timeEntered", "asc"))
             ];
     
-            let songToMove, songId;
+            let songToMove, songId, creditsToAdd = 0;
     
             for (const queryRef of queries) {
                 const snapshot = await getDocs(queryRef);
                 if (!snapshot.empty) {
                     songToMove = snapshot.docs[0].data();
                     songId = snapshot.docs[0].id;
-                    creditsEarnedToAdd = songToMove.skip === "true" ? (songToMove.skipPlus === "true" ? 2 * skipRate : skipRate) : 0;
+                    creditsToAdd = songToMove.skip === "true" ? (songToMove.skipPlus === "true" ? 2 * skipRate : skipRate) : 0;
                     break;
                 }
             }
@@ -236,21 +244,28 @@ function LiveRoomComponent() {
                 // Add to nowPlaying and remove from upNext
                 await setDoc(doc(db, `liveRooms/${userUid}/nowPlaying`, songId), songToMove);
                 await deleteDoc(doc(db, `liveRooms/${userUid}/upNext`, songId));
-                console.log("Moved song to nowPlaying:", songToMove);
     
-                // Update creditsEarned in the liveRoom document
+                // Calculate new creditsEarned for liveRoom
+                const newCreditsEarned = (roomDoc.data().creditsEarned || 0) + creditsToAdd;
                 await updateDoc(roomDocRef, {
-                    creditsEarned: increment(creditsEarnedToAdd)
+                    creditsEarned: newCreditsEarned
                 });
     
-                // Update the user's credits
-                const userRef = doc(db, `users/${userUid}`);
-                const userDoc = await getDoc(userRef);
-                if (userDoc.exists()) {
-                    const currentCredits = userDoc.data().credits || 0;
-                    const newCredits = currentCredits + creditsEarnedToAdd;
-                    await updateDoc(userRef, { credits: newCredits });
-                }
+                // Update user document with new credits and earnings
+                const additionalEarnings = creditsToAdd * ratePerRound;
+                const newEarnings = (userDoc.data().earnings || 0) + additionalEarnings;
+                const newEarningsTotal = (userDoc.data().earningsTotal || 0) + additionalEarnings;
+                const newCreditsEarnedUser = (userDoc.data().creditsEarned || 0) + creditsToAdd;
+                const newSongsReviewed = (userDoc.data().songsReviewed || 0) + 1;
+    
+                await updateDoc(userRef, {
+                    creditsEarned: newCreditsEarnedUser,
+                    earnings: newEarnings,
+                    earningsTotal: newEarningsTotal,
+                    songsReviewed: newSongsReviewed
+                });
+    
+                console.log("Moved song to nowPlaying and updated user stats:", songToMove);
             } else {
                 console.log("No songs available to move to nowPlaying");
             }
