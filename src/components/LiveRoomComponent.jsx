@@ -264,25 +264,31 @@ function LiveRoomComponent() {
     };
 
 
+
     const goOffAir = async () => {
         const userUid = getAuth().currentUser?.uid;
         if (!userUid) {
             console.log("User not authenticated");
             return;
         }
+
         const roomDocRef = doc(db, `liveRooms/${userUid}`);
         const upNextRef = collection(db, `liveRooms/${userUid}/upNext`);
-    
+
         try {
-            // Set onAir to false and reset creditsEarned to zero
+            // Update the onAir status and reset creditsEarned to zero
             await updateDoc(roomDocRef, { onAir: false, creditsEarned: 0 });
-    
-            // Retrieve the current rates
+
+            // Retrieve the current rates from the room document
             const roomDoc = await getDoc(roomDocRef);
+            if (!roomDoc.exists()) {
+                console.log("Room data not found");
+                return;
+            }
             const skipRate = roomDoc.data().skipRate;
             const skipPlusRate = skipRate * 2; // Assuming skipPlusRate is always double the skipRate
-    
-            // Retrieve all entries from upNext
+
+            // Process each upNext entry to refund credits if necessary
             const entriesSnapshot = await getDocs(upNextRef);
             entriesSnapshot.forEach(async (doc) => {
                 const entry = doc.data();
@@ -290,25 +296,21 @@ function LiveRoomComponent() {
                 if (entry.skip === "true") {
                     creditsToAdd = entry.skipPlus === "true" ? skipPlusRate : skipRate;
                 }
-    
+
                 if (creditsToAdd > 0) {
                     const userRef = doc(db, `users/${entry.artistId}`);
-                    // Use a transaction to safely increment user credits
-                    await runTransaction(db, async (transaction) => {
-                        const userDoc = await transaction.get(userRef);
-                        if (!userDoc.exists()) {
-                            throw "Document does not exist!";
-                        }
-                        transaction.update(userRef, { credits: increment(creditsToAdd) });
+                    await updateDoc(userRef, {
+                        credits: increment(creditsToAdd)
                     });
                 }
-    
+
                 // Delete the entry from upNext after processing
                 await deleteDoc(doc.ref);
             });
-    
+
+            console.log("Go Off Air function completed.");
             // Redirect to dashboard after processing
-            console.log('Go Off Air function completed.');
+            window.location.href = '/dashboard';
         } catch (error) {
             console.error("Failed to go off air:", error);
         }
