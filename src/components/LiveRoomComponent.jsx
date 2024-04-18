@@ -274,17 +274,17 @@ function LiveRoomComponent() {
         const upNextRef = collection(db, `liveRooms/${userUid}/upNext`);
     
         try {
-            // Update the onAir status and reset creditsEarned to zero
+            // Set onAir to false and reset creditsEarned
             await updateDoc(roomDocRef, { onAir: false, creditsEarned: 0 });
     
-            // Retrieve the current rates
+            // Fetch skip rates
             const roomDoc = await getDoc(roomDocRef);
             const skipRate = roomDoc.data().skipRate;
             const skipPlusRate = skipRate * 2;
     
-            // Retrieve all entries from upNext
+            // Process each entry in upNext
             const entriesSnapshot = await getDocs(upNextRef);
-            for (const doc of entriesSnapshot.docs) {
+            entriesSnapshot.forEach(async (doc) => {
                 const entry = doc.data();
                 let creditsToAdd = 0;
                 if (entry.skip === "true") {
@@ -293,18 +293,18 @@ function LiveRoomComponent() {
     
                 if (creditsToAdd > 0) {
                     const userRef = doc(db, `users/${entry.artistId}`);
+                    // Atomically increment user credits
+                    console.log('the artistId is', entry.artistId)
                     await runTransaction(db, async (transaction) => {
                         const userDoc = await transaction.get(userRef);
-                        if (!userDoc.exists()) {
-                            throw "Document does not exist!";
-                        }
-                        const currentCredits = userDoc.data().credits || 0;
-                        transaction.update(userRef, { credits: currentCredits + creditsToAdd });
+                        const newCredits = increment(creditsToAdd);
+                        transaction.update(userRef, { credits: newCredits });
                     });
                 }
     
+                // Delete the entry from upNext
                 await deleteDoc(doc.ref);
-            }
+            });
     
             console.log("Go Off Air function completed.");
         } catch (error) {
