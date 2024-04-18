@@ -28,8 +28,9 @@ function LoginComponent() {
         <div>
             <form id="hostForm" onSubmit={handleSubmit}>
                 <div>
-                    <label style={labelStyle} htmlFor="email">Email:</label>
-                    <input
+                    <label style={labelStyle} htmlFor="email">Email: </label>
+                    <input 
+                        style="border-radius: 5px; height: 27px; width: 250px;"
                         type="email"
                         id="email"
                         value={email}
@@ -38,8 +39,9 @@ function LoginComponent() {
                     />
                 </div>
                 <div>
-                    <label style={labelStyle} htmlFor="password">Password:</label>
+                    <label style={labelStyle} htmlFor="password">Password: </label>
                     <input
+                        style="border-radius: 5px; height: 27px; width: 250px;"
                         type="password"
                         id="password"
                         value={password}
