@@ -273,28 +273,41 @@ function LiveRoomComponent() {
     
         try {
             // Update the onAir status and reset creditsEarned to zero
-            await updateDoc(roomDocRef, 
-                { 
-                onAir: false, 
-                creditsEarned: 0 
-                });
+            await updateDoc(roomDocRef, { onAir: false, creditsEarned: 0 });
+    
+            // Retrieve the current rates
+            const roomDoc = await getDoc(roomDocRef);
+            const skipRate = roomDoc.data().skipRate;
+            const skipPlusRate = skipRate * 2; // Assuming skipPlusRate is always double the skipRate
     
             // Retrieve all entries from upNext
             const entriesSnapshot = await getDocs(upNextRef);
-            for (const doc of entriesSnapshot.docs) {
+            entriesSnapshot.docs.forEach(async (doc) => {
                 const entry = doc.data();
-                // If the entry is for skip or skipPlus, refund credits accordingly
-                if (entry.skip === "true") {
-                    const creditsToAdd = entry.skipPlus === "true" ? skipPlusRate * 2 : skipRate;
+                // Calculate the number of credits to add back
+                let creditsToAdd = 0;
+                if (entry.skip === "true" && entry.skipPlus === "true") {
+                    creditsToAdd = skipPlusRate; // Double refund for skipPlus entries
+                } else if (entry.skip === "true" && entry.skipPlus === "false") {
+                    creditsToAdd = skipRate; // Normal refund for skip entries
+                }
+    
+                if (creditsToAdd > 0) {
                     const userRef = doc(db, `users/${entry.artistId}`);
-                    // Increment the user's credits by the appropriate amount
-                    await updateDoc(userRef, {
-                        credits: increment(creditsToAdd)
+                    // Use a transaction to safely increment user credits
+                    await runTransaction(db, async (transaction) => {
+                        const userDoc = await transaction.get(userRef);
+                        if (!userDoc.exists()) {
+                            throw "Document does not exist!";
+                        }
+                        const newCredits = (userDoc.data().credits || 0) + creditsToAdd;
+                        transaction.update(userRef, { credits: newCredits });
                     });
                 }
+    
                 // Delete the entry from upNext after processing
                 await deleteDoc(doc.ref);
-            }
+            });
     
             // Redirect to dashboard after processing
             window.location.href = '/dashboard';
