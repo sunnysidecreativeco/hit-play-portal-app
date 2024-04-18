@@ -270,23 +270,33 @@ function LiveRoomComponent() {
         }
         const roomDocRef = doc(db, `liveRooms/${userUid}`);
         const upNextRef = collection(db, `liveRooms/${userUid}/upNext`);
-
+    
         try {
-            await updateDoc(roomDocRef, { onAir: false });
-
+            // Update the onAir status and reset creditsEarned to zero
+            await updateDoc(roomDocRef, 
+                { 
+                onAir: false, 
+                creditsEarned: 0 
+                });
+    
+            // Retrieve all entries from upNext
             const entriesSnapshot = await getDocs(upNextRef);
             for (const doc of entriesSnapshot.docs) {
                 const entry = doc.data();
+                // If the entry is for skip or skipPlus, refund credits accordingly
                 if (entry.skip === "true") {
                     const creditsToAdd = entry.skipPlus === "true" ? skipPlusRate * 2 : skipRate;
                     const userRef = doc(db, `users/${entry.artistId}`);
+                    // Increment the user's credits by the appropriate amount
                     await updateDoc(userRef, {
                         credits: increment(creditsToAdd)
                     });
                 }
+                // Delete the entry from upNext after processing
                 await deleteDoc(doc.ref);
             }
-
+    
+            // Redirect to dashboard after processing
             window.location.href = '/dashboard';
         } catch (error) {
             console.error("Failed to go off air:", error);
