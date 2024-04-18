@@ -15,10 +15,10 @@ function LoginComponent() {
         marginTop: 15,
         paddingTop: 13,
         paddingBottom: 13,
-        paddingLeft: 8,
-        paddingRight: 8,
+        paddingLeft: 150,
+        paddingRight: 150,
         borderRadius: 5,
-        boxShadow: '3px 3px 5px 0px rgba(0,0,0,0.3)',  // Proper CSS shadow syntax
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
         border: '2px solid #1b1b1b'  // Proper CSS border syntax
     };
 
@@ -41,7 +41,7 @@ function LoginComponent() {
                 <div style="margin-bottom: 10px;">
                     <label style={labelStyle} htmlFor="email">Email: </label>
                     <input 
-                        style="border-radius: 5px; height: 27px; width: 250px;"
+                        style="border-radius: 5px; height: 27px; width: 275px;"
                         type="email"
                         id="email"
                         value={email}
@@ -60,7 +60,7 @@ function LoginComponent() {
                         required
                     />
                 </div>
-                <button style={buttonStyle} type="submit">Login</button>
+                <button style={buttonStyle} type="submit">LOGIN</button>
             </form>
         </div>
     );
