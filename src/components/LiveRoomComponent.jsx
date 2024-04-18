@@ -197,42 +197,60 @@ function LiveRoomComponent() {
             return;
         }
     
-        try {
-            const upNextRef = collection(db, `liveRooms/${userUid}/upNext`);
-            const nowPlayingRef = collection(db, `liveRooms/${userUid}/nowPlaying`);
+        const roomDocRef = doc(db, `liveRooms/${userUid}`);
+        const upNextRef = collection(db, `liveRooms/${userUid}/upNext`);
+        const nowPlayingRef = collection(db, `liveRooms/${userUid}/nowPlaying`);
     
+        try {
             // Clear the nowPlaying collection first
             const currentSongsSnapshot = await getDocs(nowPlayingRef);
             for (const doc of currentSongsSnapshot.docs) {
                 await deleteDoc(doc.ref);
             }
     
-            // Start with the highest priority: songs with skipPlus set to true
-            let queryRef = query(upNextRef, where("skipPlus", "==", "true"), orderBy("timeEntered", "asc"));
-            let snapshot = await getDocs(queryRef);
+            // Fetch the current skip rate from the room document
+            const roomDoc = await getDoc(roomDocRef);
+            const skipRate = roomDoc.exists() ? roomDoc.data().skipRate : 0;
+            let creditsEarnedToAdd = 0;
     
-            if (snapshot.empty) {
-                // If no skipPlus songs, check for songs with skip set to true
-                queryRef = query(upNextRef, where("skip", "==", "true"), where("skipPlus", "==", "false"), orderBy("timeEntered", "asc"));
-                snapshot = await getDocs(queryRef);
+            // Determine which song to move based on priority
+            const queries = [
+                query(upNextRef, where("skipPlus", "==", "true"), orderBy("timeEntered", "asc")),
+                query(upNextRef, where("skip", "==", "true"), where("skipPlus", "==", "false"), orderBy("timeEntered", "asc")),
+                query(upNextRef, where("skip", "==", "false"), where("skipPlus", "==", "false"), orderBy("timeEntered", "asc"))
+            ];
+    
+            let songToMove, songId;
+    
+            for (const queryRef of queries) {
+                const snapshot = await getDocs(queryRef);
+                if (!snapshot.empty) {
+                    songToMove = snapshot.docs[0].data();
+                    songId = snapshot.docs[0].id;
+                    creditsEarnedToAdd = songToMove.skip === "true" ? (songToMove.skipPlus === "true" ? 2 * skipRate : skipRate) : 0;
+                    break;
+                }
             }
-            
-            if (snapshot.empty) {
-                // If no skip songs, select any remaining song
-                queryRef = query(upNextRef, where("skip", "==", "false"), where("skipPlus", "==", "false"), orderBy("timeEntered", "asc"));
-                snapshot = await getDocs(queryRef);
-            }
     
-            // Move the first available song to nowPlaying
-            if (!snapshot.empty) {
-                const songToMove = snapshot.docs[0].data();
-                const songId = snapshot.docs[0].id;
-    
-                // Add to nowPlaying
+            if (songToMove && songId) {
+                // Add to nowPlaying and remove from upNext
                 await setDoc(doc(db, `liveRooms/${userUid}/nowPlaying`, songId), songToMove);
-                // Remove from upNext
                 await deleteDoc(doc(db, `liveRooms/${userUid}/upNext`, songId));
                 console.log("Moved song to nowPlaying:", songToMove);
+    
+                // Update creditsEarned in the liveRoom document
+                await updateDoc(roomDocRef, {
+                    creditsEarned: increment(creditsEarnedToAdd)
+                });
+    
+                // Update the user's credits
+                const userRef = doc(db, `users/${userUid}`);
+                const userDoc = await getDoc(userRef);
+                if (userDoc.exists()) {
+                    const currentCredits = userDoc.data().credits || 0;
+                    const newCredits = currentCredits + creditsEarnedToAdd;
+                    await updateDoc(userRef, { credits: newCredits });
+                }
             } else {
                 console.log("No songs available to move to nowPlaying");
             }
