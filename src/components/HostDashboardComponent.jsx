@@ -8,6 +8,7 @@ function HostDashboardComponent() {
     const [email, setEmail] = useState('');
     const [roomName, setRoomName] = useState(''); // Added state for roomName
     const [emailLoading, setEmailLoading] = useState(true);
+    const [avatarUrl, setAvatarUrl] = useState('');
     const [earnings, setEarnings] = useState(null);
     const [earningsLoading, setEarningsLoading] = useState(true);
     const [earningsTotal, setEarningsTotal] = useState(null);
@@ -57,6 +58,16 @@ function HostDashboardComponent() {
                         setEarningsLoading(false);
                         setEarningsTotal(userData.earningsTotal);
                         setEarningsTotalLoading(false);
+                        //Get room image
+                        const avatarPath = `avatars/${user.uid}`;
+                        const avatarRef = storageRef(storage, avatarPath);
+                        getDownloadURL(avatarRef)
+                            .then(url => {
+                                setAvatarUrl(url);
+                            })
+                            .catch(error => {
+                                console.error('Error fetching avatar:', error);
+                            });
                     } else {
                         console.log("No such user document!");
                     }
@@ -142,6 +153,15 @@ function HostDashboardComponent() {
                 </div>
             )}
             <div>
+                {avatarUrl && <img src={avatarUrl} alt="Host Avatar" 
+                    style={{ width: '150px', 
+                    height: '150px', 
+                    borderRadius: '50%', 
+                    objectFit: 'cover', 
+                    display: 'block', 
+                    marginLeft: 'auto', 
+                    marginRight: 'auto' }} 
+                />}
                 <div>
                     <p style={labels}>Show Name:</p> 
                     <p style={labelInfo}>{roomName}</p> {/* Display the room name */}
