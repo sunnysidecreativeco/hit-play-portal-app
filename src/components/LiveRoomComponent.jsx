@@ -35,6 +35,7 @@ function LiveRoomComponent() {
     const [songs, setSongs] = useState([]);
     const [songsSkip, setSongsSkip] = useState([]);
     const [songsSkipPlus, setSongsSkipPlus] = useState([]);
+    const [avatarUrl, setAvatarUrl] = useState('');
 
     
     const [refresh, setRefresh] = useState(true);
@@ -86,6 +87,17 @@ function LiveRoomComponent() {
         const auth = getAuth();
         const unsubscribeAuth = onAuthStateChanged(auth, user => {
             if (user) {
+                // Fetch user's avatar from Firebase Storage
+                const avatarPath = `avatars/${user.uid}`;
+                const avatarRef = storageRef(storage, avatarPath);
+                getDownloadURL(avatarRef)
+                    .then(url => {
+                        setAvatarUrl(url);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching avatar:', error);
+                    });
+
                 // Listener for room data
                 const roomDocRef = doc(db, "liveRooms", user.uid);
                 const unsubscribeRoomDoc = onSnapshot(roomDocRef, docSnap => {
@@ -376,6 +388,7 @@ function LiveRoomComponent() {
                 </div>
             )}
             <div>
+                {avatarUrl && <img src={avatarUrl} alt="Host Avatar" style={{ width: '100px', height: '100px', borderRadius: '50%', margin: '20px auto', display: 'block' }} />}
                 <p>Room Name: {roomName || "No room assigned"}</p>
                 <p>Your room is: {onAirStatus || "No status available"}</p>
                 <p>Your line is: {lineOpenStatus ? "Open" : "Closed"}</p>
