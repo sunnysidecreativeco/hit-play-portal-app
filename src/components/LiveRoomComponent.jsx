@@ -34,7 +34,6 @@ function LiveRoomComponent() {
     const [songLink, setSongLink] = useState('');
 
     const audioRef = useRef(null);
-
     // Additional states that might be used or shown in the UI
     const [credits, setCredits] = useState("");
     const [userId, setUserId] = useState("");
@@ -328,7 +327,7 @@ function LiveRoomComponent() {
                                 <source src={song.songLink} type="audio/mpeg" />
                             </audio>
                             <div>
-                                <button onClick={togglePlay}>{isPlaying ? <img src="../../images/Pause-Icon-1.0.png" alt="Pause" /> : <img src="../../images/Play-Icon-1.0.png" alt="Play" />}</button>
+                                <button onClick={togglePlay}>{isPlaying ? 'Pause' : 'Play'}</button>
                                 <input type="range" min="0" max={duration || 1} value={currentTime} onChange={(e) => setCurrentTime(e.target.value)} />
                                 <div>{Math.floor(currentTime / 60)}:{('0' + Math.floor(currentTime % 60)).slice(-2)} / {Math.floor(duration / 60)}:{('0' + Math.floor(duration % 60)).slice(-2)}</div>
                             </div>
