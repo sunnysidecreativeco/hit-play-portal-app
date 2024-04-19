@@ -88,7 +88,7 @@ function LiveRoomComponent() {
         const unsubscribeAuth = onAuthStateChanged(auth, user => {
             if (user) {
                 // Fetch user's avatar from Firebase Storage
-                const avatarPath = `avatars/${user.uid}`;
+                const avatarPath = `avatars/${user.uid}/profile-image`;
                 const avatarRef = storageRef(storage, avatarPath);
                 getDownloadURL(avatarRef)
                     .then(url => {

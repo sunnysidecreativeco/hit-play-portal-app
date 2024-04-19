@@ -60,7 +60,7 @@ function HostDashboardComponent() {
                         setEarningsTotal(userData.earningsTotal);
                         setEarningsTotalLoading(false);
                         //Get room image
-                        const avatarPath = `avatars/${user.uid}`;
+                        const avatarPath = `avatars/${user.uid}/profile-image`;
                         const avatarRef = storageRef(storage, avatarPath);
                         getDownloadURL(avatarRef)
                             .then(url => {
