@@ -14,6 +14,15 @@ function HostDashboardComponent() {
     const [earningsTotalLoading, setEarningsTotalLoading] = useState(true);
     const [showModal, setShowModal] = useState(false); // State to control modal visibility
 
+    
+    
+    const labels = {
+        fontFamily: 'IBMPlexSerif', serif,
+        textAlign: center,
+        fontSize: 24,
+    };
+    
+
     useEffect(() => {
         const auth = getAuth();
 
@@ -116,8 +125,12 @@ function HostDashboardComponent() {
                 </div>
             )}
             <div>
-                <p>Current User's Email: {email} {emailLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
-                <p>Room Name: {roomName}</p> {/* Display the room name */}
+                <div>
+                    <p style={labels}>Current User's Email:</p> 
+                    <p style={labels}>{email} {emailLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
+                    <p style={labels}>Room Name:</p> 
+                    <p style={labels}>{roomName}</p> {/* Display the room name */}
+                </div>
                 <p>Earnings: {earnings !== null ? earnings : earningsLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
                 <p>Total Earnings: {earningsTotal !== null ? earningsTotal : earningsTotalLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
                 <button style="margin-bottom: 15px;" class="standardGreenButton" onClick={handleGoLive}><p>Go Live</p></button>

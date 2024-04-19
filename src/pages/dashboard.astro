@@ -10,6 +10,19 @@ import HostDashboardComponent from '../components/HostDashboardComponent.jsx';
 
 
 <style>
+@font-face {
+  font-family: 'ChicagoFLF';
+  src: url('../../fonts/ChicagoFLF.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'IBMPlexSerif';
+  src: url('../../fonts/ibm-plex-serif.regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 .steps {
   background: var(--light);
   display: grid;
@@ -70,7 +83,10 @@ import HostDashboardComponent from '../components/HostDashboardComponent.jsx';
 .roomButton{
     border: 5px solid #FFFFFF;
 }
-
+h1 {
+    font-family: 'ChicagoFLF', sans-serif;
+    text-align: center;
+  }
 
 </style>
 
@@ -83,7 +99,7 @@ import HostDashboardComponent from '../components/HostDashboardComponent.jsx';
   
     <div class="dashboard" style="width: 100%;">
         <div class="topContainer">
-        <h1>This is the Host Dashboard</h1>
+        <h1>Host Dashboard</h1>
 
         <HostDashboardComponent client:load />
         </div>
