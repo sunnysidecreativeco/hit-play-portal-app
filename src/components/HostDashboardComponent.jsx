@@ -30,10 +30,10 @@ function HostDashboardComponent() {
     const buttonStyle = {
         fontFamily: "'ChicagoFLF', serif",
         marginTop: 15,
-        paddingTop: 13,
-        paddingBottom: 13,
-        paddingLeft: 147,
-        paddingRight: 147,
+        paddingTop: 3,
+        paddingBottom: 3,
+        paddingLeft: 125,
+        paddingRight: 125,
         borderRadius: 5,
         boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
         border: '2px solid #1b1b1b'  // Proper CSS border syntax
@@ -147,15 +147,15 @@ function HostDashboardComponent() {
                     <p style={labelInfo}>{roomName}</p> {/* Display the room name */}
                 </div>
                 <div>
-                    <p style={labels}>Earnings: {earnings !== null ? earnings : earningsLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
-                    <p style={labels}>Total Earnings: {earningsTotal !== null ? earningsTotal : earningsTotalLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
+                    <p style={labels}>Earnings: ${earnings !== null ? earnings : earningsLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
+                    <p style={labels}>Total Earnings: ${earningsTotal !== null ? earningsTotal : earningsTotalLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
                 </div>
-                <div>
-                    <button style={buttonStyle} onClick={handleGoLive}><p>Go Live</p></button>
+                <div style="margin-top: 20px">
+                    <button style={buttonStyle} onClick={handleGoLive}><p>GO LIVE</p></button>
                 </div>
             </div>
             <div>
-                <button style={buttonStyle} onClick={handleSignOut}><p>Sign Out</p></button>
+                <button style={buttonStyle} onClick={handleSignOut}><p>SIGN OUT</p></button>
             </div>
         </div>
     );
