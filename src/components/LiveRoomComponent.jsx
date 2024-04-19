@@ -355,7 +355,9 @@ function LiveRoomComponent() {
                         </div>
                     ))}
                     <div>
-                        <button onClick={toggleLineStatus} className="standardGreenButton">Toggle Line</button>
+                        <button onClick={toggleLineStatus} className="standardGreenButton" style="margin-bottom: 15px">
+                            {lineOpenStatus ? "Close the Line" : "Open the Line"}
+                        </button>
                     </div>
                     <div>
                         <button onClick={goOffAir} className="standardGreenButton">Go Off Air</button>
