@@ -27,6 +27,17 @@ function HostDashboardComponent() {
         textAlign: 'center',
         fontSize: 24,
     }
+    const buttonStyle = {
+        fontFamily: "'ChicagoFLF', serif",
+        marginTop: 15,
+        paddingTop: 13,
+        paddingBottom: 13,
+        paddingLeft: 147,
+        paddingRight: 147,
+        borderRadius: 5,
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
+        border: '2px solid #1b1b1b'  // Proper CSS border syntax
+    };
     
 
     useEffect(() => {
@@ -132,17 +143,19 @@ function HostDashboardComponent() {
             )}
             <div>
                 <div>
-                    <p style={labels}>Current User's Email:</p> 
-                    <p style={labels}>{email} {emailLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
-                    <p style={labels}>Room Name:</p> 
-                    <p style={labels}>{roomName}</p> {/* Display the room name */}
+                    <p style={labels}>Show Name:</p> 
+                    <p style={labelInfo}>{roomName}</p> {/* Display the room name */}
                 </div>
-                <p>Earnings: {earnings !== null ? earnings : earningsLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
-                <p>Total Earnings: {earningsTotal !== null ? earningsTotal : earningsTotalLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
-                <button style="margin-bottom: 15px;" class="standardGreenButton" onClick={handleGoLive}><p>Go Live</p></button>
+                <div>
+                    <p style={labels}>Earnings: {earnings !== null ? earnings : earningsLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
+                    <p style={labels}>Total Earnings: {earningsTotal !== null ? earningsTotal : earningsTotalLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
+                </div>
+                <div>
+                    <button style={buttonStyle} onClick={handleGoLive}><p>Go Live</p></button>
+                </div>
             </div>
             <div>
-                <button class="standardGreenButton" onClick={handleSignOut}><p>Sign Out</p></button>
+                <button style={buttonStyle} onClick={handleSignOut}><p>Sign Out</p></button>
             </div>
         </div>
     );
