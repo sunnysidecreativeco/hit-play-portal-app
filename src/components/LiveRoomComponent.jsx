@@ -388,7 +388,17 @@ function LiveRoomComponent() {
                 </div>
             )}
             <div>
-                {avatarUrl && <img src={avatarUrl} alt="Host Avatar" style={{ width: '100px', height: '100px', borderRadius: '50%', margin: '20px auto', display: 'block' }} />}
+                {avatarUrl && <img src={avatarUrl} alt="Host Avatar" 
+                    style={{ 
+                        width: '100px', 
+                        height: '100px', 
+                        borderRadius: '7%', 
+                        boxShadow: '3px 3px 0px 0px #1b1b1b',
+                        border: '2px solid #1b1b1b',
+                        margin: '20px auto', 
+                        display: 'block' 
+                        }} 
+                />}
                 <p>Room Name: {roomName || "No room assigned"}</p>
                 <p>Your room is: {onAirStatus || "No status available"}</p>
                 <p>Your line is: {lineOpenStatus ? "Open" : "Closed"}</p>

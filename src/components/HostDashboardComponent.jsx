@@ -157,7 +157,9 @@ function HostDashboardComponent() {
                 {avatarUrl && <img src={avatarUrl} alt="Host Avatar" 
                     style={{ width: '150px', 
                     height: '150px', 
-                    borderRadius: '50%', 
+                    borderRadius: '7%', 
+                    boxShadow: '3px 3px 0px 0px #1b1b1b',
+                    border: '2px solid #1b1b1b',
                     objectFit: 'cover', 
                     display: 'block', 
                     marginLeft: 'auto', 
