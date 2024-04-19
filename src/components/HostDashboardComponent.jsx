@@ -18,7 +18,7 @@ function HostDashboardComponent() {
     
     const labels = {
         fontFamily: '"IBMPlexSerif", serif',
-        textAlign: center,
+        textAlign: 'center',
         fontSize: 24,
     };
     
