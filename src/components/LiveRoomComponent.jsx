@@ -316,7 +316,7 @@ function LiveRoomComponent() {
                 <p>Your line is: {lineOpenStatus ? "Open" : "Closed"}</p>
                 <p>Songs in the queue: {songsInLine}</p>
                 <p>Credits this live: {creditsEarned}</p>
-                <button style={{ margin: '20px auto', display: 'block', padding: '10px 20px', backgroundColor: 'blue', color: 'white', borderRadius: '5px' }} onClick={moveNextSongToNowPlaying}>NEXT SONG</button>
+                <button className="standardGreenButton" onClick={moveNextSongToNowPlaying}>NEXT SONG</button>
                 <div>
                     <h2>Now Playing</h2>
                     {nowPlaying.map(song => (
@@ -355,10 +355,10 @@ function LiveRoomComponent() {
                         </div>
                     ))}
                     <div>
-                        <button onClick={toggleLineStatus} style={{ margin: '20px auto', display: 'block', padding: '10px 20px', backgroundColor: 'blue', color: 'white', borderRadius: '5px' }}>Toggle Line</button>
+                        <button onClick={toggleLineStatus} className="standardGreenButton">Toggle Line</button>
                     </div>
                     <div>
-                        <button onClick={goOffAir} style={{ margin: '20px auto', display: 'block', padding: '10px 20px', backgroundColor: 'red', color: 'white', borderRadius: '5px' }}>Go Off Air</button>
+                        <button onClick={goOffAir} className="standardGreenButton">Go Off Air</button>
                     </div>
                 </div>
             </div>
