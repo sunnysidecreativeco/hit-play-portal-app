@@ -121,7 +121,9 @@ function LiveRoomComponent() {
                 const unsubscribeNowPlaying = onSnapshot(nowPlayingRef, (querySnapshot) => {
                     const updatedSongs = querySnapshot.docs.map(doc => ({
                         id: doc.id,
-                        ...doc.data()
+                        ...doc.data(),
+                        // Added Spotify link to nowPlaying songs
+                        songLink: doc.data().link || "" // Ensure links are handled correctly
                     }));
                     setNowPlaying(updatedSongs);
                     if (updatedSongs.length > 0 && updatedSongs[0].artistId) {
@@ -162,7 +164,9 @@ function LiveRoomComponent() {
         return onSnapshot(q, querySnapshot => {
             const fetchedSongs = querySnapshot.docs.map(doc => ({
                 id: doc.id,
-                ...doc.data()
+                ...doc.data(),
+                // Added Spotify link to upNext songs
+                songLink: doc.data().link || "" // Ensure links are handled correctly
             }));
             setState(fetchedSongs);
         });
@@ -192,7 +196,6 @@ function LiveRoomComponent() {
         }
     };
 
-
     const handleTimeUpdate = () => {
         if (audioRef.current) {
             setCurrentTime(audioRef.current.currentTime);
@@ -204,9 +207,6 @@ function LiveRoomComponent() {
             setDuration(audioRef.current.duration);
         }
     };
-
-
-
 
     const moveNextSongToNowPlaying = async () => {
         const userUid = getAuth().currentUser?.uid;
@@ -292,9 +292,6 @@ function LiveRoomComponent() {
         }
     };
 
-
-
-
     const toggleLineStatus = async () => {
         const userUid = getAuth().currentUser?.uid;
         if (!userUid) {
@@ -311,8 +308,6 @@ function LiveRoomComponent() {
             console.error("Failed to toggle line status:", error);
         }
     };
-
-
 
     const goOffAir = async () => {
         const userUid = getAuth().currentUser?.uid;
@@ -371,8 +366,6 @@ function LiveRoomComponent() {
         }
     };
 
-
-
     function handleModalOk() {
         window.location.href = '/';
     }
@@ -422,6 +415,11 @@ function LiveRoomComponent() {
                                     <span> / </span>
                                     <span>{Math.floor(duration / 60)}:{('0' + Math.floor(duration % 60)).slice(-2)}</span>
                                 </div>
+                                {song.songLink && ( // Comment: Displaying Spotify link
+                                    <a href={song.songLink} target="_blank" rel="noopener noreferrer">
+                                        <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
+                                    </a>
+                                )}
                             </div>
                         </div>
                     )) : <p>No songs currently playing.</p>}
@@ -430,6 +428,11 @@ function LiveRoomComponent() {
                     {songsSkipPlus.map(song => (
                         <div key={song.id} className="song-item">
                             <p>{song.songName} by {song.artistName}</p>
+                            {song.songLink && ( // Comment: Displaying Spotify link
+                                <a href={song.songLink} target="_blank" rel="noopener noreferrer">
+                                    <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
+                                </a>
+                            )}
                         </div>
                     ))}
                     {songsSkipPlus.length === 0 && <p>No skip plus songs.</p>}
@@ -438,6 +441,11 @@ function LiveRoomComponent() {
                     {songsSkip.map(song => (
                         <div key={song.id} className="song-item">
                             <p>{song.songName} by {song.artistName}</p>
+                            {song.songLink && ( // Comment: Displaying Spotify link
+                                <a href={song.songLink} target="_blank" rel="noopener noreferrer">
+                                    <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
+                                </a>
+                            )}
                         </div>
                     ))}
                     {songsSkip.length === 0 && <p>No skip songs.</p>}
@@ -446,6 +454,11 @@ function LiveRoomComponent() {
                     {songs.map(song => (
                         <div key={song.id} className="song-item">
                             <p>{song.songName} by {song.artistName}</p>
+                            {song.songLink && ( // Comment: Displaying Spotify link
+                                <a href={song.songLink} target="_blank" rel="noopener noreferrer">
+                                    <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
+                                </a>
+                            )}
                         </div>
                     ))}
                     {songs.length === 0 && <p>No regular songs queued.</p>}
