@@ -89,7 +89,21 @@ function LiveRoomComponent() {
         marginTop: 10,
         marginBottom: 10,
     };
-    const buttonStyle = {
+    const buttonStyleCloseLine = {
+        fontFamily: "'ChicagoFLF', serif",
+        fontSize: '18px',
+        backgroundColor: '#ffffff', 
+        marginTop: '15px',
+        paddingTop: '3px',
+        paddingBottom: '3px',
+        paddingLeft: '125px',
+        paddingRight: '125px',
+        borderRadius: '5px',
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  
+        border: '2px solid #1b1b1b' 
+    };
+
+    const buttonStyleOffAir = {
         fontFamily: "'ChicagoFLF', serif",
         marginTop: '15px',
         paddingTop: '3px',
@@ -218,6 +232,22 @@ function LiveRoomComponent() {
     const cellStyle = {
         padding: '10px', // Adjust the padding as necessary
         border: 'none', // No individual borders for cells, only for the row
+    };
+
+    const bottomColumns = {
+        display: 'flex',          // Use flexbox to position children
+        justifyContent: 'space-between', // This will ensure the gap between the items
+        alignItems: 'flex-start', // Align items to the start of the container
+        gap: '50px' 
+    };
+
+    const songList = {
+        border: '1px solid #ccc',  
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  
+        maxHeight: '600px',  
+        overflowY: 'auto',  
+        padding: '10px',  
+        borderRadius: '20px'
     };
     
 
@@ -607,29 +637,85 @@ function LiveRoomComponent() {
 
 
 
+                <div style={bottomColumns}>     
 
-                <div style={tableStyle}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                        <tbody>
-                            <tr style={rowStyle}>
-                                <td style={cellStyle}>Your room is:</td>
-                                <td style={cellStyle}>{onAirStatus || "No status available"}</td>
-                            </tr>
-                            <tr style={rowStyle}>
-                                <td style={cellStyle}>Your line is:</td>
-                                <td style={cellStyle}>{lineOpenStatus ? "Open" : "Closed"}</td>
-                            </tr>
-                            <tr style={rowStyle}>
-                                <td style={cellStyle}>Songs in the queue:</td>
-                                <td style={cellStyle}>{songsInLine}</td>
-                            </tr>
-                            <tr style={{ ...rowStyle, borderBottom: 'none' }}>
-                                <td style={cellStyle}>Credits this live:</td>
-                                <td style={cellStyle}>{creditsEarned}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                    <div style={tableStyle}>
+                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                            <tbody>
+                                <tr style={rowStyle}>
+                                    <td style={cellStyle}>Your room is:</td>
+                                    <td style={cellStyle}>{onAirStatus || "No status available"}</td>
+                                </tr>
+                                <tr style={rowStyle}>
+                                    <td style={cellStyle}>Your line is:</td>
+                                    <td style={cellStyle}>{lineOpenStatus ? "Open" : "Closed"}</td>
+                                </tr>
+                                <tr style={rowStyle}>
+                                    <td style={cellStyle}>Songs in the queue:</td>
+                                    <td style={cellStyle}>{songsInLine}</td>
+                                </tr>
+                                <tr style={{ ...rowStyle, borderBottom: 'none' }}>
+                                    <td style={cellStyle}>Credits this live:</td>
+                                    <td style={cellStyle}>{creditsEarned}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style={songList}>
+                        <h2>Skip Plus Songs</h2>
+                        {songsSkipPlus.map(song => (
+                            <div key={song.id} className="song-item">
+                                <p>{song.songName} by {song.artistName}</p>
+                                {song.songLink && ( // Comment: Displaying Spotify link
+                                    <a href={song.songLink} target="_blank" rel="noopener noreferrer">
+                                        <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
+                                    </a>
+                                )}
+                            </div>
+                        ))}
+                        {songsSkipPlus.length === 0 && <p>No skip plus songs.</p>}
+
+                        <h2>Skip Songs</h2>
+                        {songsSkip.map(song => (
+                            <div key={song.id} className="song-item">
+                                <p>{song.songName} by {song.artistName}</p>
+                                {song.songLink && ( // Comment: Displaying Spotify link
+                                    <a href={song.songLink} target="_blank" rel="noopener noreferrer">
+                                        <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
+                                    </a>
+                                )}
+                            </div>
+                        ))}
+                        {songsSkip.length === 0 && <p>No skip songs.</p>}
+
+                        <h2>Regular Songs</h2>
+                        {songs.map(song => (
+                            <div key={song.id} className="song-item">
+                                <p>{song.songName} by {song.artistName}</p>
+                                {song.songLink && ( // Comment: Displaying Spotify link
+                                    <a href={song.songLink} target="_blank" rel="noopener noreferrer">
+                                        <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
+                                    </a>
+                                )}
+                            </div>
+                        ))}
+                        {songs.length === 0 && <p>No regular songs queued.</p>}
+                    </div>
+
+
+
+                </div> 
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -719,13 +805,13 @@ function LiveRoomComponent() {
 
 
                     <div>
-                        <button onClick={toggleLineStatus} style={buttonStyle}>
+                        <button onClick={toggleLineStatus} style={buttonStyleCloseLine}>
                             {lineOpenStatus ? "Close the Line" : "Open the Line"}
                         </button>
                     </div>
                     
                     <div>
-                        <button style={buttonStyle} className="standardGreenButton" onClick={goOffAir}>
+                        <button style={buttonStyleOffAir} className="standardGreenButton" onClick={goOffAir}>
                             Go Off Air
                         </button>
                     </div>
