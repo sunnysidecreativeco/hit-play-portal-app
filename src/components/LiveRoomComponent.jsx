@@ -137,12 +137,14 @@ function LiveRoomComponent() {
         fontSize: 22,
         display: 'inline-block',
         marginBottom: '0px',
+        textAlign: 'left',
     };
 
     const songNameText = {
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 22,
         marginTop: '0px',
+        textAlign: 'left',
     };
 
     const playButton = {
@@ -165,13 +167,14 @@ function LiveRoomComponent() {
     const spotifyButton = {
         display: 'inline-block',
         verticalAlign: 'middle',
+        marginBottom: '-25px !important',
     };
 
     const spotifyIcon = {
         width: '24px', 
         height: '24px', 
         marginLeft: '10px',
-        marginBottom: '-5px',
+        
     };
     
     
