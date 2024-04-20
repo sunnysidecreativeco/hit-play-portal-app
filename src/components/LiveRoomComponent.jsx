@@ -300,6 +300,14 @@ function LiveRoomComponent() {
         textAlign: 'left'
     };
 
+    const artistNameContainerList = {
+        flex: '0 0 80%',
+        display: 'inline-block',
+        textAlign: 'left',
+        verticalAlign: 'middle',
+        paddingRight: 25,
+    };
+
     const spotifyButtonList = {
         display: 'inline-block',
         verticalAlign: 'middle',
@@ -734,8 +742,8 @@ function LiveRoomComponent() {
                     <div style={{...childStyle2, ...songList}}>
                         <h3 style={h3}>Skip+</h3>
                         {songsSkipPlus.map(song => (
-                            <div key={song.id} className="song-item">
-                                <div style={artistNameContainer}>
+                            <div key={song.id} className="song-item" style="display: flex;">
+                                <div style={artistNameContainerList}>
                                     <p style={songNameTextList}>{song.songName}</p> 
                                     <p style={artistNameTextList}>{song.artistName}</p>
                                 </div>
@@ -752,8 +760,8 @@ function LiveRoomComponent() {
 
                         <h3 style={h3}>Skip</h3>
                         {songsSkip.map(song => (
-                            <div key={song.id} className="song-item">
-                                <div style={artistNameContainer}>
+                            <div key={song.id} className="song-item" style="display: flex;">
+                                <div style={artistNameContainerList}>
                                     <p style={songNameTextList}>{song.songName}</p> 
                                     <p style={artistNameTextList}>{song.artistName}</p>
                                 </div>
@@ -770,8 +778,8 @@ function LiveRoomComponent() {
 
                         <h3 style={h3}>Free</h3>
                         {songs.map(song => (
-                            <div key={song.id} className="song-item">
-                                <div style={artistNameContainer}>
+                            <div key={song.id} className="song-item" style="display: flex;">
+                                <div style={artistNameContainerList}>
                                     <p style={songNameTextList}>{song.songName}</p> 
                                     <p style={artistNameTextList}>{song.artistName}</p>
                                 </div>
