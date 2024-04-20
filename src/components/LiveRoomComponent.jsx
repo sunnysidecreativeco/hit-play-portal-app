@@ -96,6 +96,15 @@ function LiveRoomComponent() {
         textAlign: 'left',
         marginBottom: 5,
     };
+
+    const h3SkipPlus = {
+        fontFamily: "'ChicagoFLF', serif",
+        fontSize: 24,
+        textAlign: 'left',
+        marginBottom: 5,
+        marginTop: 5,
+    };
+
     const buttonStyleCloseLine = {
         fontFamily: "'ChicagoFLF', serif",
         fontSize: '18px',
@@ -704,8 +713,8 @@ function LiveRoomComponent() {
 
                 <div style={bottomColumns}>     
 
-                    <div style={{...childStyle, ...tableStyle}}>
-                        <div style="margin-bottom: 15px;">
+                    <div>
+                        <div style={{...childStyle, ...tableStyle}}>
                             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                                 <tbody>
                                     <tr style={rowStyle}>
@@ -728,22 +737,22 @@ function LiveRoomComponent() {
                             </table>
                         </div>
 
-                        <div>
+                        <div style="margin-top: 15px;">
                             <button onClick={toggleLineStatus} style={buttonStyleCloseLine}>
-                                {lineOpenStatus ? "Close the Line" : "Open the Line"}
+                                {lineOpenStatus ? "CLOSE THE LINE" : "OPEN THE LINE"}
                             </button>
                         </div>
                         
                         <div>
                             <button style={buttonStyleOffAir} onClick={goOffAir}>
-                                Go Off Air
+                                GO OFF AIR
                             </button>
                         </div>
 
                     </div>
 
                     <div style={{...childStyle2, ...songList}}>
-                        <h3 style={h3}>Skip+</h3>
+                        <h3 style={h3SkipPlus}>Skip+</h3>
                         {songsSkipPlus.map(song => (
                             <div key={song.id} className="song-item" style="display: flex;">
                                 <div style={artistNameContainerList}>
