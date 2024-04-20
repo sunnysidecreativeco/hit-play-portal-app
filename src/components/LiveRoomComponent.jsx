@@ -129,7 +129,7 @@ function LiveRoomComponent() {
     ;
     const artistNameContainer = {
         display: 'inline-block',
-        
+        textAlign: 'left',
     };
 
     const artistNameText = {
@@ -161,13 +161,13 @@ function LiveRoomComponent() {
         display: 'inline-block',
         paddingLeft: 10,
         fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 35,
+        fontSize: 28,
     };
 
     const spotifyButton = {
         display: 'inline-block',
         verticalAlign: 'middle',
-        marginBottom: '-25px !important',
+        marginBottom: '-25px',
     };
 
     const spotifyIcon = {
