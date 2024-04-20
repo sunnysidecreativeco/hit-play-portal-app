@@ -100,10 +100,10 @@ function LiveRoomComponent() {
         fontSize: '18px',
         backgroundColor: '#ffffff', 
         marginTop: '15px',
-        paddingTop: '3px',
-        paddingBottom: '3px',
-        paddingLeft: '125px',
-        paddingRight: '125px',
+        paddingTop: '13px',
+        paddingBottom: '13px',
+        paddingLeft: '90px',
+        paddingRight: '90px',
         borderRadius: '5px',
         boxShadow: '3px 3px 0px 0px #1b1b1b',  
         border: '2px solid #1b1b1b' 
@@ -111,11 +111,13 @@ function LiveRoomComponent() {
 
     const buttonStyleOffAir = {
         fontFamily: "'ChicagoFLF', serif",
+        fontSize: '18px',
+        backgroundColor: '#ffffff', 
         marginTop: '15px',
-        paddingTop: '3px',
-        paddingBottom: '3px',
-        paddingLeft: '125px',
-        paddingRight: '125px',
+        paddingTop: '13px',
+        paddingBottom: '13px',
+        paddingLeft: '90px',
+        paddingRight: '90px',
         borderRadius: '5px',
         boxShadow: '3px 3px 0px 0px #1b1b1b',  
         border: '2px solid #1b1b1b' 
@@ -714,10 +716,23 @@ function LiveRoomComponent() {
                                 </tr>
                             </tbody>
                         </table>
+
+                        <div>
+                            <button onClick={toggleLineStatus} style={buttonStyleCloseLine}>
+                                {lineOpenStatus ? "Close the Line" : "Open the Line"}
+                            </button>
+                        </div>
+                        
+                        <div>
+                            <button style={buttonStyleOffAir} onClick={goOffAir}>
+                                Go Off Air
+                            </button>
+                        </div>
+
                     </div>
 
                     <div style={{...childStyle2, ...songList}}>
-                        <h3 style={h3}>Skip Plus Songs</h3>
+                        <h3 style={h3}>Skip+</h3>
                         {songsSkipPlus.map(song => (
                             <div key={song.id} className="song-item">
                                 <div style={artistNameContainer}>
@@ -735,7 +750,7 @@ function LiveRoomComponent() {
                         ))}
                         {songsSkipPlus.length === 0 && <p>No skip plus songs.</p>}
 
-                        <h3 style={h3}>Skip Songs</h3>
+                        <h3 style={h3}>Skip</h3>
                         {songsSkip.map(song => (
                             <div key={song.id} className="song-item">
                                 <div style={artistNameContainer}>
@@ -753,7 +768,7 @@ function LiveRoomComponent() {
                         ))}
                         {songsSkip.length === 0 && <p>No skip songs.</p>}
 
-                        <h3 style={h3}>Regular Songs</h3>
+                        <h3 style={h3}>Free</h3>
                         {songs.map(song => (
                             <div key={song.id} className="song-item">
                                 <div style={artistNameContainer}>
