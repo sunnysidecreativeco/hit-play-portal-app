@@ -198,6 +198,27 @@ function LiveRoomComponent() {
         border: '2px solid #1b1b1b' 
     };
     
+    // Styles for the table
+    const tableStyle = {
+        border: '1px solid #1b1b1b',
+        borderRadius: '20px',
+        boxShadow: '3px 3px 0px 0px #1b1b1b',
+        width: '100%', // Adjust the width as necessary
+        borderCollapse: 'collapse', // This ensures that the border is consistent around all cells
+        overflow: 'hidden', // Keeps the border radius on the table itself
+        marginBottom: '20px', // Space below the table, adjust as needed
+    };
+
+    // Styles for the table rows
+    const rowStyle = {
+        borderBottom: '1px solid #1b1b1b', // Separates rows by a line
+    };
+
+    // Styles for the table data cells
+    const cellStyle = {
+        padding: '10px', // Adjust the padding as necessary
+        border: 'none', // No individual borders for cells, only for the row
+    };
     
 
 
@@ -587,6 +608,28 @@ function LiveRoomComponent() {
 
 
 
+                <div style={tableStyle}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                        <tbody>
+                            <tr style={rowStyle}>
+                                <td style={cellStyle}>Your room is:</td>
+                                <td style={cellStyle}>{onAirStatus || "No status available"}</td>
+                            </tr>
+                            <tr style={rowStyle}>
+                                <td style={cellStyle}>Your line is:</td>
+                                <td style={cellStyle}>{lineOpenStatus ? "Open" : "Closed"}</td>
+                            </tr>
+                            <tr style={rowStyle}>
+                                <td style={cellStyle}>Songs in the queue:</td>
+                                <td style={cellStyle}>{songsInLine}</td>
+                            </tr>
+                            <tr style={{ ...rowStyle, borderBottom: 'none' }}>
+                                <td style={cellStyle}>Credits this live:</td>
+                                <td style={cellStyle}>{creditsEarned}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
 
 
@@ -597,7 +640,7 @@ function LiveRoomComponent() {
 
 
 
-                <p>Room Name: {roomName || "No room assigned"}</p>
+                
                 <p>Your room is: {onAirStatus || "No status available"}</p>
                 <p>Your line is: {lineOpenStatus ? "Open" : "Closed"}</p>
                 <p>Songs in the queue: {songsInLine}</p>
