@@ -125,6 +125,15 @@ function LiveRoomComponent() {
 
     const playButton = {
         marginBottom: -10,
+        marginRight: 10,
+        display: 'inline-block',
+    }
+    const inputRange = {
+        display: 'inline-block',
+    }
+
+    const songDuration = {
+        display: 'inline-block',
     }
 
     const spotifyButton = {
@@ -494,11 +503,13 @@ function LiveRoomComponent() {
                                             }
                                         </button>
                                     </div>
-                                    <input type="range" min="0" max={duration || 1} value={currentTime} onChange={(e) => {
-                                        audioRef.current.currentTime = e.target.value;
-                                        setCurrentTime(e.target.value);
-                                    }} />
-                                    <div>
+                                    <div style={inputRange}>
+                                        <input type="range" min="0" max={duration || 1} value={currentTime} onChange={(e) => {
+                                            audioRef.current.currentTime = e.target.value;
+                                            setCurrentTime(e.target.value);
+                                        }} />
+                                    </div>
+                                    <div style={songDuration}>
                                         <span>{Math.floor(currentTime / 60)}:{('0' + Math.floor(currentTime % 60)).slice(-2)}</span>
                                         <span> / </span>
                                         <span>{Math.floor(duration / 60)}:{('0' + Math.floor(duration % 60)).slice(-2)}</span>
