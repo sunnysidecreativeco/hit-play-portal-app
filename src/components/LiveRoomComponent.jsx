@@ -214,7 +214,7 @@ function LiveRoomComponent() {
     
     // Styles for the table
     const tableStyle = {
-        border: '1px solid #1b1b1b',
+        border: '4px solid #1b1b1b',
         borderRadius: '20px',
         boxShadow: '3px 3px 0px 0px #1b1b1b',
         width: '100%', // Adjust the width as necessary
@@ -225,7 +225,7 @@ function LiveRoomComponent() {
 
     // Styles for the table rows
     const rowStyle = {
-        borderBottom: '1px solid #1b1b1b', // Separates rows by a line
+        borderBottom: '4px solid #1b1b1b', // Separates rows by a line
     };
 
     // Styles for the table data cells
@@ -238,11 +238,18 @@ function LiveRoomComponent() {
         display: 'flex',          // Use flexbox to position children
         justifyContent: 'space-between', // This will ensure the gap between the items
         alignItems: 'flex-start', // Align items to the start of the container
-        gap: '50px' 
+        gap: '50px',
+    };
+
+    // Style for each child div to take equal width
+    const childStyle = {
+        flex: '1',  // Each child will take equal space
+        minWidth: '0',  // Prevents flex items from not shrinking below their content size
+        maxWidth: 'calc(50% - 25px)',  // Calculate width taking the gap into account
     };
 
     const songList = {
-        border: '1px solid #ccc',  
+        border: '4px solid #1b1b1b',  
         boxShadow: '3px 3px 0px 0px #1b1b1b',  
         maxHeight: '600px',  
         overflowY: 'auto',  
@@ -639,7 +646,7 @@ function LiveRoomComponent() {
 
                 <div style={bottomColumns}>     
 
-                    <div style={tableStyle}>
+                    <div style={{...childStyle, ...tableStyle}}>
                         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                             <tbody>
                                 <tr style={rowStyle}>
@@ -662,7 +669,7 @@ function LiveRoomComponent() {
                         </table>
                     </div>
 
-                    <div style={songList}>
+                    <div style={{...childStyle, ...songList}}>
                         <h2>Skip Plus Songs</h2>
                         {songsSkipPlus.map(song => (
                             <div key={song.id} className="song-item">
