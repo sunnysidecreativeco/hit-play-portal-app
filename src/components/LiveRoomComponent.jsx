@@ -212,9 +212,25 @@ function LiveRoomComponent() {
         border: '2px solid #1b1b1b' 
     };
     
+
+
+    const bottomColumns = {
+        display: 'flex',          // Use flexbox to position children
+        justifyContent: 'center', // Centers the flex container's children
+        alignItems: 'flex-start', // Align items to the start of the container, keeping them top-aligned
+        gap: '50px',              // Gap between the child elements
+        padding: '0 10%', 
+    };
+
+    // Style for each child div to take equal width
+    const childStyle = {
+        flex: '0 0 30%',  
+        minWidth: '0',
+    };
+
     // Styles for the table
     const tableStyle = {
-        border: '4px solid #1b1b1b',
+        border: '3px solid #1b1b1b',
         borderRadius: '20px',
         boxShadow: '3px 3px 0px 0px #1b1b1b',
         width: '100%', // Adjust the width as necessary
@@ -225,7 +241,7 @@ function LiveRoomComponent() {
 
     // Styles for the table rows
     const rowStyle = {
-        borderBottom: '4px solid #1b1b1b', // Separates rows by a line
+        borderBottom: '3px solid #1b1b1b', // Separates rows by a line
     };
 
     // Styles for the table data cells
@@ -234,22 +250,8 @@ function LiveRoomComponent() {
         border: 'none', // No individual borders for cells, only for the row
     };
 
-    const bottomColumns = {
-        display: 'flex',          // Use flexbox to position children
-        justifyContent: 'space-between', // This will ensure the gap between the items
-        alignItems: 'flex-start', // Align items to the start of the container
-        gap: '50px',
-    };
-
-    // Style for each child div to take equal width
-    const childStyle = {
-        flex: '1',  // Each child will take equal space
-        minWidth: '0',  // Prevents flex items from not shrinking below their content size
-        maxWidth: 'calc(50% - 25px)',  // Calculate width taking the gap into account
-    };
-
     const songList = {
-        border: '4px solid #1b1b1b',  
+        border: '3px solid #1b1b1b',  
         boxShadow: '3px 3px 0px 0px #1b1b1b',  
         maxHeight: '600px',  
         overflowY: 'auto',  
