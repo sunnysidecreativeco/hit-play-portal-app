@@ -85,7 +85,7 @@ function LiveRoomComponent() {
     //Styles
     const h2 = {
         fontFamily: "'ChicagoFLF', serif",
-        fontSize: 35,
+        fontSize: 30,
     };
     const buttonStyle = {
         fontFamily: "'ChicagoFLF', serif",
@@ -176,6 +176,22 @@ function LiveRoomComponent() {
         height: '24px', 
         marginLeft: '10px',
         verticalAlign: 'middle',
+    };
+
+    nextSongContainer = {
+        marginBottom: 15,
+    };
+
+    nextSongButton = {
+        fontFamily: "'ChicagoFLF', serif",
+        marginTop: '15px',
+        paddingTop: '3px',
+        paddingBottom: '3px',
+        paddingLeft: '125px',
+        paddingRight: '125px',
+        borderRadius: '5px',
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  
+        border: '2px solid #1b1b1b' 
     };
     
     
@@ -559,6 +575,13 @@ function LiveRoomComponent() {
                             </div>
                         )) : <p>No songs currently playing.</p>}
                 </div>
+
+                <div style={nextSongContainer}>
+                    <button style={nextSongButton} class="standardGreenButton" onClick={moveNextSongToNowPlaying}><p>NEXT SONG</p></button>
+                </div>
+
+
+
 
 
 
