@@ -122,6 +122,13 @@ function LiveRoomComponent() {
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 18,
     };
+
+    const spotifyIcon = {
+        width: '24px', 
+        height: '24px', 
+        marginLeft: '10px'
+    }
+    
     
 
 
@@ -456,6 +463,46 @@ function LiveRoomComponent() {
                 <div style="text-align: center;">
                     <h2 style={h2}>Now Playing</h2>
                 </div>
+
+
+                <div>
+                    {nowPlaying.length > 0 ? nowPlaying.map(song => (
+                            <div key={song.id} className="song-item">
+                                <p>{song.songName} by {song.artistName}</p>
+                                {song.songLink && ( // Comment: Displaying Spotify link
+                                        <a href={song.songLink} target="_blank" rel="noopener noreferrer">
+                                            <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={spotifyIcon} />
+                                        </a>
+                                    )}
+                                <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleLoadedMetadata} onEnded={() => setIsPlaying(false)} />
+                                <div>
+                                    <button onClick={togglePlay} style={{ border: 'none', background: 'none', padding: 0 }}>
+                                        {isPlaying 
+                                            ? <img src="../../images/Pause-Icon-1.0.png" alt="Pause" style={{ width: '25px', height: '25px' }} />
+                                            : <img src="../../images/Play-Icon-1.0.png" alt="Play" style={{ width: '25px', height: '25px' }} />
+                                        }
+                                    </button>
+                                    <input type="range" min="0" max={duration || 1} value={currentTime} onChange={(e) => {
+                                        audioRef.current.currentTime = e.target.value;
+                                        setCurrentTime(e.target.value);
+                                    }} />
+                                    <div>
+                                        <span>{Math.floor(currentTime / 60)}:{('0' + Math.floor(currentTime % 60)).slice(-2)}</span>
+                                        <span> / </span>
+                                        <span>{Math.floor(duration / 60)}:{('0' + Math.floor(duration % 60)).slice(-2)}</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        )) : <p>No songs currently playing.</p>}
+                </div>
+
+
+
+
+
+
+
 
 
 
