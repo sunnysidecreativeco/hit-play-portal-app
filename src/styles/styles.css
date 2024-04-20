@@ -49,21 +49,23 @@
 /* Styles for the track */
 input[type="range"] {
     width: 300px; /* Width of the slider */
+    -webkit-appearance: none; /* Override default CSS styles */
+    appearance: none;
   }
 
 input[type='range']::-webkit-slider-runnable-track {
-    background: black;
+    background: black !important;
     height: 3px;
     margin-top: -7px;
   }
   
   input[type='range']::-moz-range-track {
-    background: black;
+    background: black !important;
     height: 3px;
   }
   
   input[type='range']::-ms-track {
-    background: black;
+    background: black !important;
     height: 3px;
   }
   
@@ -71,7 +73,7 @@ input[type='range']::-webkit-slider-runnable-track {
   input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none; /* Important to remove default styles */
     appearance: none;
-    background: black; /* Your desired thumb color */
+    background: black !important; /* Your desired thumb color */
     width: 17px; /* Width of the thumb */
     height: 17px; /* Height of the thumb */
     border-radius: 50%; /* Make it a circle */
@@ -81,7 +83,7 @@ input[type='range']::-webkit-slider-runnable-track {
   }
   
   input[type='range']::-moz-range-thumb {
-    background: black;
+    background: black !important;
     width: 17px;
     height: 17px;
     border-radius: 50%;
@@ -89,7 +91,7 @@ input[type='range']::-webkit-slider-runnable-track {
   }
   
   input[type='range']::-ms-thumb {
-    background: black;
+    background: black !important;
     width: 17px;
     height: 17px;
     border-radius: 50%;

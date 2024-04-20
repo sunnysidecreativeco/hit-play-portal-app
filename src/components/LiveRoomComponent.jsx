@@ -135,6 +135,8 @@ function LiveRoomComponent() {
     const songDuration = {
         display: 'inline-block',
         paddingLeft: 10,
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 35,
     }
 
     const spotifyButton = {
@@ -499,8 +501,8 @@ function LiveRoomComponent() {
                                     <div style={playButton}>
                                         <button onClick={togglePlay} style={{ border: 'none', background: 'none', padding: 0 }}>
                                             {isPlaying 
-                                                ? <img src="../../images/Pause-Icon-1.0.png" alt="Pause" style={{ width: '25px', height: '25px', marginBottom: '-9px', }} />
-                                                : <img src="../../images/Play-Icon-1.0.png" alt="Play" style={{ width: '25px', height: '25px', marginBottom: '-9px', }} />
+                                                ? <img src="../../images/Pause-Icon-1.0.png" alt="Pause" style={{ width: '40px', height: '40px', marginBottom: '-9px', }} />
+                                                : <img src="../../images/Play-Icon-1.0.png" alt="Play" style={{ width: '40px', height: '40px', marginBottom: '-9px', }} />
                                             }
                                         </button>
                                     </div>
