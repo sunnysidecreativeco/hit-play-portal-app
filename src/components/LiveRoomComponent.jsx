@@ -704,26 +704,28 @@ function LiveRoomComponent() {
                 <div style={bottomColumns}>     
 
                     <div style={{...childStyle, ...tableStyle}}>
-                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                            <tbody>
-                                <tr style={rowStyle}>
-                                    <td style={cellText}>Your room is:</td>
-                                    <td style={cellStyle}>{onAirStatus || "No status available"}</td>
-                                </tr>
-                                <tr style={rowStyle}>
-                                    <td style={cellText}>Your line is:</td>
-                                    <td style={cellStyle}>{lineOpenStatus ? "Open" : "Closed"}</td>
-                                </tr>
-                                <tr style={rowStyle}>
-                                    <td style={cellText}>Songs in the queue:</td>
-                                    <td style={cellStyle}>{songsInLine}</td>
-                                </tr>
-                                <tr style={{ ...rowStyle, borderBottom: 'none' }}>
-                                    <td style={cellText}>Credits this live:</td>
-                                    <td style={cellStyle}>{creditsEarned}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div>
+                            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                                <tbody>
+                                    <tr style={rowStyle}>
+                                        <td style={cellText}>Your room is:</td>
+                                        <td style={cellStyle}>{onAirStatus || "No status available"}</td>
+                                    </tr>
+                                    <tr style={rowStyle}>
+                                        <td style={cellText}>Your line is:</td>
+                                        <td style={cellStyle}>{lineOpenStatus ? "Open" : "Closed"}</td>
+                                    </tr>
+                                    <tr style={rowStyle}>
+                                        <td style={cellText}>Songs in the queue:</td>
+                                        <td style={cellStyle}>{songsInLine}</td>
+                                    </tr>
+                                    <tr style={{ ...rowStyle, borderBottom: 'none' }}>
+                                        <td style={cellText}>Credits this live:</td>
+                                        <td style={cellStyle}>{creditsEarned}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
                         <div>
                             <button onClick={toggleLineStatus} style={buttonStyleCloseLine}>
@@ -750,7 +752,7 @@ function LiveRoomComponent() {
                                 <div style={spotifyButtonList}>
                                     {song.songLink && ( // Comment: Displaying Spotify link
                                         <a href={song.songLink} target="_blank" rel="noopener noreferrer">
-                                            <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
+                                            <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px', marginBottom: '-25px' }} />
                                         </a>
                                     )}
                                 </div>
@@ -768,7 +770,7 @@ function LiveRoomComponent() {
                                 <div style={spotifyButtonList}>
                                     {song.songLink && ( // Comment: Displaying Spotify link
                                         <a href={song.songLink} target="_blank" rel="noopener noreferrer">
-                                            <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
+                                            <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px', marginBottom: '-25px' }} />
                                         </a>
                                     )}
                                 </div>
@@ -786,7 +788,7 @@ function LiveRoomComponent() {
                                 <div style={spotifyButtonList}>
                                     {song.songLink && ( // Comment: Displaying Spotify link
                                         <a href={song.songLink} target="_blank" rel="noopener noreferrer">
-                                            <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
+                                            <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px', marginBottom: '-25px' }} />
                                         </a>
                                     )}
                                 </div>
