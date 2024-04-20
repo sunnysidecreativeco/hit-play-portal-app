@@ -82,6 +82,34 @@ function LiveRoomComponent() {
     const C = (props) => <Text style={{color: '#b33110'}}>{props.children}</Text>;
 
 
+    //Styles
+    const buttonStyle = {
+        fontFamily: "'ChicagoFLF', serif",
+        marginTop: '15px',
+        paddingTop: '3px',
+        paddingBottom: '3px',
+        paddingLeft: '125px',
+        paddingRight: '125px',
+        borderRadius: '5px',
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  
+        border: '2px solid #1b1b1b' 
+    };
+    
+    const avatarContainer = {
+        float: 'left', 
+    };
+    
+    const avatar = {
+        display: 'inline-block', 
+    };
+    
+    const roomNameContainer = {
+        verticalAlign: 'middle', 
+        display: 'inline-block', 
+        marginLeft: '20px' 
+    };
+
+
 
     useEffect(() => {
         const auth = getAuth();
@@ -380,18 +408,33 @@ function LiveRoomComponent() {
                     </div>
                 </div>
             )}
+
+
+
             <div>
-                {avatarUrl && <img src={avatarUrl} alt="Host Avatar" 
-                    style={{ 
-                        width: '100px', 
-                        height: '100px', 
-                        borderRadius: '7%', 
-                        boxShadow: '3px 3px 0px 0px #1b1b1b',
-                        border: '2px solid #1b1b1b',
-                        margin: '20px auto', 
-                        display: 'block' 
-                        }} 
-                />}
+                <div style={avatarContainer}>
+                    <div style={avatar}>
+                        {avatarUrl && <img src={avatarUrl} alt="Host Avatar" 
+                            style={{ 
+                                width: '100px', 
+                                height: '100px', 
+                                borderRadius: '7%', 
+                                boxShadow: '3px 3px 0px 0px #1b1b1b',
+                                border: '2px solid #1b1b1b',
+                                margin: '20px auto', 
+                                display: 'block' 
+                                }} 
+                        />}
+                    </div>
+                    <div style={roomNameContainer}>
+                        {roomName || "No room assigned"}
+                    </div>
+                </div>
+
+                <header class="headercontainer">
+                    <img src="../../images/Hit-Play-Logo-1.0.png" width="350px" alt="" />
+                </header>
+
                 <p>Room Name: {roomName || "No room assigned"}</p>
                 <p>Your room is: {onAirStatus || "No status available"}</p>
                 <p>Your line is: {lineOpenStatus ? "Open" : "Closed"}</p>
@@ -471,13 +514,13 @@ function LiveRoomComponent() {
 
 
                     <div>
-                        <button onClick={toggleLineStatus} className="standardGreenButton">
+                        <button onClick={toggleLineStatus} style={buttonStyle}>
                             {lineOpenStatus ? "Close the Line" : "Open the Line"}
                         </button>
                     </div>
                     
                     <div>
-                        <button style="margin-top: 20px;" className="standardGreenButton" onClick={goOffAir}>
+                        <button style={buttonStyle} className="standardGreenButton" onClick={goOffAir}>
                             Go Off Air
                         </button>
                     </div>
