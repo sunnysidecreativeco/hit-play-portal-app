@@ -174,7 +174,7 @@ function LiveRoomComponent() {
         width: '24px', 
         height: '24px', 
         marginLeft: '10px',
-        marginTop: '-35px',
+        marginTop: '-65px',
         verticalAlign: 'middle',
     };
     
