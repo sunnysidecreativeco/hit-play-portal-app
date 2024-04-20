@@ -220,6 +220,7 @@ function LiveRoomComponent() {
         alignItems: 'flex-start', // Align items to the start of the container, keeping them top-aligned
         gap: '50px',              // Gap between the child elements
         padding: '0 10%', 
+        marginTop: 75,
     };
 
     // Style for each child div to take equal width
@@ -247,13 +248,15 @@ function LiveRoomComponent() {
     // Styles for the table data cells
     const cellStyle = {
         padding: '10px', // Adjust the padding as necessary
-        border: 'none', // No individual borders for cells, only for the row
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 16,
     };
 
     const cellText = {
         textAlign: 'left',
+        padding: '10px',
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 16,
         borderRight: '3px solid #1b1b1b',
     };
 
@@ -659,19 +662,19 @@ function LiveRoomComponent() {
                         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                             <tbody>
                                 <tr style={rowStyle}>
-                                    <td style={{...cellText, ...cellStyle}}>Your room is:</td>
+                                    <td style={cellText}>Your room is:</td>
                                     <td style={cellStyle}>{onAirStatus || "No status available"}</td>
                                 </tr>
                                 <tr style={rowStyle}>
-                                    <td style={{...cellText, ...cellStyle}}>Your line is:</td>
+                                    <td style={cellText}>Your line is:</td>
                                     <td style={cellStyle}>{lineOpenStatus ? "Open" : "Closed"}</td>
                                 </tr>
                                 <tr style={rowStyle}>
-                                    <td style={{...cellText, ...cellStyle}}>Songs in the queue:</td>
+                                    <td style={cellText}>Songs in the queue:</td>
                                     <td style={cellStyle}>{songsInLine}</td>
                                 </tr>
                                 <tr style={{ ...rowStyle, borderBottom: 'none' }}>
-                                    <td style={{...cellText, ...cellStyle}}>Credits this live:</td>
+                                    <td style={cellText}>Credits this live:</td>
                                     <td style={cellStyle}>{creditsEarned}</td>
                                 </tr>
                             </tbody>
