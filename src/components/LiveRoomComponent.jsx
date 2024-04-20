@@ -89,6 +89,12 @@ function LiveRoomComponent() {
         marginTop: 10,
         marginBottom: 10,
     };
+
+    const h3 = {
+        fontFamily: "'ChicagoFLF', serif",
+        fontSize: 24,
+        textAlign: 'left',
+    };
     const buttonStyleCloseLine = {
         fontFamily: "'ChicagoFLF', serif",
         fontSize: '18px',
@@ -229,6 +235,11 @@ function LiveRoomComponent() {
         minWidth: '0',
     };
 
+    const childStyle2 = {
+        flex: '0 0 30%',  
+        minWidth: '0',
+    };
+
     // Styles for the table
     const tableStyle = {
         border: '3px solid #1b1b1b',
@@ -266,7 +277,8 @@ function LiveRoomComponent() {
         maxHeight: '600px',  
         overflowY: 'auto',  
         padding: '10px',  
-        borderRadius: '20px'
+        borderRadius: '20px',
+        textAlign: 'left'
     };
     
 
@@ -681,11 +693,14 @@ function LiveRoomComponent() {
                         </table>
                     </div>
 
-                    <div style={{...childStyle, ...songList}}>
-                        <h2>Skip Plus Songs</h2>
+                    <div style={{...childStyle2, ...songList}}>
+                        <h3 style={h3}>Skip Plus Songs</h3>
                         {songsSkipPlus.map(song => (
                             <div key={song.id} className="song-item">
-                                <p>{song.songName} by {song.artistName}</p>
+                                <div style={artistNameContainer}>
+                                    <p style={songNameText}>{song.songName}</p> 
+                                    <p style={artistNameText}>{song.artistName}</p>
+                                </div>
                                 {song.songLink && ( // Comment: Displaying Spotify link
                                     <a href={song.songLink} target="_blank" rel="noopener noreferrer">
                                         <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
@@ -695,10 +710,13 @@ function LiveRoomComponent() {
                         ))}
                         {songsSkipPlus.length === 0 && <p>No skip plus songs.</p>}
 
-                        <h2>Skip Songs</h2>
+                        <h3 style={h3}>Skip Songs</h3>
                         {songsSkip.map(song => (
                             <div key={song.id} className="song-item">
-                                <p>{song.songName} by {song.artistName}</p>
+                                <div style={artistNameContainer}>
+                                    <p style={songNameText}>{song.songName}</p> 
+                                    <p style={artistNameText}>{song.artistName}</p>
+                                </div>
                                 {song.songLink && ( // Comment: Displaying Spotify link
                                     <a href={song.songLink} target="_blank" rel="noopener noreferrer">
                                         <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
@@ -708,10 +726,13 @@ function LiveRoomComponent() {
                         ))}
                         {songsSkip.length === 0 && <p>No skip songs.</p>}
 
-                        <h2>Regular Songs</h2>
+                        <h3 style={h3}>Regular Songs</h3>
                         {songs.map(song => (
                             <div key={song.id} className="song-item">
-                                <p>{song.songName} by {song.artistName}</p>
+                                <div style={artistNameContainer}>
+                                    <p style={songNameText}>{song.songName}</p> 
+                                    <p style={artistNameText}>{song.artistName}</p>
+                                </div>
                                 {song.songLink && ( // Comment: Displaying Spotify link
                                     <a href={song.songLink} target="_blank" rel="noopener noreferrer">
                                         <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
