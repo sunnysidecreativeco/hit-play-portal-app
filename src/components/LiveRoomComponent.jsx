@@ -224,7 +224,7 @@ function LiveRoomComponent() {
 
     // Style for each child div to take equal width
     const childStyle = {
-        flex: '0 0 30%',  
+        flex: '0 0 20%',  
         minWidth: '0',
     };
 
@@ -248,6 +248,13 @@ function LiveRoomComponent() {
     const cellStyle = {
         padding: '10px', // Adjust the padding as necessary
         border: 'none', // No individual borders for cells, only for the row
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 16,
+    };
+
+    const cellText = {
+        textAlign: 'left',
+        borderRight: '3px solid #1b1b1b',
     };
 
     const songList = {
@@ -652,7 +659,7 @@ function LiveRoomComponent() {
                         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                             <tbody>
                                 <tr style={rowStyle}>
-                                    <td style={cellStyle}>Your room is:</td>
+                                    <td style={{...cellText,...cellStyle}}>Your room is:</td>
                                     <td style={cellStyle}>{onAirStatus || "No status available"}</td>
                                 </tr>
                                 <tr style={rowStyle}>
