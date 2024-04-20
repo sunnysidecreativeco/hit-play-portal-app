@@ -123,10 +123,19 @@ function LiveRoomComponent() {
         fontSize: 18,
     };
 
+    const artistNameContainer = {
+        display: 'inline-block',
+    }
+
     const artistNameText = {
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 22,
         display: 'inline-block',
+    }
+
+    const songNameText = {
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 22,
     }
 
     const playButton = {
@@ -152,7 +161,8 @@ function LiveRoomComponent() {
     const spotifyIcon = {
         width: '24px', 
         height: '24px', 
-        marginLeft: '10px'
+        marginLeft: '10px',
+        marginBottom: '-5px',
     }
     
     
@@ -494,8 +504,9 @@ function LiveRoomComponent() {
                 <div>
                     {nowPlaying.length > 0 ? nowPlaying.map(song => (
                             <div key={song.id} className="song-item">
-                                <div style={artistNameText}>
-                                    <p>{song.songName} by {song.artistName}</p>
+                                <div style={artistNameContainer}>
+                                    <p style={artistNameText}>{song.songName}</p> 
+                                    <p style={songNameText}>{song.artistName}</p>
                                 </div>
                                 <div style={spotifyButton}>
                                     {song.songLink && ( // Comment: Displaying Spotify link
