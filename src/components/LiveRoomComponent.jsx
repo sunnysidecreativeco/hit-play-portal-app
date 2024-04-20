@@ -83,6 +83,10 @@ function LiveRoomComponent() {
 
 
     //Styles
+    const h2 = {
+        fontFamily: "'ChicagoFLF', serif",
+        fontSize: 45,
+    };
     const buttonStyle = {
         fontFamily: "'ChicagoFLF', serif",
         marginTop: '15px',
@@ -118,6 +122,7 @@ function LiveRoomComponent() {
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 18,
     };
+    
 
 
 
@@ -444,6 +449,16 @@ function LiveRoomComponent() {
                 <header class="headercontainer">
                     <img src="../../images/Hit-Play-Logo-1.0.png" width="350px" alt="" />
                 </header>
+
+
+
+
+                <div style="text-align: center;">
+                    <h2 style={h2}>Now Playing</h2>
+                </div>
+
+
+
 
                 <p>Room Name: {roomName || "No room assigned"}</p>
                 <p>Your room is: {onAirStatus || "No status available"}</p>

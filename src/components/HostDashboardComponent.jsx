@@ -40,6 +40,17 @@ function HostDashboardComponent() {
         boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
         border: '2px solid #1b1b1b'  // Proper CSS border syntax
     };
+    const buttonStyleSignOut = {
+        fontFamily: "'ChicagoFLF', serif",
+        marginTop: 15,
+        paddingTop: 3,
+        paddingBottom: 3,
+        paddingLeft: 121,
+        paddingRight: 121,
+        borderRadius: 5,
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
+        border: '2px solid #1b1b1b'  // Proper CSS border syntax
+    };
     
 
     useEffect(() => {
@@ -178,7 +189,7 @@ function HostDashboardComponent() {
                 </div>
             </div>
             <div>
-                <button style={buttonStyle} onClick={handleSignOut}><p>SIGN OUT</p></button>
+                <button style={buttonStyleSignOut} onClick={handleSignOut}><p>SIGN OUT</p></button>
             </div>
         </div>
     );
