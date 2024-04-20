@@ -123,47 +123,56 @@ function LiveRoomComponent() {
         fontSize: 18,
     };
 
+    const artistContainer ={
+
+    }
+    ;
     const artistNameContainer = {
         display: 'inline-block',
-    }
+        
+    };
 
     const artistNameText = {
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 22,
         display: 'inline-block',
-    }
+        marginBottom: '0px',
+    };
 
     const songNameText = {
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 22,
-    }
+        marginTop: '0px',
+    };
 
     const playButton = {
         marginBottom: -10,
         marginRight: 10,
         display: 'inline-block',
-    }
+    };
+
     const inputRange = {
         display: 'inline-block',
-    }
+    };
 
     const songDuration = {
         display: 'inline-block',
         paddingLeft: 10,
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 35,
-    }
+    };
 
     const spotifyButton = {
         display: 'inline-block',
-    }
+        verticalAlign: 'middle',
+    };
 
     const spotifyIcon = {
         width: '24px', 
         height: '24px', 
         marginLeft: '10px',
         marginBottom: '-5px',
-    }
+    };
     
     
 
@@ -504,17 +513,22 @@ function LiveRoomComponent() {
                 <div>
                     {nowPlaying.length > 0 ? nowPlaying.map(song => (
                             <div key={song.id} className="song-item">
-                                <div style={artistNameContainer}>
-                                    <p style={artistNameText}>{song.songName}</p> 
-                                    <p style={songNameText}>{song.artistName}</p>
+
+                                <div style={artistContainer}>
+                                    <div style={artistNameContainer}>
+                                        <p style={artistNameText}>{song.songName}</p> 
+                                        <p style={songNameText}>{song.artistName}</p>
+                                    </div>
+                                    <div style={spotifyButton}>
+                                        {song.songLink && ( // Comment: Displaying Spotify link
+                                                <a href={song.songLink} target="_blank" rel="noopener noreferrer">
+                                                    <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={spotifyIcon} />
+                                                </a>
+                                            )}
+                                    </div>
                                 </div>
-                                <div style={spotifyButton}>
-                                    {song.songLink && ( // Comment: Displaying Spotify link
-                                            <a href={song.songLink} target="_blank" rel="noopener noreferrer">
-                                                <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={spotifyIcon} />
-                                            </a>
-                                        )}
-                                </div>
+
+
                                 <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleLoadedMetadata} onEnded={() => setIsPlaying(false)} />
                                 <div>
                                     <div style={playButton}>
