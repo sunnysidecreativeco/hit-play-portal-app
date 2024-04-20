@@ -50,7 +50,7 @@
 input[type="range"] {
     width: 350px; /* Width of the slider */
   }
-  
+
 input[type='range']::-webkit-slider-runnable-track {
     background: black;
     height: 2px;
@@ -75,6 +75,7 @@ input[type='range']::-webkit-slider-runnable-track {
     width: 15px; /* Width of the thumb */
     height: 15px; /* Height of the thumb */
     border-radius: 50%; /* Make it a circle */
+    margin-top: -7px;
     cursor: pointer;
     border: none; /* Remove any default border */
   }

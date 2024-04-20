@@ -123,8 +123,12 @@ function LiveRoomComponent() {
         fontSize: 18,
     };
 
-    const spotifyButton = {
+    const playButton = {
         marginBottom: -10,
+    }
+
+    const spotifyButton = {
+        
     }
 
     const spotifyIcon = {
@@ -482,12 +486,14 @@ function LiveRoomComponent() {
                                 </div>
                                 <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleLoadedMetadata} onEnded={() => setIsPlaying(false)} />
                                 <div>
-                                    <button onClick={togglePlay} style={{ border: 'none', background: 'none', padding: 0 }}>
-                                        {isPlaying 
-                                            ? <img src="../../images/Pause-Icon-1.0.png" alt="Pause" style={{ width: '25px', height: '25px' }} />
-                                            : <img src="../../images/Play-Icon-1.0.png" alt="Play" style={{ width: '25px', height: '25px' }} />
-                                        }
-                                    </button>
+                                    <div style={playButton}>
+                                        <button onClick={togglePlay} style={{ border: 'none', background: 'none', padding: 0 }}>
+                                            {isPlaying 
+                                                ? <img src="../../images/Pause-Icon-1.0.png" alt="Pause" style={{ width: '25px', height: '25px' }} />
+                                                : <img src="../../images/Play-Icon-1.0.png" alt="Play" style={{ width: '25px', height: '25px' }} />
+                                            }
+                                        </button>
+                                    </div>
                                     <input type="range" min="0" max={duration || 1} value={currentTime} onChange={(e) => {
                                         audioRef.current.currentTime = e.target.value;
                                         setCurrentTime(e.target.value);
