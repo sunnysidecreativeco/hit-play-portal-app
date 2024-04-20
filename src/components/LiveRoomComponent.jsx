@@ -123,6 +123,12 @@ function LiveRoomComponent() {
         fontSize: 18,
     };
 
+    const artistNameText = {
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 22,
+        display: 'inline-block',
+    }
+
     const playButton = {
         marginBottom: -10,
         marginRight: 10,
@@ -140,7 +146,7 @@ function LiveRoomComponent() {
     }
 
     const spotifyButton = {
-        
+        display: 'inline-block',
     }
 
     const spotifyIcon = {
@@ -488,7 +494,9 @@ function LiveRoomComponent() {
                 <div>
                     {nowPlaying.length > 0 ? nowPlaying.map(song => (
                             <div key={song.id} className="song-item">
-                                <p>{song.songName} by {song.artistName}</p>
+                                <div style={artistNameText}>
+                                    <p>{song.songName} by {song.artistName}</p>
+                                </div>
                                 <div style={spotifyButton}>
                                     {song.songLink && ( // Comment: Displaying Spotify link
                                             <a href={song.songLink} target="_blank" rel="noopener noreferrer">
@@ -501,8 +509,8 @@ function LiveRoomComponent() {
                                     <div style={playButton}>
                                         <button onClick={togglePlay} style={{ border: 'none', background: 'none', padding: 0 }}>
                                             {isPlaying 
-                                                ? <img src="../../images/Pause-Icon-1.0.png" alt="Pause" style={{ width: '40px', height: '40px', marginBottom: '-9px', }} />
-                                                : <img src="../../images/Play-Icon-1.0.png" alt="Play" style={{ width: '40px', height: '40px', marginBottom: '-9px', }} />
+                                                ? <img src="../../images/Pause-Icon-1.0.png" alt="Pause" style={{ width: '40px', height: '40px', marginBottom: '-16px', }} />
+                                                : <img src="../../images/Play-Icon-1.0.png" alt="Play" style={{ width: '40px', height: '40px', marginBottom: '-16px', }} />
                                             }
                                         </button>
                                     </div>
