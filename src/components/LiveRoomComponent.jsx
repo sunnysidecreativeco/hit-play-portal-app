@@ -563,6 +563,7 @@ function LiveRoomComponent() {
     
         const roomDocRef = doc(db, `liveRooms/${userUid}`);
         const upNextRef = collection(db, `liveRooms/${userUid}/upNext`);
+        const nowPlayingRef = collection(db, `liveRooms/${userUid}/nowPlaying`);
     
         try {
             // Update the onAir status and reset creditsEarned to zero
@@ -578,8 +579,8 @@ function LiveRoomComponent() {
             const skipPlusRate = skipRate * 2; // Assuming skipPlusRate is always double the skipRate
     
             // Process each upNext entry to refund credits if necessary
-            const entriesSnapshot = await getDocs(upNextRef);
-            entriesSnapshot.forEach(async (entryDoc) => {
+            const upNextEntriesSnapshot = await getDocs(upNextRef);
+            for (const entryDoc of upNextEntriesSnapshot.docs) {
                 const entry = entryDoc.data();
                 let creditsToAdd = 0;
                 if (entry.skip === "true") {
@@ -601,7 +602,13 @@ function LiveRoomComponent() {
     
                 // Delete the entry from upNext after processing
                 await deleteDoc(entryDoc.ref);
-            });
+            }
+    
+            // Clear nowPlaying collection
+            const nowPlayingEntriesSnapshot = await getDocs(nowPlayingRef);
+            for (const entryDoc of nowPlayingEntriesSnapshot.docs) {
+                await deleteDoc(entryDoc.ref);
+            }
     
             console.log("Go Off Air function completed.");
             // Redirect to dashboard after processing
