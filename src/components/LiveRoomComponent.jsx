@@ -659,19 +659,19 @@ function LiveRoomComponent() {
                         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                             <tbody>
                                 <tr style={rowStyle}>
-                                    <td style={{...cellText,...cellStyle}}>Your room is:</td>
+                                    <td style={{...cellText, ...cellStyle}}>Your room is:</td>
                                     <td style={cellStyle}>{onAirStatus || "No status available"}</td>
                                 </tr>
                                 <tr style={rowStyle}>
-                                    <td style={cellStyle}>Your line is:</td>
+                                    <td style={{...cellText, ...cellStyle}}>Your line is:</td>
                                     <td style={cellStyle}>{lineOpenStatus ? "Open" : "Closed"}</td>
                                 </tr>
                                 <tr style={rowStyle}>
-                                    <td style={cellStyle}>Songs in the queue:</td>
+                                    <td style={{...cellText, ...cellStyle}}>Songs in the queue:</td>
                                     <td style={cellStyle}>{songsInLine}</td>
                                 </tr>
                                 <tr style={{ ...rowStyle, borderBottom: 'none' }}>
-                                    <td style={cellStyle}>Credits this live:</td>
+                                    <td style={{...cellText, ...cellStyle}}>Credits this live:</td>
                                     <td style={cellStyle}>{creditsEarned}</td>
                                 </tr>
                             </tbody>
