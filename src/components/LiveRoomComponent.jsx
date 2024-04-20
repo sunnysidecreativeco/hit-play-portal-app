@@ -185,7 +185,7 @@ function LiveRoomComponent() {
 
     const artistNameTextList = {
         fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 18,
+        fontSize: 16,
         display: 'inline-block',
         marginTop: '0px',
         marginBottom: '0px',
@@ -316,6 +316,7 @@ function LiveRoomComponent() {
         textAlign: 'left',
         verticalAlign: 'middle',
         paddingRight: 25,
+        paddingBottom: 10,
     };
 
     const spotifyButtonList = {
@@ -810,117 +811,6 @@ function LiveRoomComponent() {
 
 
                 </div> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                
-                <p>Your room is: {onAirStatus || "No status available"}</p>
-                <p>Your line is: {lineOpenStatus ? "Open" : "Closed"}</p>
-                <p>Songs in the queue: {songsInLine}</p>
-                <p>Credits this live: {creditsEarned}</p>
-                <button style="margin-bottom: 15px;" class="standardGreenButton" onClick={moveNextSongToNowPlaying}><p>NEXT SONG</p></button>
-                <div>
-                    <h2>Now Playing</h2>
-                    {nowPlaying.length > 0 ? nowPlaying.map(song => (
-                        <div key={song.id} className="song-item">
-                            <p>{song.songName} by {song.artistName}</p>
-                            {song.songLink && ( // Comment: Displaying Spotify link
-                                    <a href={song.songLink} target="_blank" rel="noopener noreferrer">
-                                        <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
-                                    </a>
-                                )}
-                            <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleLoadedMetadata} onEnded={() => setIsPlaying(false)} />
-                            <div>
-                                <button onClick={togglePlay} style={{ border: 'none', background: 'none', padding: 0 }}>
-                                    {isPlaying 
-                                        ? <img src="../../images/Pause-Icon-1.0.png" alt="Pause" style={{ width: '25px', height: '25px' }} />
-                                        : <img src="../../images/Play-Icon-1.0.png" alt="Play" style={{ width: '25px', height: '25px' }} />
-                                    }
-                                </button>
-                                <input type="range" min="0" max={duration || 1} value={currentTime} onChange={(e) => {
-                                    audioRef.current.currentTime = e.target.value;
-                                    setCurrentTime(e.target.value);
-                                }} />
-                                <div>
-                                    <span>{Math.floor(currentTime / 60)}:{('0' + Math.floor(currentTime % 60)).slice(-2)}</span>
-                                    <span> / </span>
-                                    <span>{Math.floor(duration / 60)}:{('0' + Math.floor(duration % 60)).slice(-2)}</span>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    )) : <p>No songs currently playing.</p>}
-
-                    <h2>Skip Plus Songs</h2>
-                    {songsSkipPlus.map(song => (
-                        <div key={song.id} className="song-item">
-                            <p>{song.songName} by {song.artistName}</p>
-                            {song.songLink && ( // Comment: Displaying Spotify link
-                                <a href={song.songLink} target="_blank" rel="noopener noreferrer">
-                                    <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
-                                </a>
-                            )}
-                        </div>
-                    ))}
-                    {songsSkipPlus.length === 0 && <p>No skip plus songs.</p>}
-
-                    <h2>Skip Songs</h2>
-                    {songsSkip.map(song => (
-                        <div key={song.id} className="song-item">
-                            <p>{song.songName} by {song.artistName}</p>
-                            {song.songLink && ( // Comment: Displaying Spotify link
-                                <a href={song.songLink} target="_blank" rel="noopener noreferrer">
-                                    <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
-                                </a>
-                            )}
-                        </div>
-                    ))}
-                    {songsSkip.length === 0 && <p>No skip songs.</p>}
-
-                    <h2>Regular Songs</h2>
-                    {songs.map(song => (
-                        <div key={song.id} className="song-item">
-                            <p>{song.songName} by {song.artistName}</p>
-                            {song.songLink && ( // Comment: Displaying Spotify link
-                                <a href={song.songLink} target="_blank" rel="noopener noreferrer">
-                                    <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
-                                </a>
-                            )}
-                        </div>
-                    ))}
-                    {songs.length === 0 && <p>No regular songs queued.</p>}
-
-
-                    <div>
-                        <button onClick={toggleLineStatus} style={buttonStyleCloseLine}>
-                            {lineOpenStatus ? "Close the Line" : "Open the Line"}
-                        </button>
-                    </div>
-                    
-                    <div>
-                        <button style={buttonStyleOffAir} className="standardGreenButton" onClick={goOffAir}>
-                            Go Off Air
-                        </button>
-                    </div>
-
-                </div>
             </div>
         </div>
     );
