@@ -184,8 +184,9 @@ function LiveRoomComponent() {
 
     const nextSongButton = {
         fontFamily: "'ChicagoFLF', serif",
-        fontSize: 22,
-        marginTop: '15px',
+        fontSize: '18px',
+        backgroundColor: '#ffffff', 
+        marginTop: '50px',
         paddingTop: '13px',
         paddingBottom: '13px',
         paddingLeft: '90px',
