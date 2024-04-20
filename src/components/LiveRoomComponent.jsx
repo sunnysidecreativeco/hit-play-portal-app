@@ -94,6 +94,7 @@ function LiveRoomComponent() {
         fontFamily: "'ChicagoFLF', serif",
         fontSize: 24,
         textAlign: 'left',
+        marginBottom: 5,
     };
     const buttonStyleCloseLine = {
         fontFamily: "'ChicagoFLF', serif",
@@ -704,7 +705,7 @@ function LiveRoomComponent() {
                 <div style={bottomColumns}>     
 
                     <div style={{...childStyle, ...tableStyle}}>
-                        <div>
+                        <div style="margin-bottom: 15px;">
                             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                                 <tbody>
                                     <tr style={rowStyle}>
