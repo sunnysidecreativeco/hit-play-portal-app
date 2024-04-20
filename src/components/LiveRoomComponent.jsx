@@ -85,7 +85,7 @@ function LiveRoomComponent() {
     //Styles
     const h2 = {
         fontFamily: "'ChicagoFLF', serif",
-        fontSize: 45,
+        fontSize: 35,
     };
     const buttonStyle = {
         fontFamily: "'ChicagoFLF', serif",
@@ -138,14 +138,14 @@ function LiveRoomComponent() {
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 18,
         display: 'inline-block',
-        marginBottom: '0px',
+        marginTop: '0px',
         textAlign: 'left',
     };
 
     const songNameText = {
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 22,
-        marginTop: '0px',
+        marginBottom: '0px',
         textAlign: 'left',
     };
 
