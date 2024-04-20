@@ -123,6 +123,10 @@ function LiveRoomComponent() {
         fontSize: 18,
     };
 
+    const spotifyButton = {
+        marginBottom: -10,
+    }
+
     const spotifyIcon = {
         width: '24px', 
         height: '24px', 
@@ -469,11 +473,13 @@ function LiveRoomComponent() {
                     {nowPlaying.length > 0 ? nowPlaying.map(song => (
                             <div key={song.id} className="song-item">
                                 <p>{song.songName} by {song.artistName}</p>
-                                {song.songLink && ( // Comment: Displaying Spotify link
-                                        <a href={song.songLink} target="_blank" rel="noopener noreferrer">
-                                            <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={spotifyIcon} />
-                                        </a>
-                                    )}
+                                <div style={spotifyButton}>
+                                    {song.songLink && ( // Comment: Displaying Spotify link
+                                            <a href={song.songLink} target="_blank" rel="noopener noreferrer">
+                                                <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={spotifyIcon} />
+                                            </a>
+                                        )}
+                                </div>
                                 <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleLoadedMetadata} onEnded={() => setIsPlaying(false)} />
                                 <div>
                                     <button onClick={togglePlay} style={{ border: 'none', background: 'none', padding: 0 }}>

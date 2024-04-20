@@ -47,6 +47,10 @@
 
 
 /* Styles for the track */
+input[type="range"] {
+    width: 350px; /* Width of the slider */
+  }
+  
 input[type='range']::-webkit-slider-runnable-track {
     background: black;
     height: 2px;
@@ -65,14 +69,14 @@ input[type='range']::-webkit-slider-runnable-track {
   
   /* Styles for the thumb */
   input[type='range']::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Removes default styling */
+    -webkit-appearance: none; /* Important to remove default styles */
     appearance: none;
-    background: black;
-    width: 15px; /* Size of the thumb */
-    height: 15px; /* Size of the thumb */
-    border-radius: 50%; /* Make it circular */
+    background: black; /* Your desired thumb color */
+    width: 15px; /* Width of the thumb */
+    height: 15px; /* Height of the thumb */
+    border-radius: 50%; /* Make it a circle */
     cursor: pointer;
-    margin-top: -7px;
+    border: none; /* Remove any default border */
   }
   
   input[type='range']::-moz-range-thumb {
