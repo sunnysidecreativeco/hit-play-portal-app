@@ -174,8 +174,8 @@ function LiveRoomComponent() {
     };
 
     const spotifyIcon = {
-        width: '24px', 
-        height: '24px', 
+        width: '35px', 
+        height: '35px', 
         marginLeft: '10px',
         verticalAlign: 'middle',
     };
