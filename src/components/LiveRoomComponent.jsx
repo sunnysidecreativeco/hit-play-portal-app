@@ -131,6 +131,7 @@ function LiveRoomComponent() {
         display: 'inline-block',
         textAlign: 'left',
         verticalAlign: 'middle',
+        paddingRight: 25,
     };
 
     const artistNameText = {
@@ -519,8 +520,8 @@ function LiveRoomComponent() {
 
                                 <div style={artistContainer}>
                                     <div style={artistNameContainer}>
-                                        <p style={artistNameText}>{song.songName}</p> 
-                                        <p style={songNameText}>{song.artistName}</p>
+                                        <p style={songNameText}>{song.songName}</p> 
+                                        <p style={artistNameText}>{song.artistName}</p>
                                     </div>
                                     <div style={spotifyButton}>
                                         {song.songLink && ( // Comment: Displaying Spotify link
