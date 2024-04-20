@@ -171,6 +171,23 @@ function LiveRoomComponent() {
         textAlign: 'left',
     };
 
+    const artistNameTextList = {
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 18,
+        display: 'inline-block',
+        marginTop: '0px',
+        marginBottom: '0px',
+        textAlign: 'left',
+    };
+
+    const songNameTextList = {
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 22,
+        marginTop: '0px',
+        marginBottom: '0px',
+        textAlign: 'left',
+    };
+
     const playButton = {
         marginBottom: -10,
         marginRight: 10,
@@ -279,6 +296,12 @@ function LiveRoomComponent() {
         padding: '10px',  
         borderRadius: '20px',
         textAlign: 'left'
+    };
+
+    const spotifyButtonList = {
+        display: 'inline-block',
+        verticalAlign: 'middle',
+        textAlign: 'right',
     };
     
 
@@ -698,14 +721,16 @@ function LiveRoomComponent() {
                         {songsSkipPlus.map(song => (
                             <div key={song.id} className="song-item">
                                 <div style={artistNameContainer}>
-                                    <p style={songNameText}>{song.songName}</p> 
-                                    <p style={artistNameText}>{song.artistName}</p>
+                                    <p style={songNameTextList}>{song.songName}</p> 
+                                    <p style={artistNameTextList}>{song.artistName}</p>
                                 </div>
-                                {song.songLink && ( // Comment: Displaying Spotify link
-                                    <a href={song.songLink} target="_blank" rel="noopener noreferrer">
-                                        <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
-                                    </a>
-                                )}
+                                <div style={spotifyButtonList}>
+                                    {song.songLink && ( // Comment: Displaying Spotify link
+                                        <a href={song.songLink} target="_blank" rel="noopener noreferrer">
+                                            <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
+                                        </a>
+                                    )}
+                                </div>
                             </div>
                         ))}
                         {songsSkipPlus.length === 0 && <p>No skip plus songs.</p>}
@@ -714,14 +739,16 @@ function LiveRoomComponent() {
                         {songsSkip.map(song => (
                             <div key={song.id} className="song-item">
                                 <div style={artistNameContainer}>
-                                    <p style={songNameText}>{song.songName}</p> 
-                                    <p style={artistNameText}>{song.artistName}</p>
+                                    <p style={songNameTextList}>{song.songName}</p> 
+                                    <p style={artistNameTextList}>{song.artistName}</p>
                                 </div>
-                                {song.songLink && ( // Comment: Displaying Spotify link
-                                    <a href={song.songLink} target="_blank" rel="noopener noreferrer">
-                                        <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
-                                    </a>
-                                )}
+                                <div style={spotifyButtonList}>
+                                    {song.songLink && ( // Comment: Displaying Spotify link
+                                        <a href={song.songLink} target="_blank" rel="noopener noreferrer">
+                                            <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
+                                        </a>
+                                    )}
+                                </div>
                             </div>
                         ))}
                         {songsSkip.length === 0 && <p>No skip songs.</p>}
@@ -730,14 +757,16 @@ function LiveRoomComponent() {
                         {songs.map(song => (
                             <div key={song.id} className="song-item">
                                 <div style={artistNameContainer}>
-                                    <p style={songNameText}>{song.songName}</p> 
-                                    <p style={artistNameText}>{song.artistName}</p>
+                                    <p style={songNameTextList}>{song.songName}</p> 
+                                    <p style={artistNameTextList}>{song.artistName}</p>
                                 </div>
-                                {song.songLink && ( // Comment: Displaying Spotify link
-                                    <a href={song.songLink} target="_blank" rel="noopener noreferrer">
-                                        <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
-                                    </a>
-                                )}
+                                <div style={spotifyButtonList}>
+                                    {song.songLink && ( // Comment: Displaying Spotify link
+                                        <a href={song.songLink} target="_blank" rel="noopener noreferrer">
+                                            <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px' }} />
+                                        </a>
+                                    )}
+                                </div>
                             </div>
                         ))}
                         {songs.length === 0 && <p>No regular songs queued.</p>}
