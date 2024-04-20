@@ -101,12 +101,22 @@ function LiveRoomComponent() {
     
     const avatar = {
         display: 'inline-block', 
+        verticalAlign: 'middle',
+        paddingLeft: 50,
+        paddingTop: 20,
     };
     
     const roomNameContainer = {
         verticalAlign: 'middle', 
         display: 'inline-block', 
-        marginLeft: '20px' 
+        marginLeft: '20px',
+        width: 150,
+        textAlign: screenLeft,
+    };
+
+    const roomNameText = {
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 18,
     };
 
 
@@ -427,7 +437,7 @@ function LiveRoomComponent() {
                         />}
                     </div>
                     <div style={roomNameContainer}>
-                        {roomName || "No room assigned"}
+                        <p style={roomNameText}>{roomName || "No room assigned"}</p>
                     </div>
                 </div>
 
