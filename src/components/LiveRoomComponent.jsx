@@ -111,7 +111,7 @@ function LiveRoomComponent() {
         display: 'inline-block', 
         marginLeft: '20px',
         width: 150,
-        textAlign: screenLeft,
+        textAlign: 'left',
     };
 
     const roomNameText = {
