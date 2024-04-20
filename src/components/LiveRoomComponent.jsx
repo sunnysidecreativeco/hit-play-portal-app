@@ -86,6 +86,8 @@ function LiveRoomComponent() {
     const h2 = {
         fontFamily: "'ChicagoFLF', serif",
         fontSize: 30,
+        marginTop: 10,
+        marginBottom: 10,
     };
     const buttonStyle = {
         fontFamily: "'ChicagoFLF', serif",
@@ -186,7 +188,7 @@ function LiveRoomComponent() {
         fontFamily: "'ChicagoFLF', serif",
         fontSize: '18px',
         backgroundColor: '#ffffff', 
-        marginTop: '50px',
+        marginTop: '40px',
         paddingTop: '13px',
         paddingBottom: '13px',
         paddingLeft: '90px',
