@@ -178,11 +178,11 @@ function LiveRoomComponent() {
         verticalAlign: 'middle',
     };
 
-    nextSongContainer = {
+    const nextSongContainer = {
         marginBottom: 15,
     };
 
-    nextSongButton = {
+    const nextSongButton = {
         fontFamily: "'ChicagoFLF', serif",
         marginTop: '15px',
         paddingTop: '3px',
