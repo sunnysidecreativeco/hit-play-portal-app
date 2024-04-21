@@ -143,6 +143,15 @@ function LiveRoomComponent() {
         paddingLeft: 50,
         paddingTop: 20,
     };
+
+    const mirrorContainer = {
+        float: 'right',
+    };
+
+    const mirrorButton = {
+        paddingRight: 50,
+        paddingTop: 20
+    };
     
     const roomNameContainer = {
         verticalAlign: 'middle', 
@@ -653,6 +662,10 @@ function LiveRoomComponent() {
                     <div style={roomNameContainer}>
                         <p style={roomNameText}>{roomName || "No room assigned"}</p>
                     </div>
+                </div>
+
+                <div style={mirrorContainer}>
+                    <img style={mirrorButton} src="../../images/Mirror-Icon-1.0.jpg" width="50px" alt="" />
                 </div>
 
                 <header class="headercontainer">
