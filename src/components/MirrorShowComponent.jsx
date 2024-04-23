@@ -281,7 +281,7 @@ function MirrorShowComponent() {
 
     const songsInLineStyle = {
         textAlign: 'right',
-        maxWidth: 600,
+        maxWidth: 1200,
         margin: 'auto',
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 14,
@@ -667,8 +667,11 @@ function MirrorShowComponent() {
                 </div>
 
 
-                <div style={bottomColumns}>
+                <div style="">
                     <p style={songsInLineStyle}>Songs in line: {songsInLine}</p>
+                </div>
+
+                <div style={bottomColumns}>
                     <div style={{...childStyle2, ...songList}}>
                         <h3 style={h3SkipPlus}>Skip+</h3>
                         {songsSkipPlus.map(song => (
