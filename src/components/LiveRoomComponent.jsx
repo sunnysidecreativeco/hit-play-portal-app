@@ -146,11 +146,14 @@ function LiveRoomComponent() {
 
     const mirrorContainer = {
         float: 'right',
+        paddingRight: 50,
+        paddingTop: 20
     }; 
 
     const mirrorButton = {
-        paddingRight: 50,
-        paddingTop: 20
+        borderRadius: 7,
+        border: '2px solid #1b1b1b',
+        boxShadow: '3px 3px 0px 0px #1b1b1b', 
     };
     
     const roomNameContainer = {
