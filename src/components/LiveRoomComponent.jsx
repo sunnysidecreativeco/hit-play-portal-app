@@ -635,7 +635,7 @@ function LiveRoomComponent() {
     }
 
     function goToMirror() {
-        window.location.href = '/mirrorshow';
+        window.open('/mirrorshow', '_blank');
     }
 
     return (

@@ -549,86 +549,7 @@ function MirrorShowComponent() {
         }
     };
 
-    const toggleLineStatus = async () => {
-        const userUid = getAuth().currentUser?.uid;
-        if (!userUid) {
-            console.error("User not authenticated");
-            return;
-        }
-        const roomDocRef = doc(db, `liveRooms/${userUid}`);
-        try {
-            await updateDoc(roomDocRef, {
-                lineOpen: !lineOpenStatus // Toggle the current Firestore state based on UI state
-            });
-            setLineOpenStatus(!lineOpenStatus); // Toggle UI state
-        } catch (error) {
-            console.error("Failed to toggle line status:", error);
-        }
-    };
-
-    const goOffAir = async () => {
-        const userUid = getAuth().currentUser?.uid;
-        if (!userUid) {
-            console.log("User not authenticated");
-            return;
-        }
     
-        const roomDocRef = doc(db, `liveRooms/${userUid}`);
-        const upNextRef = collection(db, `liveRooms/${userUid}/upNext`);
-        const nowPlayingRef = collection(db, `liveRooms/${userUid}/nowPlaying`);
-    
-        try {
-            // Update the onAir status and reset creditsEarned to zero
-            await updateDoc(roomDocRef, { onAir: false, creditsEarned: 0 });
-    
-            // Retrieve the current rates from the room document
-            const roomDoc = await getDoc(roomDocRef);
-            if (!roomDoc.exists()) {
-                console.log("Room data not found");
-                return;
-            }
-            const skipRate = roomDoc.data().skipRate;
-            const skipPlusRate = skipRate * 2; // Assuming skipPlusRate is always double the skipRate
-    
-            // Process each upNext entry to refund credits if necessary
-            const upNextEntriesSnapshot = await getDocs(upNextRef);
-            for (const entryDoc of upNextEntriesSnapshot.docs) {
-                const entry = entryDoc.data();
-                let creditsToAdd = 0;
-                if (entry.skip === "true") {
-                    creditsToAdd = entry.skipPlus === "true" ? skipPlusRate : skipRate;
-                }
-    
-                if (creditsToAdd > 0) {
-                    const userRef = doc(db, `users/${entry.artistId}`);
-                    // Fetch current user credits
-                    const userDoc = await getDoc(userRef);
-                    if (userDoc.exists()) {
-                        const currentCredits = userDoc.data().credits || 0;
-                        const newCredits = currentCredits + creditsToAdd;
-                        await updateDoc(userRef, { credits: newCredits });
-                    } else {
-                        console.log("User document does not exist:", entry.artistId);
-                    }
-                }
-    
-                // Delete the entry from upNext after processing
-                await deleteDoc(entryDoc.ref);
-            }
-    
-            // Clear nowPlaying collection
-            const nowPlayingEntriesSnapshot = await getDocs(nowPlayingRef);
-            for (const entryDoc of nowPlayingEntriesSnapshot.docs) {
-                await deleteDoc(entryDoc.ref);
-            }
-    
-            console.log("Go Off Air function completed.");
-            // Redirect to dashboard after processing
-            window.location.href = '/dashboard';
-        } catch (error) {
-            console.error("Failed to go off air:", error);
-        }
-    };
 
     function handleModalOk() {
         window.location.href = '/';
@@ -671,9 +592,6 @@ function MirrorShowComponent() {
                     </div>
                 </div>
 
-                <div style={mirrorContainer}>
-                    <img style={mirrorButton} src="../../images/Mirror-Icon-1.0.jpg" width="50px" alt="" />
-                </div>
 
                 <header class="headercontainer">
                     <img src="../../images/Hit-Play-Logo-1.0.png" width="350px" alt="" />
@@ -733,52 +651,8 @@ function MirrorShowComponent() {
                         )) : <p>No songs currently playing.</p>}
                 </div>
 
-                <div style={nextSongContainer}>
-                    <button style={nextSongButton} class="standardGreenButton" onClick={moveNextSongToNowPlaying}><p>NEXT SONG</p></button>
-                </div>
-
-
 
                 <div style={bottomColumns}>     
-
-                    <div>
-                        <div style={{...childStyle, ...tableStyle}}>
-                            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                                <tbody>
-                                    <tr style={rowStyle}>
-                                        <td style={cellText}>Your room is:</td>
-                                        <td style={cellStyle}>{onAirStatus || "No status available"}</td>
-                                    </tr>
-                                    <tr style={rowStyle}>
-                                        <td style={cellText}>Your line is:</td>
-                                        <td style={cellStyle}>{lineOpenStatus ? "Open" : "Closed"}</td>
-                                    </tr>
-                                    <tr style={rowStyle}>
-                                        <td style={cellText}>Songs in the queue:</td>
-                                        <td style={cellStyle}>{songsInLine}</td>
-                                    </tr>
-                                    <tr style={{ ...rowStyle, borderBottom: 'none' }}>
-                                        <td style={cellText}>Credits this live:</td>
-                                        <td style={cellStyle}>{creditsEarned}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div style="margin-top: 15px;">
-                            <button onClick={toggleLineStatus} style={buttonStyleCloseLine}>
-                                {lineOpenStatus ? "CLOSE THE LINE" : "OPEN THE LINE"}
-                            </button>
-                        </div>
-                        
-                        <div>
-                            <button style={buttonStyleOffAir} onClick={goOffAir}>
-                                GO OFF AIR
-                            </button>
-                        </div>
-
-                    </div>
-
                     <div style={{...childStyle2, ...songList}}>
                         <h3 style={h3SkipPlus}>Skip+</h3>
                         {songsSkipPlus.map(song => (
