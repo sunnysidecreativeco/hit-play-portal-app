@@ -21,7 +21,7 @@ import {
     limit,
 } from "firebase/firestore";
 
-function LiveRoomComponent() {
+function MirrorShowComponent() {
     const [roomName, setRoomName] = useState('');
     const [onAirStatus, setOnAirStatus] = useState(false);
     const [lineOpenStatus, setLineOpenStatus] = useState(false);
@@ -634,7 +634,7 @@ function LiveRoomComponent() {
         window.location.href = '/';
     }
 
-    function goToMirror() {
+    function goToMirro() {
         window.location.href = '/mirrorshow';
     }
 
@@ -671,7 +671,7 @@ function LiveRoomComponent() {
                     </div>
                 </div>
 
-                <div style={mirrorContainer} onClick={goToMirror}>
+                <div style={mirrorContainer}>
                     <img style={mirrorButton} src="../../images/Mirror-Icon-1.0.jpg" width="50px" alt="" />
                 </div>
 
@@ -843,4 +843,4 @@ function LiveRoomComponent() {
     );
 }
 
-export default LiveRoomComponent;
+export default MirrorShowComponent;

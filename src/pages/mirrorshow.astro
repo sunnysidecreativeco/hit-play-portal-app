@@ -1,0 +1,108 @@
+---
+import Layout from '../components/layout.astro';
+import MirrorShowComponent from '../components/MirrorShowComponent.jsx';
+
+---
+
+
+
+
+
+
+<style>
+@font-face {
+  font-family: 'ChicagoFLF';
+  src: url('../../fonts/ChicagoFLF.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'IBMPlexSerif';
+  src: url('../../fonts/ibm-plex-serif.regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+.steps {
+  background: var(--light);
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: min(90vw, 250px);
+  justify-content: center;
+  /* margin-top: 3rem; */
+  padding: 5rem 5vw;
+  width: 100vw;
+}
+
+@media (min-width: 550px) {
+  .steps {
+    grid-template-columns: repeat(2, min(calc(50% - 1rem), 250px));
+  }
+}
+
+@media (min-width: 1050px) {
+  .steps {
+    grid-template-columns: repeat(4, min(calc(25% - 1.5rem), 250px));
+  }
+}
+
+.step {
+  background: var(--white);
+  border: 1px solid var(--lightBorder);
+  border-radius: var(--card-radius);
+  display: flex;
+  flex-direction: column;
+  font-size: 0.75rem;
+  padding: 1rem 1.5rem 1.5rem;
+  text-align: left;
+  box-shadow: 0 2px 4px rgb(14 30 37 / 12%);
+}
+
+.dashboard {
+  background: #b0b9b2;
+}
+
+.stepHeading {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+.headercontainer {
+      padding-top: 25px;
+      padding-bottom: 25px;
+      max-height: 150px;
+      margin: 0 auto;
+      text-align: center;
+      width: min(90vw, 900px);
+      background-color: #b0b9b2;
+    }
+.topContainer{
+    justify-content: 'center';
+    text-align: center;
+}
+.roomButton{
+    border: 5px solid #FFFFFF;
+}
+h1 {
+    font-family: 'ChicagoFLF', sans-serif;
+    text-align: center;
+  }
+
+</style>
+
+
+<Layout>
+  <header class="headercontainer">
+    <img src="/images/Hit-Play-Logo-1.0.png" width="350px" alt="">
+  </header>
+
+  
+    <div class="dashboard" style="width: 100%;">
+        <div class="topContainer">
+
+        <MirrorShowComponent client:load />
+        </div>
+    </div>
+ 
+</Layout>
+
