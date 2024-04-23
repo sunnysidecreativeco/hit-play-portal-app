@@ -283,6 +283,8 @@ function MirrorShowComponent() {
         textAlign: 'right',
         maxWidth: 600,
         margin: 'auto',
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 14,
     };
 
     // Style for each child div to take equal width
