@@ -134,12 +134,12 @@ function MirrorShowComponent() {
     };
     
     const avatarContainer = {
-        float: 'left', 
+        
     };
     
     const avatar = {
-        display: 'inline-block', 
-        verticalAlign: 'middle',
+        display: 'block', 
+        //verticalAlign: 'middle',
         paddingLeft: 50,
         paddingTop: 20,
     };
@@ -157,11 +157,11 @@ function MirrorShowComponent() {
     };
     
     const roomNameContainer = {
-        verticalAlign: 'middle', 
-        display: 'inline-block', 
-        marginLeft: '20px',
+        //verticalAlign: 'middle', 
+        display: 'block', 
+        //marginLeft: '20px',
         width: 150,
-        textAlign: 'left',
+        textAlign: 'center',
     };
 
     const roomNameText = {
@@ -577,8 +577,8 @@ function MirrorShowComponent() {
                     <div style={avatar}>
                         {avatarUrl && <img src={avatarUrl} alt="Host Avatar" 
                             style={{ 
-                                width: '100px', 
-                                height: '100px', 
+                                width: '150px', 
+                                height: '150px', 
                                 borderRadius: '7%', 
                                 boxShadow: '3px 3px 0px 0px #1b1b1b',
                                 border: '2px solid #1b1b1b',
@@ -591,12 +591,6 @@ function MirrorShowComponent() {
                         <p style={roomNameText}>{roomName || "No room assigned"}</p>
                     </div>
                 </div>
-
-
-                <header class="headercontainer">
-                    <img src="../../images/Hit-Play-Logo-1.0.png" width="350px" alt="" />
-                </header>
-
 
 
 
