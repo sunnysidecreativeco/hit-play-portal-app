@@ -169,10 +169,10 @@ function MirrorShowComponent() {
         fontSize: 24,
     };
 
-    const artistContainer ={
+    const artistContainer = {
 
-    }
-    ;
+    };
+
     const artistNameContainer = {
         display: 'inline-block',
         textAlign: 'left',
@@ -269,10 +269,10 @@ function MirrorShowComponent() {
     };
 
     const bottomColumns = {
-        //display: 'flex',          // Use flexbox to position children
+        display: 'flex',          // Use flexbox to position children
         justifyContent: 'center', // Centers the flex container's children
         alignItems: 'flex-start', // Align items to the start of the container, keeping them top-aligned
-        //gap: '50px',              // Gap between the child elements
+        gap: '50px',              // Gap between the child elements
         //padding: '0 10%', 
         marginTop: 75,
         maxWidth: 600,
@@ -295,7 +295,7 @@ function MirrorShowComponent() {
     };
 
     const childStyle2 = {
-        flex: '0 0 30%',  
+        flex: '0 0 25%',  
         minWidth: '0',
     };
 
@@ -687,7 +687,8 @@ function MirrorShowComponent() {
                             </div>
                         ))}
                         {songsSkipPlus.length === 0 && <p>No skip plus songs.</p>}
-
+                    </div>
+                    <div style={{...childStyle2, ...songList}}>
                         <h3 style={h3}>Skip</h3>
                         {songsSkip.map(song => (
                             <div key={song.id} className="song-item" style="display: flex;">
@@ -705,7 +706,8 @@ function MirrorShowComponent() {
                             </div>
                         ))}
                         {songsSkip.length === 0 && <p>No skip songs.</p>}
-
+                    </div>
+                    <div style={{...childStyle2, ...songList}}>
                         <h3 style={h3}>Free</h3>
                         {songs.map(song => (
                             <div key={song.id} className="song-item" style="display: flex;">
