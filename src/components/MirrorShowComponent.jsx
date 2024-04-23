@@ -330,7 +330,7 @@ function MirrorShowComponent() {
     };
 
     const artistNameContainerList = {
-        flex: '0 0 80%',
+        flex: '0 0 90%',
         display: 'inline-block',
         textAlign: 'left',
         verticalAlign: 'middle',
