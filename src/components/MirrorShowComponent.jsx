@@ -103,7 +103,7 @@ function MirrorShowComponent() {
         fontSize: 32,
         textAlign: 'left',
         marginBottom: 5,
-        marginTop: 5,
+        marginTop: 0,
     };
 
     const buttonStyleCloseLine = {
