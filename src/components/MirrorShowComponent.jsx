@@ -276,13 +276,13 @@ function MirrorShowComponent() {
         gap: '50px',              // Gap between the child elements
         //padding: '0 10%', 
         marginTop: 75,
-        maxWidth: 1200,
+        maxWidth: 1450,
         margin: 'auto',
     };
 
     const songsInLineStyle = {
         textAlign: 'right',
-        maxWidth: 1000,
+        maxWidth: 1250,
         margin: 'auto',
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 14,
@@ -334,7 +334,7 @@ function MirrorShowComponent() {
     const songList = {
         border: '3px solid #1b1b1b',  
         boxShadow: '3px 3px 0px 0px #1b1b1b',  
-        maxHeight: '600px',  
+        maxHeight: '800px',  
         overflowY: 'auto',  
         padding: '10px',  
         borderRadius: '20px',
