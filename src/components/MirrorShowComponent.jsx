@@ -277,6 +277,10 @@ function MirrorShowComponent() {
         marginTop: 75,
     };
 
+    const songsInLineStyle = {
+        textAlign: 'right',
+    };
+
     // Style for each child div to take equal width
     const childStyle = {
         flex: '0 0 20%',  
@@ -656,7 +660,8 @@ function MirrorShowComponent() {
                 </div>
 
 
-                <div style={bottomColumns}>     
+                <div style={bottomColumns}>
+                    <p style={songsInLineStyle}>Songs in line: {songsInLine}</p>
                     <div style={{...childStyle2, ...songList}}>
                         <h3 style={h3SkipPlus}>Skip+</h3>
                         {songsSkipPlus.map(song => (
