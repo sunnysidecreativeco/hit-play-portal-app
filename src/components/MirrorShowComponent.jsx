@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'preact/hooks';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { AuthErrorCodes, getAuth, onAuthStateChanged } from 'firebase/auth';
 import { db, auth, storage } from '../../firebase-config';
 import { ref as storageRef, getDownloadURL } from 'firebase/storage';
 import '../styles/styles.css';
@@ -269,16 +269,19 @@ function MirrorShowComponent() {
     };
 
     const bottomColumns = {
-        display: 'flex',          // Use flexbox to position children
+        //display: 'flex',          // Use flexbox to position children
         justifyContent: 'center', // Centers the flex container's children
         alignItems: 'flex-start', // Align items to the start of the container, keeping them top-aligned
-        gap: '50px',              // Gap between the child elements
+        //gap: '50px',              // Gap between the child elements
         //padding: '0 10%', 
         marginTop: 75,
+        maxWidth: 600,
     };
 
     const songsInLineStyle = {
         textAlign: 'right',
+        maxWidth: 600,
+        margin: 'auto',
     };
 
     // Style for each child div to take equal width
