@@ -112,8 +112,8 @@ function LiveRoomComponent() {
         marginTop: '15px',
         paddingTop: '13px',
         paddingBottom: '13px',
-        paddingLeft: '90px',
-        paddingRight: '90px',
+        paddingLeft: '70px',
+        paddingRight: '70px',
         borderRadius: '5px',
         boxShadow: '3px 3px 0px 0px #1b1b1b',  
         border: '2px solid #1b1b1b' 
@@ -315,7 +315,7 @@ function LiveRoomComponent() {
     const songList = {
         border: '3px solid #1b1b1b',  
         boxShadow: '3px 3px 0px 0px #1b1b1b',  
-        maxHeight: '600px',  
+        maxHeight: '500px',  
         overflowY: 'auto',  
         padding: '10px',  
         borderRadius: '20px',

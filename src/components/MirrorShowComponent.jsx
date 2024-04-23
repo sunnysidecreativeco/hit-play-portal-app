@@ -334,7 +334,7 @@ function MirrorShowComponent() {
     const songList = {
         border: '3px solid #1b1b1b',  
         boxShadow: '3px 3px 0px 0px #1b1b1b',  
-        maxHeight: '800px',  
+        maxHeight: '500px',  
         overflowY: 'auto',  
         padding: '10px',  
         borderRadius: '15px',
