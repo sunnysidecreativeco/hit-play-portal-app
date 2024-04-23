@@ -275,7 +275,7 @@ function MirrorShowComponent() {
         gap: '50px',              // Gap between the child elements
         //padding: '0 10%', 
         marginTop: 75,
-        maxWidth: 600,
+        maxWidth: 1200,
         margin: 'auto',
     };
 
