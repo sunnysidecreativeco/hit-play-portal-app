@@ -276,6 +276,7 @@ function MirrorShowComponent() {
         //padding: '0 10%', 
         marginTop: 75,
         maxWidth: 600,
+        margin: 'auto',
     };
 
     const songsInLineStyle = {
