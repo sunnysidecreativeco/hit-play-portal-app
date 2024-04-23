@@ -282,7 +282,7 @@ function MirrorShowComponent() {
 
     const songsInLineStyle = {
         textAlign: 'right',
-        maxWidth: 1250,
+        maxWidth: 1200,
         margin: 'auto',
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 14,
@@ -337,7 +337,7 @@ function MirrorShowComponent() {
         maxHeight: '800px',  
         overflowY: 'auto',  
         padding: '10px',  
-        borderRadius: '20px',
+        borderRadius: '15px',
         textAlign: 'left'
     };
 
