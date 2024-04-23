@@ -92,7 +92,7 @@ function MirrorShowComponent() {
 
     const h3 = {
         fontFamily: "'ChicagoFLF', serif",
-        fontSize: 28,
+        fontSize: 32,
         textAlign: 'left',
         marginBottom: 5,
         marginTop: 0,
@@ -100,7 +100,7 @@ function MirrorShowComponent() {
 
     const h3SkipPlus = {
         fontFamily: "'ChicagoFLF', serif",
-        fontSize: 24,
+        fontSize: 32,
         textAlign: 'left',
         marginBottom: 5,
         marginTop: 5,
