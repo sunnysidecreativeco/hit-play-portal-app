@@ -134,13 +134,13 @@ function MirrorShowComponent() {
     };
     
     const avatarContainer = {
-        
+        textAlign: 'center',
     };
     
     const avatar = {
         display: 'block', 
         //verticalAlign: 'middle',
-        paddingLeft: 50,
+        //paddingLeft: 50,
         paddingTop: 20,
     };
 
@@ -160,13 +160,13 @@ function MirrorShowComponent() {
         //verticalAlign: 'middle', 
         display: 'block', 
         //marginLeft: '20px',
-        width: 150,
+        //width: 150,
         textAlign: 'center',
     };
 
     const roomNameText = {
         fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 18,
+        fontSize: 24,
     };
 
     const artistContainer ={
@@ -594,7 +594,7 @@ function MirrorShowComponent() {
 
 
 
-                <div style="text-align: center;">
+                <div style="text-align: center; padding-top: 25px">
                     <h2 style={h2}>Now Playing</h2>
                 </div>
 
