@@ -95,6 +95,7 @@ function MirrorShowComponent() {
         fontSize: 28,
         textAlign: 'left',
         marginBottom: 5,
+        marginTop: 0,
     };
 
     const h3SkipPlus = {
@@ -341,7 +342,7 @@ function MirrorShowComponent() {
     };
 
     const artistNameContainerList = {
-        flex: '0 0 90%',
+        flex: '0 0 70%',
         display: 'inline-block',
         textAlign: 'left',
         verticalAlign: 'middle',
@@ -667,7 +668,7 @@ function MirrorShowComponent() {
                 </div>
 
 
-                <div style="">
+                <div style="paddingRight: 200px;">
                     <p style={songsInLineStyle}>Songs in line: {songsInLine}</p>
                 </div>
 
