@@ -141,7 +141,7 @@ function MirrorShowComponent() {
         display: 'block', 
         //verticalAlign: 'middle',
         //paddingLeft: 50,
-        paddingTop: 20,
+        //paddingTop: 20,
     };
 
     const mirrorContainer = {
@@ -273,7 +273,7 @@ function MirrorShowComponent() {
         justifyContent: 'center', // Centers the flex container's children
         alignItems: 'flex-start', // Align items to the start of the container, keeping them top-aligned
         gap: '50px',              // Gap between the child elements
-        padding: '0 10%', 
+        //padding: '0 10%', 
         marginTop: 75,
     };
 
@@ -602,7 +602,7 @@ function MirrorShowComponent() {
 
 
                     <div style={childStyle}>
-                        <div style="text-align: center; padding-top: 25px">
+                        <div style="text-align: center; padding-top: 50px">
                             <h2 style={h2}>Now Playing</h2>
                         </div>
 
