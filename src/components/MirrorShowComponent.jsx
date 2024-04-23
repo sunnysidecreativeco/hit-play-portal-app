@@ -92,7 +92,7 @@ function MirrorShowComponent() {
 
     const h3 = {
         fontFamily: "'ChicagoFLF', serif",
-        fontSize: 24,
+        fontSize: 28,
         textAlign: 'left',
         marginBottom: 5,
     };
@@ -182,7 +182,7 @@ function MirrorShowComponent() {
 
     const artistNameText = {
         fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 18,
+        fontSize: 22,
         display: 'inline-block',
         marginTop: '0px',
         textAlign: 'left',
@@ -190,14 +190,14 @@ function MirrorShowComponent() {
 
     const songNameText = {
         fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 22,
+        fontSize: 26,
         marginBottom: '0px',
         textAlign: 'left',
     };
 
     const artistNameTextList = {
         fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 16,
+        fontSize: 20,
         display: 'inline-block',
         marginTop: '0px',
         marginBottom: '0px',
@@ -206,7 +206,7 @@ function MirrorShowComponent() {
 
     const songNameTextList = {
         fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 22,
+        fontSize: 26,
         marginTop: '0px',
         marginBottom: '0px',
         textAlign: 'left',
