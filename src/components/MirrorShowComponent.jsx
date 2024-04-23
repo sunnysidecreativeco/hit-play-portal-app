@@ -265,7 +265,7 @@ function MirrorShowComponent() {
         alignItems: 'flex-start', // Align items to the start of the container, keeping them top-aligned
         gap: '50px',              // Gap between the child elements
         padding: '0 10%', 
-        marginTop: 75,
+        marginTop: 50,
     };
 
     const bottomColumns = {
@@ -285,6 +285,7 @@ function MirrorShowComponent() {
         margin: 'auto',
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 14,
+        paddingBottom: 3,
     };
 
     // Style for each child div to take equal width
