@@ -259,7 +259,14 @@ function MirrorShowComponent() {
         border: '2px solid #1b1b1b' 
     };
     
-
+    const topColumns = {
+        display: 'flex',          // Use flexbox to position children
+        justifyContent: 'center', // Centers the flex container's children
+        alignItems: 'flex-start', // Align items to the start of the container, keeping them top-aligned
+        gap: '50px',              // Gap between the child elements
+        padding: '0 10%', 
+        marginTop: 75,
+    };
 
     const bottomColumns = {
         display: 'flex',          // Use flexbox to position children
@@ -573,76 +580,79 @@ function MirrorShowComponent() {
 
 
             <div>
-                <div style={avatarContainer}>
-                    <div style={avatar}>
-                        {avatarUrl && <img src={avatarUrl} alt="Host Avatar" 
-                            style={{ 
-                                width: '150px', 
-                                height: '150px', 
-                                borderRadius: '7%', 
-                                boxShadow: '3px 3px 0px 0px #1b1b1b',
-                                border: '2px solid #1b1b1b',
-                                margin: '20px auto', 
-                                display: 'block' 
-                                }} 
-                        />}
+                <div style={topColumns}>
+                    <div style={{...childStyle, ...avatarContainer}}>
+                        <div style={avatar}>
+                            {avatarUrl && <img src={avatarUrl} alt="Host Avatar" 
+                                style={{ 
+                                    width: '150px', 
+                                    height: '150px', 
+                                    borderRadius: '7%', 
+                                    boxShadow: '3px 3px 0px 0px #1b1b1b',
+                                    border: '2px solid #1b1b1b',
+                                    margin: '20px auto', 
+                                    display: 'block' 
+                                    }} 
+                            />}
+                        </div>
+                        <div style={roomNameContainer}>
+                            <p style={roomNameText}>{roomName || "No room assigned"}</p>
+                        </div>
                     </div>
-                    <div style={roomNameContainer}>
-                        <p style={roomNameText}>{roomName || "No room assigned"}</p>
+
+
+                    <div style={childStyle}>
+                        <div style="text-align: center; padding-top: 25px">
+                            <h2 style={h2}>Now Playing</h2>
+                        </div>
+
+
+                        <div>
+                            {nowPlaying.length > 0 ? nowPlaying.map(song => (
+                                    <div key={song.id} className="song-item">
+
+                                        <div style={artistContainer}>
+                                            <div style={artistNameContainer}>
+                                                <p style={songNameText}>{song.songName}</p> 
+                                                <p style={artistNameText}>{song.artistName}</p>
+                                            </div>
+                                            <div style={spotifyButton}>
+                                                {song.songLink && ( // Comment: Displaying Spotify link
+                                                        <a href={song.songLink} target="_blank" rel="noopener noreferrer">
+                                                            <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={spotifyIcon} />
+                                                        </a>
+                                                    )}
+                                            </div>
+                                        </div>
+
+
+                                        <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleLoadedMetadata} onEnded={() => setIsPlaying(false)} />
+                                        <div>
+                                            <div style={playButton}>
+                                                <button onClick={togglePlay} style={{ border: 'none', background: 'none', padding: 0 }}>
+                                                    {isPlaying 
+                                                        ? <img src="../../images/Pause-Icon-1.0.png" alt="Pause" style={{ width: '40px', height: '40px', marginBottom: '-16px', }} />
+                                                        : <img src="../../images/Play-Icon-1.0.png" alt="Play" style={{ width: '40px', height: '40px', marginBottom: '-16px', }} />
+                                                    }
+                                                </button>
+                                            </div>
+                                            <div style={inputRange}>
+                                                <input type="range" min="0" max={duration || 1} value={currentTime} onChange={(e) => {
+                                                    audioRef.current.currentTime = e.target.value;
+                                                    setCurrentTime(e.target.value);
+                                                }} />
+                                            </div>
+                                            <div style={songDuration}>
+                                                <span>{Math.floor(currentTime / 60)}:{('0' + Math.floor(currentTime % 60)).slice(-2)}</span>
+                                                <span> / </span>
+                                                <span>{Math.floor(duration / 60)}:{('0' + Math.floor(duration % 60)).slice(-2)}</span>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                )) : <p>No songs currently playing.</p>}
+                        </div>
                     </div>
-                </div>
-
-
-
-                <div style="text-align: center; padding-top: 25px">
-                    <h2 style={h2}>Now Playing</h2>
-                </div>
-
-
-                <div>
-                    {nowPlaying.length > 0 ? nowPlaying.map(song => (
-                            <div key={song.id} className="song-item">
-
-                                <div style={artistContainer}>
-                                    <div style={artistNameContainer}>
-                                        <p style={songNameText}>{song.songName}</p> 
-                                        <p style={artistNameText}>{song.artistName}</p>
-                                    </div>
-                                    <div style={spotifyButton}>
-                                        {song.songLink && ( // Comment: Displaying Spotify link
-                                                <a href={song.songLink} target="_blank" rel="noopener noreferrer">
-                                                    <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={spotifyIcon} />
-                                                </a>
-                                            )}
-                                    </div>
-                                </div>
-
-
-                                <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleLoadedMetadata} onEnded={() => setIsPlaying(false)} />
-                                <div>
-                                    <div style={playButton}>
-                                        <button onClick={togglePlay} style={{ border: 'none', background: 'none', padding: 0 }}>
-                                            {isPlaying 
-                                                ? <img src="../../images/Pause-Icon-1.0.png" alt="Pause" style={{ width: '40px', height: '40px', marginBottom: '-16px', }} />
-                                                : <img src="../../images/Play-Icon-1.0.png" alt="Play" style={{ width: '40px', height: '40px', marginBottom: '-16px', }} />
-                                            }
-                                        </button>
-                                    </div>
-                                    <div style={inputRange}>
-                                        <input type="range" min="0" max={duration || 1} value={currentTime} onChange={(e) => {
-                                            audioRef.current.currentTime = e.target.value;
-                                            setCurrentTime(e.target.value);
-                                        }} />
-                                    </div>
-                                    <div style={songDuration}>
-                                        <span>{Math.floor(currentTime / 60)}:{('0' + Math.floor(currentTime % 60)).slice(-2)}</span>
-                                        <span> / </span>
-                                        <span>{Math.floor(duration / 60)}:{('0' + Math.floor(duration % 60)).slice(-2)}</span>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        )) : <p>No songs currently playing.</p>}
                 </div>
 
 
