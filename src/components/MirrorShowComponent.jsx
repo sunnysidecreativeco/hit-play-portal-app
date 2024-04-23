@@ -282,7 +282,7 @@ function MirrorShowComponent() {
 
     const songsInLineStyle = {
         textAlign: 'right',
-        maxWidth: 1200,
+        maxWidth: 1000,
         margin: 'auto',
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 14,
@@ -342,7 +342,7 @@ function MirrorShowComponent() {
     };
 
     const artistNameContainerList = {
-        flex: '0 0 70%',
+        flex: '0 0 85%',
         display: 'inline-block',
         textAlign: 'left',
         verticalAlign: 'middle',
