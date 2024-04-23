@@ -146,7 +146,7 @@ function LiveRoomComponent() {
 
     const mirrorContainer = {
         float: 'right',
-    };
+    }; 
 
     const mirrorButton = {
         paddingRight: 50,
