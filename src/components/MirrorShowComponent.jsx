@@ -397,10 +397,16 @@ function MirrorShowComponent() {
                 const unsubscribeRoomDoc = onSnapshot(roomDocRef, docSnap => {
                     if (docSnap.exists()) {
                         const roomData = docSnap.data();
+                        const skipPlusRateTemp = roomData.skipRate;
+                        const skipPlusRateVar = skipPlusRateTemp * 2;
+                        console.log('the skip plus rate is', skipPlusRateVar);
                         setRoomName(roomData.roomName);
                         setOnAirStatus(roomData.onAir ? "On Air" : "Off Air");
                         setLineOpenStatus(roomData.lineOpen);
                         setCreditsEarned(roomData.creditsEarned || 0);
+                        setSkipRate(roomData.skipRate)
+                        setSkipPlusRate(skipPlusRateVar);
+                        
                     } else {
                         console.log("No such room document!");
                         setRoomName('');
@@ -575,6 +581,8 @@ function MirrorShowComponent() {
 
                 <div style="paddingRight: 200px;">
                     <p style={songsInLineStyle}>Songs in line: {songsInLine}</p>
+                    <p style={songsInLineStyle}>Skip: {skipRate}</p>
+                    <p style={songsInLineStyle}>Skip+: {skipPlusRate}</p>
                 </div>
 
                 <div style={bottomColumns}>
