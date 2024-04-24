@@ -185,9 +185,9 @@ function HostDashboardComponent() {
                     <p style={labelInfo}>{roomName}</p> {/* Display the room name */}
                 </div>
                 <div>
-                    <p style={labels}>Earnings: ${earnings !== null ? earnings : earningsLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
-                    <p style={labels}>Total Earnings: ${earningsTotal !== null ? earningsTotal : earningsTotalLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
-                    <p style={labels}>Songs Reviewed: {songsReviewedTotal !== null ? songsReviewedTotal : songsReviewedLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
+                    <p style={labels}>Earnings to be paid: ${earnings !== null ? earnings : earningsLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
+                    <p style={labels}>Total earnings: ${earningsTotal !== null ? earningsTotal : earningsTotalLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
+                    <p style={labels}>Songs reviewed: {songsReviewedTotal !== null ? songsReviewedTotal : songsReviewedLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
                 </div>
                 <div style="margin-top: 20px">
                     <button style={buttonStyle} onClick={handleGoLive}><p>GO LIVE</p></button>
