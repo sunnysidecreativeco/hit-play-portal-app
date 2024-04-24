@@ -782,7 +782,7 @@ function LiveRoomComponent() {
                                     
                                 </div>
                             </div>
-                        )) : <p>No songs currently playing.</p>}
+                        )) : <p style={noSongsStyle}>No songs currently playing.</p>}
                 </div>
 
                 <div style={nextSongContainer}>

@@ -567,7 +567,7 @@ function MirrorShowComponent() {
 
                                         
                                     </div>
-                                )) : <p>No songs currently playing.</p>}
+                                )) : <p style={noSongsStyle}>No songs currently playing.</p>}
                         </div>
                     </div>
                 </div>
