@@ -361,10 +361,10 @@ function MirrorShowComponent() {
         left: 0,
         bottom: 0,
         position: 'fixed',
-        width: '150px',
+        width: '200px',
     };
 
-    const downloadImage = {
+    const downloadImage = { 
         width: '100%',
         height: 'auto',
     };

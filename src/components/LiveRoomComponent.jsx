@@ -144,6 +144,12 @@ function LiveRoomComponent() {
         paddingTop: 20,
     };
 
+    const backToDashboard = {
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 14,
+        textDecoration: 'underline',
+    };
+
     const mirrorContainer = {
         float: 'right',
         paddingRight: 50,
@@ -171,8 +177,8 @@ function LiveRoomComponent() {
 
     const artistContainer ={
 
-    }
-    ;
+    };
+    
     const artistNameContainer = {
         display: 'inline-block',
         textAlign: 'left',
@@ -668,6 +674,7 @@ function LiveRoomComponent() {
                     </div>
                     <div style={roomNameContainer}>
                         <p style={roomNameText}>{roomName || "No room assigned"}</p>
+                        <p style={backToDashboard}>Dashboard</p>
                     </div>
                 </div>
 
