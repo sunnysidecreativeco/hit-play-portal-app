@@ -268,6 +268,7 @@ function MirrorShowComponent() {
         gap: '50px',              // Gap between the child elements
         padding: '0 10%', 
         marginTop: 50,
+        marginBottom: 25,
     };
 
     const bottomColumns = {
@@ -283,9 +284,9 @@ function MirrorShowComponent() {
 
     const songsInLineStyle = {
         textAlign: 'right',
-        maxWidth: 1200,
+        maxWidth: 1190,
         margin: 'auto',
-        marginBottom: '-26px',
+        marginBottom: '-60px',
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 18,
         paddingBottom: 3,
@@ -293,7 +294,7 @@ function MirrorShowComponent() {
 
     const skipCostStyle = {
         textAlign: 'left',
-        maxWidth: 1200,
+        maxWidth: 1185,
         margin: 'auto',
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 18,
