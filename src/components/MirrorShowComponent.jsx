@@ -358,9 +358,10 @@ function MirrorShowComponent() {
     };
 
     const downloadContainer = {
-        float: 'left',
+        left: 0,
+        bottom: 0,
         position: 'fixed',
-        width: '100px',
+        width: '150px',
     };
 
     const downloadImage = {
