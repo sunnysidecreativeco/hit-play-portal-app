@@ -647,6 +647,10 @@ function LiveRoomComponent() {
         window.open('/mirrorshow', '_blank');
     }
 
+    function goToDashboard() {
+        window.location.href = '/dashboard';
+    }
+
     return (
         <div>
             {showModal && (
@@ -677,7 +681,7 @@ function LiveRoomComponent() {
                     </div>
                     <div style={roomNameContainer}>
                         <p style={roomNameText}>{roomName || "No room assigned"}</p>
-                        <p style={backToDashboard}>Dashboard</p>
+                        <p style={backToDashboard} onclick={goToDashboard}>Dashboard</p>
                     </div>
                 </div>
 
