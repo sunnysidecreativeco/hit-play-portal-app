@@ -85,7 +85,7 @@ function MirrorShowComponent() {
     //Styles
     const h2 = {
         fontFamily: "'ChicagoFLF', serif",
-        fontSize: 30,
+        fontSize: 32,
         marginTop: 10,
         marginBottom: 10,
     };
@@ -176,24 +176,24 @@ function MirrorShowComponent() {
 
     const artistNameContainer = {
         display: 'inline-block',
-        textAlign: 'left',
+        // textAlign: 'left',
         verticalAlign: 'middle',
-        paddingRight: 25,
+        // paddingRight: 25,
     };
 
     const artistNameText = {
         fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 22,
+        fontSize: 26,
         display: 'inline-block',
         marginTop: '0px',
-        textAlign: 'left',
+        textAlign: 'center',
     };
 
     const songNameText = {
         fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 26,
+        fontSize: 30,
         marginBottom: '0px',
-        textAlign: 'left',
+        textAlign: 'center',
     };
 
     const artistNameTextList = {
