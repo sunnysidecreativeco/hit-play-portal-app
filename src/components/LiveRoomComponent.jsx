@@ -668,7 +668,7 @@ function LiveRoomComponent() {
                     boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
                     zIndex: 1001,
                 }}>
-                    <p>Are you sure you want to go off air? All artists who spent skip credits will have their credits returned. All lines will be emptied.</p>
+                    <p>Are you sure you want to go off air? <br />All artists who spent skip credits will have their credits returned. All lines will be emptied.</p>
                     <button onClick={onConfirm} style={{ marginRight: '10px' }}>Go Off Air</button>
                     <button onClick={onClose}>Cancel</button>
                 </div>
@@ -836,12 +836,6 @@ function LiveRoomComponent() {
                             )}
                             {/* Other UI elements */}
                             <button style={buttonStyleOffAir} onClick={() => setShowOffAirModal(true)}>GO OFF AIR</button>
-                        </div>
-
-                        <div>
-                            <button style={buttonStyleOffAir} onClick={goOffAir}>
-                                GO OFF AIR
-                            </button>
                         </div>
 
                     </div>
