@@ -647,7 +647,7 @@ function LiveRoomComponent() {
     };
 
 
-    function OffAirModal({ onClose, onConfirm }) {
+    function OffAirModal({ onClose, goOffAir }) {
         return (
             <div style={{
                 position: 'fixed',
@@ -669,7 +669,7 @@ function LiveRoomComponent() {
                     zIndex: 1001,
                 }}>
                     <p>Are you sure you want to go off air? <br />All artists who spent skip credits will have their credits returned. All lines will be emptied.</p>
-                    <button onClick={onConfirm} style={{ marginRight: '10px' }}>Go Off Air</button>
+                    <button onClick={goOffAir} style={{ marginRight: '10px' }}>Go Off Air</button>
                     <button onClick={onClose}>Cancel</button>
                 </div>
             </div>
