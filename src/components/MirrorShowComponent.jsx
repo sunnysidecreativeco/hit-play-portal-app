@@ -285,8 +285,18 @@ function MirrorShowComponent() {
         textAlign: 'right',
         maxWidth: 1200,
         margin: 'auto',
+        marginBottom: '-26px',
         fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 14,
+        fontSize: 18,
+        paddingBottom: 3,
+    };
+
+    const skipCostStyle = {
+        textAlign: 'left',
+        maxWidth: 1200,
+        margin: 'auto',
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 18,
         paddingBottom: 3,
     };
 
@@ -581,8 +591,8 @@ function MirrorShowComponent() {
 
                 <div style="paddingRight: 200px;">
                     <p style={songsInLineStyle}>Songs in line: {songsInLine}</p>
-                    <p style={songsInLineStyle}>Skip: {skipRate}</p>
-                    <p style={songsInLineStyle}>Skip+: {skipPlusRate}</p>
+                    <p style={skipCostStyle}>Skip: {skipRate} credits</p>
+                    <p style={skipCostStyle}>Skip+: {skipPlusRate} credits</p>
                 </div>
 
                 <div style={bottomColumns}>
