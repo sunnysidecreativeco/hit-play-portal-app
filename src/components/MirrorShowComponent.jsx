@@ -192,6 +192,7 @@ function MirrorShowComponent() {
     const songNameText = {
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 30,
+        marginTop: '10px',
         marginBottom: '0px',
         textAlign: 'center',
     };
