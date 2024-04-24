@@ -149,6 +149,7 @@ function LiveRoomComponent() {
         fontSize: 14,
         textDecoration: 'underline',
         marginTop: '5px',
+        cursor: 'pointer'
     };
 
     const mirrorContainer = {
