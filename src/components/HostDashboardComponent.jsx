@@ -14,6 +14,8 @@ function HostDashboardComponent() {
     const [earningsLoading, setEarningsLoading] = useState(true);
     const [earningsTotal, setEarningsTotal] = useState(null);
     const [earningsTotalLoading, setEarningsTotalLoading] = useState(true);
+    const [songsReviewedTotal, setSongsReviewedTotal] = useState(null);
+    const [songsReviewedLoading, setSongsReviewedLoading] = useState(null);
     const [showModal, setShowModal] = useState(false); // State to control modal visibility
 
     
@@ -70,6 +72,8 @@ function HostDashboardComponent() {
                         setEarningsLoading(false);
                         setEarningsTotal(userData.earningsTotal);
                         setEarningsTotalLoading(false);
+                        setSongsReviewedTotal(userData.songsReviewed);
+                        setSongsReviewedLoading(false);
                         //Get room image
                         const avatarPath = `avatars/${user.uid}/profile-image`;
                         const avatarRef = storageRef(storage, avatarPath);
@@ -183,6 +187,7 @@ function HostDashboardComponent() {
                 <div>
                     <p style={labels}>Earnings: ${earnings !== null ? earnings : earningsLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
                     <p style={labels}>Total Earnings: ${earningsTotal !== null ? earningsTotal : earningsTotalLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
+                    <p style={labels}>Songs Reviewed: {songsReviewedTotal !== null ? songsReviewedTotal : songsReviewedLoading && <img src="/images/loading.gif" width="20px" alt="Loading..."/>}</p>
                 </div>
                 <div style="margin-top: 20px">
                     <button style={buttonStyle} onClick={handleGoLive}><p>GO LIVE</p></button>
