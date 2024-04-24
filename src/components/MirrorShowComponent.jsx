@@ -356,6 +356,17 @@ function MirrorShowComponent() {
         verticalAlign: 'middle',
         textAlign: 'right',
     };
+
+    const downloadContainer = {
+        float: 'left',
+        position: 'fixed',
+        width: '100px',
+    };
+
+    const downloadImage = {
+        width: '100%',
+        height: 'auto',
+    };
     
 
 
@@ -706,6 +717,13 @@ function MirrorShowComponent() {
 
 
                 </div> 
+
+
+                <div style={downloadContainer}>
+                    <img style={downloadImage} src="../../images/Download-App-1.0.png" width="50px" alt="" />
+                </div>
+
+
             </div>
         </div>
     );
