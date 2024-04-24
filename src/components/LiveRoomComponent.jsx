@@ -346,6 +346,11 @@ function LiveRoomComponent() {
         verticalAlign: 'middle',
         textAlign: 'right',
     };
+
+    const noSongsStyle = {
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 18,
+    }
     
 
 
@@ -811,7 +816,7 @@ function LiveRoomComponent() {
                                 </div>
                             </div>
                         ))}
-                        {songsSkipPlus.length === 0 && <p>No skip plus songs.</p>}
+                        {songsSkipPlus.length === 0 && <p style={noSongsStyle}>No skip plus songs.</p>}
 
                         <h3 style={h3}>Skip</h3>
                         {songsSkip.map(song => (
@@ -829,7 +834,7 @@ function LiveRoomComponent() {
                                 </div>
                             </div>
                         ))}
-                        {songsSkip.length === 0 && <p>No skip songs.</p>}
+                        {songsSkip.length === 0 && <p style={noSongsStyle}>No skip songs.</p>}
 
                         <h3 style={h3}>Free</h3>
                         {songs.map(song => (
@@ -847,7 +852,7 @@ function LiveRoomComponent() {
                                 </div>
                             </div>
                         ))}
-                        {songs.length === 0 && <p>No regular songs queued.</p>}
+                        {songs.length === 0 && <p style={noSongsStyle}>No regular songs queued.</p>}
                     </div>
 
 

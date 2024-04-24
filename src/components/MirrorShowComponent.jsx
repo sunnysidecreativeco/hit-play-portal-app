@@ -368,6 +368,11 @@ function MirrorShowComponent() {
         width: '100%',
         height: 'auto',
     };
+
+    const noSongsStyle = {
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 18,
+    }
     
 
 
@@ -674,7 +679,7 @@ function MirrorShowComponent() {
                                 </div>
                             </div>
                         ))}
-                        {songsSkipPlus.length === 0 && <p>No skip plus songs.</p>}
+                        {songsSkipPlus.length === 0 && <p style={noSongsStyle}>No skip plus songs.</p>}
                     </div>
                     <div style={{...childStyle2, ...songList}}>
                         <h3 style={h3}>Skip</h3>
@@ -693,7 +698,7 @@ function MirrorShowComponent() {
                                 </div>
                             </div>
                         ))}
-                        {songsSkip.length === 0 && <p>No skip songs.</p>}
+                        {songsSkip.length === 0 && <p style={noSongsStyle}>No skip songs.</p>}
                     </div>
                     <div style={{...childStyle2, ...songList}}>
                         <h3 style={h3}>Free</h3>
@@ -712,7 +717,7 @@ function MirrorShowComponent() {
                                 </div>
                             </div>
                         ))}
-                        {songs.length === 0 && <p>No regular songs queued.</p>}
+                        {songs.length === 0 && <p style={noSongsStyle}>No regular songs queued.</p>}
                     </div>
 
 
