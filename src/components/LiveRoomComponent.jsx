@@ -842,58 +842,67 @@ function LiveRoomComponent() {
 
                     <div style={{...childStyle2, ...songList}}>
                         <h3 style={h3SkipPlus}>Skip+</h3>
-                        {songsSkipPlus.map(song => (
-                            <div key={song.id} className="song-item" style="display: flex;">
-                                <div style={artistNameContainerList}>
-                                    <p style={songNameTextList}>{song.songName}</p> 
-                                    <p style={artistNameTextList}>{song.artistName}</p>
-                                </div>
-                                <div style={spotifyButtonList}>
-                                    {song.songLink && ( // Comment: Displaying Spotify link
-                                        <a href={song.songLink} target="_blank" rel="noopener noreferrer">
-                                            <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px', marginBottom: '-25px' }} />
-                                        </a>
-                                    )}
-                                </div>
-                            </div>
-                        ))}
-                        {songsSkipPlus.length === 0 && <p style={noSongsStyle}>No skip plus songs.</p>}
+                            {songsSkipPlus.length > 0 ? (
+                                songsSkipPlus.map(song => (
+                                    <div key={song.id} className="song-item" style={{ display: 'flex' }}>
+                                        <div style={artistNameContainerList}>
+                                            <p style={songNameTextList}>{song.songName}</p> 
+                                            <p style={artistNameTextList}>{song.artistName}</p>
+                                        </div>
+                                        <div style={spotifyButtonList}>
+                                            {song.songLink && (
+                                                <a href={song.songLink} target="_blank" rel="noopener noreferrer">
+                                                    <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px', marginBottom: '-25px' }} />
+                                                </a>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <p style={noSongsStyle}>No skip plus songs.</p>
+                            )}
 
                         <h3 style={h3}>Skip</h3>
-                        {songsSkip.map(song => (
-                            <div key={song.id} className="song-item" style="display: flex;">
-                                <div style={artistNameContainerList}>
-                                    <p style={songNameTextList}>{song.songName}</p> 
-                                    <p style={artistNameTextList}>{song.artistName}</p>
-                                </div>
-                                <div style={spotifyButtonList}>
-                                    {song.songLink && ( // Comment: Displaying Spotify link
-                                        <a href={song.songLink} target="_blank" rel="noopener noreferrer">
-                                            <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px', marginBottom: '-25px' }} />
-                                        </a>
-                                    )}
-                                </div>
-                            </div>
-                        ))}
-                        {songsSkip.length === 0 && <p style={noSongsStyle}>No skip songs.</p>}
+                            {songsSkip.length > 0 ? (
+                                songsSkip.map(song => (
+                                    <div key={song.id} className="song-item" style={{ display: 'flex' }}>
+                                        <div style={artistNameContainerList}>
+                                            <p style={songNameTextList}>{song.songName}</p> 
+                                            <p style={artistNameTextList}>{song.artistName}</p>
+                                        </div>
+                                        <div style={spotifyButtonList}>
+                                            {song.songLink && (
+                                                <a href={song.songLink} target="_blank" rel="noopener noreferrer">
+                                                    <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px', marginBottom: '-25px' }} />
+                                                </a>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <p style={noSongsStyle}>No skip songs.</p>
+                            )}
 
                         <h3 style={h3}>Free</h3>
-                        {songs.map(song => (
-                            <div key={song.id} className="song-item" style="display: flex;">
-                                <div style={artistNameContainerList}>
-                                    <p style={songNameTextList}>{song.songName}</p> 
-                                    <p style={artistNameTextList}>{song.artistName}</p>
-                                </div>
-                                <div style={spotifyButtonList}>
-                                    {song.songLink && ( // Comment: Displaying Spotify link
-                                        <a href={song.songLink} target="_blank" rel="noopener noreferrer">
-                                            <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px', marginBottom: '-25px' }} />
-                                        </a>
-                                    )}
-                                </div>
-                            </div>
-                        ))}
-                        {songs.length === 0 && <p style={noSongsStyle}>No regular songs queued.</p>}
+                            {songs.length > 0 ? (
+                                songs.map(song => (
+                                    <div key={song.id} className="song-item" style={{ display: 'flex' }}>
+                                        <div style={artistNameContainerList}>
+                                            <p style={songNameTextList}>{song.songName}</p> 
+                                            <p style={artistNameTextList}>{song.artistName}</p>
+                                        </div>
+                                        <div style={spotifyButtonList}>
+                                            {song.songLink && (
+                                                <a href={song.songLink} target="_blank" rel="noopener noreferrer">
+                                                    <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px', marginBottom: '-25px' }} />
+                                                </a>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <p style={noSongsStyle}>No regular songs queued.</p>
+                            )}
                     </div>
 
 
