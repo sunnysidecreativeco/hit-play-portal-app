@@ -36,6 +36,7 @@ function LiveRoomComponent() {
     const [songsSkip, setSongsSkip] = useState([]);
     const [songsSkipPlus, setSongsSkipPlus] = useState([]);
     const [avatarUrl, setAvatarUrl] = useState('');
+    const [showOffAirModal, setShowOffAirModal] = useState(false);
 
     
     const [refresh, setRefresh] = useState(true);
@@ -645,6 +646,37 @@ function LiveRoomComponent() {
         }
     };
 
+
+    function OffAirModal({ onClose, onConfirm }) {
+        return (
+            <div style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'rgba(0,0,0,0.5)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 1000, // Ensure it's on top
+            }}>
+                <div style={{
+                    backgroundColor: 'white',
+                    padding: '20px',
+                    borderRadius: '5px',
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                    zIndex: 1001,
+                }}>
+                    <p>Are you sure you want to go off air? All artists who spent skip credits will have their credits returned. All lines will be emptied.</p>
+                    <button onClick={onConfirm} style={{ marginRight: '10px' }}>Go Off Air</button>
+                    <button onClick={onClose}>Cancel</button>
+                </div>
+            </div>
+        );
+    }
+
+
     function handleModalOk() {
         window.location.href = '/';
     }
@@ -791,6 +823,21 @@ function LiveRoomComponent() {
                             </button>
                         </div>
                         
+
+                        <div>
+                            {showOffAirModal && (
+                                <OffAirModal
+                                    onClose={() => setShowOffAirModal(false)}
+                                    onConfirm={() => {
+                                        goOffAir();
+                                        setShowOffAirModal(false);
+                                    }}
+                                />
+                            )}
+                            {/* Other UI elements */}
+                            <button style={buttonStyleOffAir} onClick={() => setShowOffAirModal(true)}>GO OFF AIR</button>
+                        </div>
+
                         <div>
                             <button style={buttonStyleOffAir} onClick={goOffAir}>
                                 GO OFF AIR
