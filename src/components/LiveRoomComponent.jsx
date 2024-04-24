@@ -148,6 +148,7 @@ function LiveRoomComponent() {
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 14,
         textDecoration: 'underline',
+        marginTop: '5px',
     };
 
     const mirrorContainer = {
@@ -173,12 +174,14 @@ function LiveRoomComponent() {
     const roomNameText = {
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 18,
+        marginTop: '25px',
+        marginBottom: '5px',
     };
 
     const artistContainer ={
 
     };
-    
+
     const artistNameContainer = {
         display: 'inline-block',
         textAlign: 'left',
