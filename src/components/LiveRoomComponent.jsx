@@ -728,7 +728,7 @@ function LiveRoomComponent() {
                 </div>
 
                 <header class="headercontainer">
-                    <img src="../../images/Hit-Play-Logo-1.0.png" width="350px" alt="" />
+                    <img src="../../images/Control-Center-Logo-1.0.png" width="350px" alt="" />
                 </header>
 
 
