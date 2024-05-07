@@ -762,9 +762,7 @@ function LiveRoomComponent() {
                         <p style={roomNameText}>{roomName || "No room assigned"}</p>
                         <p style={backToDashboard} onclick={goToDashboard}>Dashboard</p>
                     </div>
-                </div>
-
-                {donations.length > 0 && (
+                    {donations.length > 0 && (
                     <div style={donationsContainer}>
                         <h2 style={donationsListTitle}>Donations List</h2>
                         <div style={donationsListContainer}>
@@ -776,7 +774,10 @@ function LiveRoomComponent() {
                             ))}
                         </div>
                     </div>
-                )}
+                    )}
+                </div>
+
+                
 
                 <div style={mirrorContainer} onClick={goToMirror}>
                     <img style={mirrorButton} src="../../images/Mirror-Icon-1.0.jpg" width="50px" alt="" />
