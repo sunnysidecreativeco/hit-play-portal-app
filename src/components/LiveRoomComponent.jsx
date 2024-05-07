@@ -156,7 +156,7 @@ function LiveRoomComponent() {
     };
 
     const donationsContainer = {
-        float: left,
+        float: 'left',
 
     };
 
