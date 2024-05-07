@@ -37,6 +37,8 @@ function LiveRoomComponent() {
     const [songsSkipPlus, setSongsSkipPlus] = useState([]);
     const [avatarUrl, setAvatarUrl] = useState('');
     const [showOffAirModal, setShowOffAirModal] = useState(false);
+    const [donations, setDonations] = useState([]);
+    const [isHost, setIsHost] = useState(false);
 
     
     const [refresh, setRefresh] = useState(true);
@@ -370,7 +372,7 @@ function LiveRoomComponent() {
                     .catch(error => {
                         console.error('Error fetching avatar:', error);
                     });
-
+    
                 // Listener for room data
                 const roomDocRef = doc(db, "liveRooms", user.uid);
                 const unsubscribeRoomDoc = onSnapshot(roomDocRef, docSnap => {
@@ -380,6 +382,7 @@ function LiveRoomComponent() {
                         setOnAirStatus(roomData.onAir ? "On Air" : "Off Air");
                         setLineOpenStatus(roomData.lineOpen);
                         setCreditsEarned(roomData.creditsEarned || 0);
+                        setIsHost(roomData.hostId === user.uid); // Set isHost based on the hostId field
                     } else {
                         console.log("No such room document!");
                         setRoomName('');
@@ -395,7 +398,6 @@ function LiveRoomComponent() {
                     const updatedSongs = querySnapshot.docs.map(doc => ({
                         id: doc.id,
                         ...doc.data(),
-                        // Added Spotify link to nowPlaying songs
                         songLink: doc.data().link || "" // Ensure links are handled correctly
                     }));
                     setNowPlaying(updatedSongs);
@@ -409,27 +411,27 @@ function LiveRoomComponent() {
                 const unsubscribeSongsPlus = subscribeToSongs(songsRef, 'true', 'true', setSongsSkipPlus);
                 const unsubscribeSongsSkip = subscribeToSongs(songsRef, 'true', 'false', setSongsSkip);
                 const unsubscribeSongs = subscribeToSongs(songsRef, 'false', 'false', setSongs);
-
-                if (user.uid === roomCode) { // This condition checks if the user is the host
+    
+                // Real-time update of total songs in upNext
+                const unsubscribeUpNext = onSnapshot(songsRef, (querySnapshot) => {
+                    setSongsInLine(querySnapshot.size); // Update the total count of songs in upNext in real-time
+                });
+    
+                if (isHost) { // Conditionally subscribe to donations if the user is the host
                     const donationsRef = collection(db, 'liveRooms', user.uid, 'donations');
-                    const donationsQuery = query(donationsRef, orderBy('timeEntered', 'desc')); // Sorting donations in descending order
+                    const donationsQuery = query(donationsRef, orderBy('timeEntered', 'desc'));
                     const unsubscribeDonations = onSnapshot(donationsQuery, (querySnapshot) => {
                         const newDonations = [];
                         querySnapshot.forEach((doc) => {
                             newDonations.push({
                                 ...doc.data(),
                                 id: doc.id,
-                                timeEntered: doc.data().timeEntered.toDate().toString(), // assuming timeEntered is a Timestamp
+                                timeEntered: doc.data().timeEntered.toDate().toString(),
                             });
                         });
                         setDonations(newDonations);
                     });
                 }
-    
-                // Real-time update of total songs in upNext
-                const unsubscribeUpNext = onSnapshot(songsRef, (querySnapshot) => {
-                    setSongsInLine(querySnapshot.size); // Update the total count of songs in upNext in real-time
-                });
     
                 return () => {
                     unsubscribeRoomDoc();
@@ -438,7 +440,7 @@ function LiveRoomComponent() {
                     unsubscribeSongsSkip();
                     unsubscribeSongs();
                     unsubscribeUpNext();
-                    unsubscribeDonations();
+                    unsubscribeDonations(); // You need to handle this conditionally based on whether it was set
                 };
             } else {
                 setShowModal(true);
