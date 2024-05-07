@@ -409,6 +409,22 @@ function LiveRoomComponent() {
                 const unsubscribeSongsPlus = subscribeToSongs(songsRef, 'true', 'true', setSongsSkipPlus);
                 const unsubscribeSongsSkip = subscribeToSongs(songsRef, 'true', 'false', setSongsSkip);
                 const unsubscribeSongs = subscribeToSongs(songsRef, 'false', 'false', setSongs);
+
+                if (user.uid === roomCode) { // This condition checks if the user is the host
+                    const donationsRef = collection(db, 'liveRooms', user.uid, 'donations');
+                    const donationsQuery = query(donationsRef, orderBy('timeEntered', 'desc')); // Sorting donations in descending order
+                    const unsubscribeDonations = onSnapshot(donationsQuery, (querySnapshot) => {
+                        const newDonations = [];
+                        querySnapshot.forEach((doc) => {
+                            newDonations.push({
+                                ...doc.data(),
+                                id: doc.id,
+                                timeEntered: doc.data().timeEntered.toDate().toString(), // assuming timeEntered is a Timestamp
+                            });
+                        });
+                        setDonations(newDonations);
+                    });
+                }
     
                 // Real-time update of total songs in upNext
                 const unsubscribeUpNext = onSnapshot(songsRef, (querySnapshot) => {
@@ -421,7 +437,8 @@ function LiveRoomComponent() {
                     unsubscribeSongsPlus();
                     unsubscribeSongsSkip();
                     unsubscribeSongs();
-                    unsubscribeUpNext(); // Make sure to unsubscribe from this listener as well
+                    unsubscribeUpNext();
+                    unsubscribeDonations();
                 };
             } else {
                 setShowModal(true);
@@ -722,6 +739,19 @@ function LiveRoomComponent() {
                         <p style={backToDashboard} onclick={goToDashboard}>Dashboard</p>
                     </div>
                 </div>
+
+                {isHost && donations.length > 0 && (
+                    <div>
+                        <h2>Donations List</h2>
+                        {donations.map((donation, index) => (
+                            <div key={index}>
+                                <p>Time Entered: {donation.timeEntered}</p>
+                                <p>Artist Name: {donation.artist}</p>
+                                <p>Credits: {donation.credits}</p>
+                            </div>
+                        ))}
+                    </div>
+                )}
 
                 <div style={mirrorContainer} onClick={goToMirror}>
                     <img style={mirrorButton} src="../../images/Mirror-Icon-1.0.jpg" width="50px" alt="" />
