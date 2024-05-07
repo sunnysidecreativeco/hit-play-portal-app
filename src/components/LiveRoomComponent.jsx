@@ -155,6 +155,28 @@ function LiveRoomComponent() {
         cursor: 'pointer'
     };
 
+    const donationsContainer = {
+        float: left,
+
+    };
+
+    const donationsListTitle = {
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 14,
+    };
+
+    const donationsListContainer = {
+
+    };
+
+    const artistNameDonationText = {
+        textAlign: 'left',
+    };
+
+    const creditsDonationText = {
+        textAlign: 'left',
+    };
+
     const mirrorContainer = {
         float: 'right',
         paddingRight: 50,
@@ -743,14 +765,16 @@ function LiveRoomComponent() {
                 </div>
 
                 {donations.length > 0 && (
-                    <div>
-                        <h2>Donations List</h2>
-                        {donations.map((donation, index) => (
-                            <div key={index}>
-                                <p>Artist Name: {donation.artist}</p>
-                                <p>Credits: {donation.credits}</p>
-                            </div>
-                        ))}
+                    <div style={donationsContainer}>
+                        <h2 style={donationsListTitle}>Donations List</h2>
+                        <div style={donationsListContainer}>
+                            {donations.map((donation, index) => (
+                                <div key={index}>
+                                    <p style={artistNameDonationText}>Artist Name: {donation.artist}</p>
+                                    <p style={creditsDonationText}>Credits: {donation.credits}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 )}
 
