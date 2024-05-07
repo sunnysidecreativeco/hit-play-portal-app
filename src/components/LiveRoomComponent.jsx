@@ -163,6 +163,7 @@ function LiveRoomComponent() {
     const donationsListTitle = {
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 14,
+        fontWeight: 500,
     };
 
     const donationsListContainer = {
