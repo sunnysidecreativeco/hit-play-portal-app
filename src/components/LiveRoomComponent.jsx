@@ -742,18 +742,17 @@ function LiveRoomComponent() {
                     </div>
                 </div>
 
-                {/* {isHost && donations.length > 0 && ( */}
+                {donations.length > 0 && (
                     <div>
                         <h2>Donations List</h2>
                         {donations.map((donation, index) => (
                             <div key={index}>
-                                <p>Time Entered: {donation.timeEntered}</p>
                                 <p>Artist Name: {donation.artist}</p>
                                 <p>Credits: {donation.credits}</p>
                             </div>
                         ))}
                     </div>
-                {/* )} */}
+                )}
 
                 <div style={mirrorContainer} onClick={goToMirror}>
                     <img style={mirrorButton} src="../../images/Mirror-Icon-1.0.jpg" width="50px" alt="" />
