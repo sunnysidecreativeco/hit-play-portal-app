@@ -417,21 +417,21 @@ function LiveRoomComponent() {
                     setSongsInLine(querySnapshot.size); // Update the total count of songs in upNext in real-time
                 });
     
-                if (isHost) { // Conditionally subscribe to donations if the user is the host
-                    const donationsRef = collection(db, 'liveRooms', user.uid, 'donations');
-                    const donationsQuery = query(donationsRef, orderBy('timeEntered', 'desc'));
-                    const unsubscribeDonations = onSnapshot(donationsQuery, (querySnapshot) => {
-                        const newDonations = [];
-                        querySnapshot.forEach((doc) => {
-                            newDonations.push({
-                                ...doc.data(),
-                                id: doc.id,
-                                timeEntered: doc.data().timeEntered.toDate().toString(),
-                            });
+                    
+                const donationsRef = collection(db, 'liveRooms', user.uid, 'donations');
+                const donationsQuery = query(donationsRef, orderBy('timeEntered', 'desc'));
+                const unsubscribeDonations = onSnapshot(donationsQuery, (querySnapshot) => {
+                    const newDonations = [];
+                    querySnapshot.forEach((doc) => {
+                        newDonations.push({
+                            ...doc.data(),
+                            id: doc.id,
+                            timeEntered: doc.data().timeEntered.toDate().toString(),
                         });
-                        setDonations(newDonations);
                     });
-                }
+                    setDonations(newDonations);
+                });
+                
     
                 return () => {
                     unsubscribeRoomDoc();
