@@ -167,9 +167,12 @@ function LiveRoomComponent() {
     };
 
     const donationsListContainer = {
-        borderWidth: 3,
-        borderColor: '#1B1B1B',
         height: 200,
+        borderRadius: '20px',
+        border: '3px solid #1b1b1b',  
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  
+        maxHeight: '500px',  
+        overflowY: 'auto',  
     };
 
     const artistNameDonationText = {
