@@ -161,8 +161,9 @@ function LiveRoomComponent() {
     };
 
     const donationsListTitle = {
-        fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 14,
+        fontFamily: "'ChicagoFLF', serif",
+        fontSize: '18px',
+        textAlign: 'left',
         fontWeight: 500,
     };
 
@@ -180,6 +181,7 @@ function LiveRoomComponent() {
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 16,
         paddingLeft: 10,
+        marginBottom: 0,
     };
 
     const creditsDonationText = {
@@ -187,6 +189,7 @@ function LiveRoomComponent() {
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 16,
         paddingLeft: 10,
+        marginTop: 0,
     };
 
     const mirrorContainer = {
@@ -776,8 +779,8 @@ function LiveRoomComponent() {
                     </div>
                     {donations.length > 0 && (
                     <div style={donationsContainer}>
-                        <h2 style={donationsListTitle}>Donations List</h2>
                         <div style={donationsListContainer}>
+                            <h2 style={donationsListTitle}>Donations List</h2>
                             {donations.map((donation, index) => (
                                 <div key={index}>
                                     <p style={artistNameDonationText}>{donation.artist}</p>
