@@ -167,6 +167,7 @@ function LiveRoomComponent() {
         fontSize: '18px',
         textAlign: 'left',
         fontWeight: 500,
+        paddingLeft: 10,
     };
 
     const donationsListContainer = {
