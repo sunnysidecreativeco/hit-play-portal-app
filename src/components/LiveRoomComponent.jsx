@@ -157,6 +157,8 @@ function LiveRoomComponent() {
 
     const donationsContainer = {
         marginLeft: 50,
+        float: 'left',
+        position: 'absolute',
         
     };
 
@@ -174,6 +176,7 @@ function LiveRoomComponent() {
         boxShadow: '3px 3px 0px 0px #1b1b1b',  
         maxHeight: '500px',  
         overflowY: 'auto',  
+        width: 235,
     };
 
     const artistNameDonationText = {
