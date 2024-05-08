@@ -652,6 +652,7 @@ function LiveRoomComponent() {
         const roomDocRef = doc(db, `liveRooms/${userUid}`);
         const upNextRef = collection(db, `liveRooms/${userUid}/upNext`);
         const nowPlayingRef = collection(db, `liveRooms/${userUid}/nowPlaying`);
+        const donationsRef = collection(db, `liveRooms/${userUid}/donations`);
     
         try {
             // Update the onAir status and reset creditsEarned to zero
@@ -695,6 +696,11 @@ function LiveRoomComponent() {
             // Clear nowPlaying collection
             const nowPlayingEntriesSnapshot = await getDocs(nowPlayingRef);
             for (const entryDoc of nowPlayingEntriesSnapshot.docs) {
+                await deleteDoc(entryDoc.ref);
+            }
+
+            const donationsSnapshot = await getDocs(donationsRef);
+            for (const entryDoc of donationsSnapshot.docs) {
                 await deleteDoc(entryDoc.ref);
             }
     
