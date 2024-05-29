@@ -303,8 +303,6 @@ function LiveRoomComponent() {
     const skipIconStyle = {
         width: '24px', 
         height: '24px', 
-        marginLeft: '10px', 
-        marginBottom: '-25px',
         display: 'block',  // Ensures the image is not inline which can cause extra space
         verticalAlign: 'middle' // Aligns the image vertically if necessary
     };
@@ -1069,7 +1067,7 @@ function LiveRoomComponent() {
                                         <div style={spotifyButtonList}>
                                             {song.songLink && (
                                                 <a href={song.songLink} target="_blank" rel="noopener noreferrer">
-                                                    <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px' }} />
+                                                    <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px', marginBottom: '-25px' }} />
                                                 </a>
                                             )}
                                         </div>
@@ -1095,7 +1093,7 @@ function LiveRoomComponent() {
                                         <div style={spotifyButtonList}>
                                             {song.songLink && (
                                                 <a href={song.songLink} target="_blank" rel="noopener noreferrer">
-                                                    <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px' }} />
+                                                    <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px', marginBottom: '-25px' }} />
                                                 </a>
                                             )}
                                         </div>
@@ -1121,7 +1119,7 @@ function LiveRoomComponent() {
                                         <div style={spotifyButtonList}>
                                             {song.songLink && (
                                                 <a href={song.songLink} target="_blank" rel="noopener noreferrer">
-                                                    <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px' }} />
+                                                    <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={{ width: '24px', height: '24px', marginLeft: '10px', marginBottom: '-25px' }} />
                                                 </a>
                                             )}
                                         </div>
