@@ -282,6 +282,16 @@ function LiveRoomComponent() {
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 28,
     };
+    const skipToSongButton  = {
+        display: 'inline-block',
+        verticalAlign: 'middle',
+    };
+    const skipButtonIcon = {
+        width: '35px', 
+        height: '35px', 
+        marginLeft: '10px',
+        verticalAlign: 'middle',
+    };
 
     const spotifyButton = {
         display: 'inline-block',
@@ -607,14 +617,30 @@ function LiveRoomComponent() {
                 const newEarnings = (userDoc.data().earnings || 0) + additionalEarnings;
                 const newEarningsTotal = (userDoc.data().earningsTotal || 0) + additionalEarnings;
                 const newCreditsEarnedUser = (userDoc.data().creditsEarned || 0) + creditsToAdd;
-                const newSongsReviewed = (userDoc.data().songsReviewed || 0) + 1;
+                const newSongsReviewedHost = (userDoc.data().songsReviewed || 0) + 1;
     
                 await updateDoc(userRef, {
                     creditsEarned: newCreditsEarnedUser,
                     earnings: newEarnings,
                     earningsTotal: newEarningsTotal,
-                    songsReviewed: newSongsReviewed
+                    songsReviewed: newSongsReviewedHost
                 });
+    
+                // Update artist's document with new songsReviewed count
+                const artistRef = doc(db, `users/${songToMove.artistId}`);
+                const artistDoc = await getDoc(artistRef);
+    
+                if (artistDoc.exists()) {
+                    const newSongsReviewedArtist = (artistDoc.data().songsReviewed || 0) + 1;
+    
+                    await updateDoc(artistRef, {
+                        songsReviewed: newSongsReviewedArtist
+                    });
+    
+                    console.log("Updated artist's songsReviewed count:", newSongsReviewedArtist);
+                } else {
+                    console.log("Artist document not found");
+                }
     
                 console.log("Moved song to nowPlaying and updated user stats:", songToMove);
             } else {
@@ -624,6 +650,94 @@ function LiveRoomComponent() {
             console.error("Failed to move next song to nowPlaying:", error);
         }
     };
+
+
+    const skipSongManually = async (songId) => {
+        const userUid = getAuth().currentUser?.uid;
+        if (!userUid) {
+            console.log("User not authenticated");
+            return;
+        }
+    
+        const roomDocRef = doc(db, `liveRooms/${userUid}`);
+        const upNextRef = collection(db, `liveRooms/${userUid}/upNext`);
+        const nowPlayingRef = collection(db, `liveRooms/${userUid}/nowPlaying`);
+    
+        try {
+            // Clear the nowPlaying collection first
+            const currentSongsSnapshot = await getDocs(nowPlayingRef);
+            currentSongsSnapshot.forEach(async (doc) => {
+                await deleteDoc(doc.ref);
+            });
+    
+            // Fetch the current skip rate and user data
+            const roomDoc = await getDoc(roomDocRef);
+            const userRef = doc(db, `users/${userUid}`);
+            const userDoc = await getDoc(userRef);
+    
+            if (!roomDoc.exists() || !userDoc.exists()) {
+                console.log("Necessary data not found");
+                return;
+            }
+    
+            const skipRate = roomDoc.data().skipRate || 0;
+            const ratePerRound = (userDoc.data().ratePerRound || 0) * 0.01;  // Convert to percentage
+    
+            // Fetch the specific song from upNext
+            const songDocRef = doc(upNextRef, songId);
+            const songDoc = await getDoc(songDocRef);
+    
+            if (!songDoc.exists()) {
+                console.log("Song not found");
+                return;
+            }
+    
+            const songData = songDoc.data();
+            const creditsToAdd = songData.skip === "true" ? (songData.skipPlus === "true" ? 2 * skipRate : skipRate) : 0;
+    
+            // Add to nowPlaying and remove from upNext
+            await setDoc(doc(db, `liveRooms/${userUid}/nowPlaying`, songId), songData);
+            await deleteDoc(songDocRef);
+    
+            // Calculate new creditsEarned for liveRoom
+            const newCreditsEarned = (roomDoc.data().creditsEarned || 0) + creditsToAdd;
+            await updateDoc(roomDocRef, {
+                creditsEarned: newCreditsEarned
+            });
+    
+            // Update user document with new credits and earnings
+            const additionalEarnings = creditsToAdd * ratePerRound;
+            const newEarnings = (userDoc.data().earnings || 0) + additionalEarnings;
+            const newEarningsTotal = (userDoc.data().earningsTotal || 0) + additionalEarnings;
+            const newCreditsEarnedUser = (userDoc.data().creditsEarned || 0) + creditsToAdd;
+            const newSongsReviewed = (userDoc.data().songsReviewed || 0) + 1;
+    
+            await updateDoc(userRef, {
+                creditsEarned: newCreditsEarnedUser,
+                earnings: newEarnings,
+                earningsTotal: newEarningsTotal,
+                songsReviewed: newSongsReviewed
+            });
+    
+            // Update artist's songs reviewed count
+            const artistRef = doc(db, `users/${songData.artistId}`);
+            const artistDoc = await getDoc(artistRef);
+            if (artistDoc.exists()) {
+                const newSongsReviewedArtist = (artistDoc.data().songsReviewed || 0) + 1;
+                await updateDoc(artistRef, {
+                    songsReviewed: newSongsReviewedArtist
+                });
+                console.log("Updated artist's songsReviewed count:", newSongsReviewedArtist);
+            } else {
+                console.log("Artist document not found for ID:", songData.artistId);
+            }
+    
+            console.log("Moved song to nowPlaying and updated user and artist stats:", songData);
+        } catch (error) {
+            console.error("Failed to move song to nowPlaying:", error);
+        }
+    };
+
 
     const toggleLineStatus = async () => {
         const userUid = getAuth().currentUser?.uid;
@@ -828,6 +942,11 @@ function LiveRoomComponent() {
                                     <div style={artistNameContainer}>
                                         <p style={songNameText}>{song.songName}</p> 
                                         <p style={artistNameText}>{song.artistName}</p>
+                                    </div>
+                                    <div style={skipToSongButton}>
+                                        <button onClick={() => skipSongManually(song.id)}>
+                                            <img src="../../images/Skip-Icon-1.0.png" alt="Skip To Song" style={{ width: '24px', height: '24px', marginLeft: '10px', marginBottom: '-25px' }} />
+                                        </button>
                                     </div>
                                     <div style={spotifyButton}>
                                         {song.songLink && ( // Comment: Displaying Spotify link
