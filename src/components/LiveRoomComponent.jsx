@@ -282,6 +282,7 @@ function LiveRoomComponent() {
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 28,
     };
+
     const skipButtonStyle = {
         border: 'none',        // Removes the border
         background: 'none',    // Removes the background
@@ -289,6 +290,7 @@ function LiveRoomComponent() {
         cursor: 'pointer',     // Cursor pointer to indicate clickable area
         outline: 'none'        // Removes the focus outline
     };
+
     const skipIconStyle = {
         width: '24px', 
         height: '24px', 
@@ -1051,9 +1053,9 @@ function LiveRoomComponent() {
                                             <p style={artistNameTextList}>{song.artistName}</p>
                                         </div>
                                         <div style={skipButtonStyle}>
-                                            <button onClick={() => skipSongManually(song.id)}>
+                                            <a onClick={() => skipSongManually(song.id)}>
                                                 <img src="../../images/Skip-Icon-1.0.png" alt="Skip To Song" style={skipIconStyle} />
-                                            </button>
+                                            </a>
                                         </div>
                                         <div style={spotifyButtonList}>
                                             {song.songLink && (
@@ -1077,9 +1079,9 @@ function LiveRoomComponent() {
                                             <p style={artistNameTextList}>{song.artistName}</p>
                                         </div>
                                         <div style={skipButtonStyle}>
-                                            <button onClick={() => skipSongManually(song.id)}>
+                                            <a onClick={() => skipSongManually(song.id)}>
                                                 <img src="../../images/Skip-Icon-1.0.png" alt="Skip To Song" style={skipIconStyle} />
-                                            </button>
+                                            </a>
                                         </div>
                                         <div style={spotifyButtonList}>
                                             {song.songLink && (
@@ -1103,9 +1105,9 @@ function LiveRoomComponent() {
                                             <p style={artistNameTextList}>{song.artistName}</p>
                                         </div>
                                         <div style={skipButtonStyle}>
-                                            <button onClick={() => skipSongManually(song.id)}>
+                                            <a onClick={() => skipSongManually(song.id)}>
                                                 <img src="../../images/Skip-Icon-1.0.png" alt="Skip To Song" style={skipIconStyle} />
-                                            </button>
+                                            </a>
                                         </div>
                                         <div style={spotifyButtonList}>
                                             {song.songLink && (
