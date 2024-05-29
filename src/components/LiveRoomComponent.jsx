@@ -651,12 +651,12 @@ function LiveRoomComponent() {
                         songsReviewed: newSongsReviewedArtist
                     });
     
-                    console.log("Updated artist's songsReviewed count:", newSongsReviewedArtist);
+                    console.log("Updated artist's songsReviewed count");
                 } else {
                     console.log("Artist document not found");
                 }
     
-                console.log("Moved song to nowPlaying and updated user stats:", songToMove);
+                console.log("Moved song to nowPlaying and updated user stats");
             } else {
                 console.log("No songs available to move to nowPlaying");
             }
@@ -741,12 +741,12 @@ function LiveRoomComponent() {
                 await updateDoc(artistRef, {
                     songsReviewed: newSongsReviewedArtist
                 });
-                console.log("Updated artist's songsReviewed count:", newSongsReviewedArtist);
+                console.log("Updated artist's songsReviewed count");
             } else {
-                console.log("Artist document not found for ID:", songData.artistId);
+                console.log("Artist document not found for ID");
             }
     
-            console.log("Moved song to nowPlaying and updated user and artist stats:", songData);
+            console.log("Moved song to nowPlaying and updated user and artist stats");
         } catch (error) {
             console.error("Failed to move song to nowPlaying:", error);
         }
@@ -813,7 +813,7 @@ function LiveRoomComponent() {
                         const newCredits = currentCredits + creditsToAdd;
                         await updateDoc(userRef, { credits: newCredits });
                     } else {
-                        console.log("User document does not exist:", entry.artistId);
+                        console.log("User document does not exist");
                     }
                 }
     
