@@ -291,6 +291,14 @@ function LiveRoomComponent() {
         outline: 'none'        // Removes the focus outline
     };
 
+    const skipLinkStyle = {
+        background: 'none',
+        border: 'none',
+        padding: 0,
+        cursor: 'pointer',
+        display: 'inline' // or 'block' depending on your layout needs
+    };
+
     const skipIconStyle = {
         width: '24px', 
         height: '24px', 
@@ -1053,7 +1061,7 @@ function LiveRoomComponent() {
                                             <p style={artistNameTextList}>{song.artistName}</p>
                                         </div>
                                         <div style={skipButtonStyle}>
-                                            <a onClick={() => skipSongManually(song.id)}>
+                                            <a style={skipLinkStyle} onClick={() => skipSongManually(song.id)} role="button">
                                                 <img src="../../images/Skip-Icon-1.0.png" alt="Skip To Song" style={skipIconStyle} />
                                             </a>
                                         </div>
@@ -1079,7 +1087,7 @@ function LiveRoomComponent() {
                                             <p style={artistNameTextList}>{song.artistName}</p>
                                         </div>
                                         <div style={skipButtonStyle}>
-                                            <a onClick={() => skipSongManually(song.id)}>
+                                            <a style={skipLinkStyle} onClick={() => skipSongManually(song.id)} role="button">
                                                 <img src="../../images/Skip-Icon-1.0.png" alt="Skip To Song" style={skipIconStyle} />
                                             </a>
                                         </div>
@@ -1105,7 +1113,7 @@ function LiveRoomComponent() {
                                             <p style={artistNameTextList}>{song.artistName}</p>
                                         </div>
                                         <div style={skipButtonStyle}>
-                                            <a onClick={() => skipSongManually(song.id)}>
+                                            <a style={skipLinkStyle} onClick={() => skipSongManually(song.id)} role="button">
                                                 <img src="../../images/Skip-Icon-1.0.png" alt="Skip To Song" style={skipIconStyle} />
                                             </a>
                                         </div>
