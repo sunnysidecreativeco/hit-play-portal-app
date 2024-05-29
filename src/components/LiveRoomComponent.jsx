@@ -943,11 +943,7 @@ function LiveRoomComponent() {
                                         <p style={songNameText}>{song.songName}</p> 
                                         <p style={artistNameText}>{song.artistName}</p>
                                     </div>
-                                    <div style={skipToSongButton}>
-                                        <button onClick={() => skipSongManually(song.id)}>
-                                            <img src="../../images/Skip-Icon-1.0.png" alt="Skip To Song" style={{ width: '24px', height: '24px', marginLeft: '10px', marginBottom: '-25px' }} />
-                                        </button>
-                                    </div>
+                                    
                                     <div style={spotifyButton}>
                                         {song.songLink && ( // Comment: Displaying Spotify link
                                                 <a href={song.songLink} target="_blank" rel="noopener noreferrer">
@@ -1049,6 +1045,11 @@ function LiveRoomComponent() {
                                             <p style={songNameTextList}>{song.songName}</p> 
                                             <p style={artistNameTextList}>{song.artistName}</p>
                                         </div>
+                                        <div style={skipToSongButton}>
+                                            <button onClick={() => skipSongManually(song.id)}>
+                                                <img src="../../images/Skip-Icon-1.0.png" alt="Skip To Song" style={{ width: '24px', height: '24px', marginLeft: '10px', marginBottom: '-25px' }} />
+                                            </button>
+                                        </div>
                                         <div style={spotifyButtonList}>
                                             {song.songLink && (
                                                 <a href={song.songLink} target="_blank" rel="noopener noreferrer">
@@ -1070,6 +1071,11 @@ function LiveRoomComponent() {
                                             <p style={songNameTextList}>{song.songName}</p> 
                                             <p style={artistNameTextList}>{song.artistName}</p>
                                         </div>
+                                        <div style={skipToSongButton}>
+                                            <button onClick={() => skipSongManually(song.id)}>
+                                                <img src="../../images/Skip-Icon-1.0.png" alt="Skip To Song" style={{ width: '24px', height: '24px', marginLeft: '10px', marginBottom: '-25px' }} />
+                                            </button>
+                                        </div>
                                         <div style={spotifyButtonList}>
                                             {song.songLink && (
                                                 <a href={song.songLink} target="_blank" rel="noopener noreferrer">
@@ -1090,6 +1096,11 @@ function LiveRoomComponent() {
                                         <div style={artistNameContainerList}>
                                             <p style={songNameTextList}>{song.songName}</p> 
                                             <p style={artistNameTextList}>{song.artistName}</p>
+                                        </div>
+                                        <div style={skipToSongButton}>
+                                            <button onClick={() => skipSongManually(song.id)}>
+                                                <img src="../../images/Skip-Icon-1.0.png" alt="Skip To Song" style={{ width: '24px', height: '24px', marginLeft: '10px', marginBottom: '-25px' }} />
+                                            </button>
                                         </div>
                                         <div style={spotifyButtonList}>
                                             {song.songLink && (
