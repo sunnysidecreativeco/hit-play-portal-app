@@ -286,8 +286,8 @@ function LiveRoomComponent() {
     const skipButtonStyle = {
         display: 'inline-block',
         verticalAlign: 'middle',
-        textAlign: right,
-        position: relative,
+        textAlign: 'right',
+        position: 'relative',
         height: 24,
         bottom: -18,
     };
