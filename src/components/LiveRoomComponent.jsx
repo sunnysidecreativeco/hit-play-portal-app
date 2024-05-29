@@ -289,7 +289,7 @@ function LiveRoomComponent() {
         textAlign: 'right',
         position: 'relative',
         height: 24,
-        bottom: -18,
+        bottom: -20,
     };
 
     const skipLinkStyle = {
@@ -301,8 +301,8 @@ function LiveRoomComponent() {
     };
 
     const skipIconStyle = {
-        width: '24px', 
-        height: '24px', 
+        width: '20px', 
+        height: '20px', 
         display: 'block',  // Ensures the image is not inline which can cause extra space
         verticalAlign: 'middle' // Aligns the image vertically if necessary
     };
