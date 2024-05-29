@@ -282,15 +282,20 @@ function LiveRoomComponent() {
         fontFamily: '"IBMPlexSerif", serif',
         fontSize: 28,
     };
-    const skipToSongButton  = {
-        display: 'inline-block',
-        verticalAlign: 'middle',
+    const skipButtonStyle = {
+        border: 'none',        // Removes the border
+        background: 'none',    // Removes the background
+        padding: 0,            // Removes padding
+        cursor: 'pointer',     // Cursor pointer to indicate clickable area
+        outline: 'none'        // Removes the focus outline
     };
-    const skipButtonIcon = {
-        width: '35px', 
-        height: '35px', 
-        marginLeft: '10px',
-        verticalAlign: 'middle',
+    const skipIconStyle = {
+        width: '24px', 
+        height: '24px', 
+        marginLeft: '10px', 
+        marginBottom: '-25px',
+        display: 'block',  // Ensures the image is not inline which can cause extra space
+        verticalAlign: 'middle' // Aligns the image vertically if necessary
     };
 
     const spotifyButton = {
@@ -1045,9 +1050,9 @@ function LiveRoomComponent() {
                                             <p style={songNameTextList}>{song.songName}</p> 
                                             <p style={artistNameTextList}>{song.artistName}</p>
                                         </div>
-                                        <div style={skipToSongButton}>
+                                        <div style={skipButtonStyle}>
                                             <button onClick={() => skipSongManually(song.id)}>
-                                                <img src="../../images/Skip-Icon-1.0.png" alt="Skip To Song" style={{ width: '24px', height: '24px', marginLeft: '10px', marginBottom: '-25px' }} />
+                                                <img src="../../images/Skip-Icon-1.0.png" alt="Skip To Song" style={skipIconStyle} />
                                             </button>
                                         </div>
                                         <div style={spotifyButtonList}>
@@ -1071,9 +1076,9 @@ function LiveRoomComponent() {
                                             <p style={songNameTextList}>{song.songName}</p> 
                                             <p style={artistNameTextList}>{song.artistName}</p>
                                         </div>
-                                        <div style={skipToSongButton}>
+                                        <div style={skipButtonStyle}>
                                             <button onClick={() => skipSongManually(song.id)}>
-                                                <img src="../../images/Skip-Icon-1.0.png" alt="Skip To Song" style={{ width: '24px', height: '24px', marginLeft: '10px', marginBottom: '-25px' }} />
+                                                <img src="../../images/Skip-Icon-1.0.png" alt="Skip To Song" style={skipIconStyle} />
                                             </button>
                                         </div>
                                         <div style={spotifyButtonList}>
@@ -1097,9 +1102,9 @@ function LiveRoomComponent() {
                                             <p style={songNameTextList}>{song.songName}</p> 
                                             <p style={artistNameTextList}>{song.artistName}</p>
                                         </div>
-                                        <div style={skipToSongButton}>
+                                        <div style={skipButtonStyle}>
                                             <button onClick={() => skipSongManually(song.id)}>
-                                                <img src="../../images/Skip-Icon-1.0.png" alt="Skip To Song" style={{ width: '24px', height: '24px', marginLeft: '10px', marginBottom: '-25px' }} />
+                                                <img src="../../images/Skip-Icon-1.0.png" alt="Skip To Song" style={skipIconStyle} />
                                             </button>
                                         </div>
                                         <div style={spotifyButtonList}>
