@@ -802,7 +802,7 @@ function LiveRoomComponent() {
                 const entry = entryDoc.data();
                 let creditsToAdd = 0;
                 if (entry.skip === "true") {
-                    creditsToAdd = entry.skipPlus === "true" ? skipPlusRate : skipRate;
+                    creditsToAdd = (entry.skipPlus === "true" ? skipPlusRate : skipRate) + entry.boost;
                 }
     
                 if (creditsToAdd > 0) {
