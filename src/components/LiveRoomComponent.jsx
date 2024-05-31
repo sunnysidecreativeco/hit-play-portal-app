@@ -803,6 +803,8 @@ function LiveRoomComponent() {
                 let creditsToAdd = 0;
                 if (entry.skip === "true") {
                     creditsToAdd = (entry.skipPlus === "true" ? skipPlusRate : skipRate) + entry.boost;
+                } else {
+                    creditsToAdd = entry.boost;
                 }
     
                 if (creditsToAdd > 0) {
