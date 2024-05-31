@@ -598,9 +598,9 @@ function LiveRoomComponent() {
     
             // Determine which song to move based on priority
             const queries = [
-                query(upNextRef, where("skipPlus", "==", "true"), orderBy("timeEntered", "asc")),
-                query(upNextRef, where("skip", "==", "true"), where("skipPlus", "==", "false"), orderBy("timeEntered", "asc")),
-                query(upNextRef, orderBy("timeEntered", "asc"))
+                query(upNextRef, where("boost", ">=", 0), where("skipPlus", "==", "true"), orderBy("boost", "desc"), orderBy("timeEntered", "asc")),
+                query(upNextRef, where("boost", ">=", 0), where("skip", "==", "true"), where("skipPlus", "==", "false"), orderBy("boost", "desc"), orderBy("timeEntered", "asc")),
+                query(upNextRef, where("boost", ">=", 0), orderBy("boost", "desc"), orderBy("timeEntered", "asc"))
             ];
     
             let songToMove, songId, creditsToAdd = 0;
