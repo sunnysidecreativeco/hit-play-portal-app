@@ -517,7 +517,7 @@ function LiveRoomComponent() {
     }, []);
 
     const subscribeToSongs = (ref, skip, skipPlus, setState) => {
-        const q = query(ref, where('skip', '==', skip), where('skipPlus', '==', skipPlus), orderBy('timeEntered', 'asc'));
+        const q = query(ref, where('boost', '>=', 0), where('skip', '==', skip), where('skipPlus', '==', skipPlus), orderBy('boost', 'desc'), orderBy('timeEntered', 'asc'));
         return onSnapshot(q, querySnapshot => {
             const fetchedSongs = querySnapshot.docs.map(doc => ({
                 id: doc.id,
@@ -594,7 +594,7 @@ function LiveRoomComponent() {
             }
     
             const skipRate = roomDoc.data().skipRate || 0;
-            const ratePerRound = (userDoc.data().ratePerRound || 0) * 0.01;  // Convert to percentage
+            const hostRatePercentage = (userDoc.data().ratePerRound || 0) * 0.01;  // Convert to percentage
     
             // Determine which song to move based on priority
             const queries = [
@@ -610,7 +610,7 @@ function LiveRoomComponent() {
                 if (!snapshot.empty) {
                     songToMove = snapshot.docs[0].data();
                     songId = snapshot.docs[0].id;
-                    creditsToAdd = songToMove.skip === "true" ? (songToMove.skipPlus === "true" ? 2 * skipRate : skipRate) : 0;
+                    creditsToAdd = songToMove.skip === "true" ? (songToMove.skipPlus === "true" ? 2 * skipRate + songToMove.boost : skipRate + songToMove.boost) : songToMove.boost;
                     break;
                 }
             }
@@ -627,7 +627,7 @@ function LiveRoomComponent() {
                 });
     
                 // Update user document with new credits and earnings
-                const additionalEarnings = creditsToAdd * ratePerRound;
+                const additionalEarnings = creditsToAdd * hostRatePercentage;
                 const newEarnings = (userDoc.data().earnings || 0) + additionalEarnings;
                 const newEarningsTotal = (userDoc.data().earningsTotal || 0) + additionalEarnings;
                 const newCreditsEarnedUser = (userDoc.data().creditsEarned || 0) + creditsToAdd;
@@ -707,7 +707,8 @@ function LiveRoomComponent() {
             }
     
             const songData = songDoc.data();
-            const creditsToAdd = songData.skip === "true" ? (songData.skipPlus === "true" ? 2 * skipRate : skipRate) : 0;
+            const creditsToAdd = songData.skip === "true" ? (songData.skipPlus === "true" ? 2 * skipRate + songData.boost : skipRate + songData.boost) : songData.boost;
+            
     
             // Add to nowPlaying and remove from upNext
             await setDoc(doc(db, `liveRooms/${userUid}/nowPlaying`, songId), songData);
