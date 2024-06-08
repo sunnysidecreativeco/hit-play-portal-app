@@ -18,7 +18,6 @@ function EmailListComponent() {
         fontFamily: "'ChicagoFLF', serif",
         fontSize: 30,
         marginTop: 10,
-        marginBottom: -10,
     };
 
     const p = {
@@ -87,10 +86,17 @@ function EmailListComponent() {
         textAlign: 'center',
         border: '1px solid #ccc',
         backgroundColor: '#fff',
+        borderRadius: 3,
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
+        border: '2px solid #1b1b1b'
     };
 
     const highlightedDay = {
-        backgroundColor: '#f0f8ff', // Light blue
+        backgroundColor: '#1B1B1B', // Light blue
+        borderRadius: 3,
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
+        border: '2px solid #FFFFFF'
+
     };
 
     const selectedDay = {
