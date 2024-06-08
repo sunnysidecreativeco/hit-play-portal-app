@@ -45,11 +45,13 @@ function EmailListComponent() {
     const td = {
         border: '1px solid black',
         padding: '8px',
+        fontFamily: '"IBMPlexSerif", serif',
     };
 
     const th = {
         border: '1px solid black',
         padding: '8px',
+        fontFamily: '"IBMPlexSerif", serif',
     };
 
     const dateButtons = {
@@ -231,13 +233,12 @@ function EmailListComponent() {
 
     return (
         <div style={emailListContainer}>
-            <h2>Select the date you'd like to view.</h2>
+            <h2 style={h2}>Select the date you'd like to view.</h2>
             <p style={p}>Download the emails as a CSV by selecting the download button in the top right of the calendar.</p>
-            <p>{roomName}</p>
             <div style={calendarContainer}>
                 <div style={monthSelector}>
                     <button style={dateButtons} onClick={handlePreviousMonth}>Previous</button>
-                    <h3>{new Date(selectedYear, selectedMonth).toLocaleString('default', { month: 'long', year: 'numeric' })}</h3>
+                    <h3 style={h2}>{new Date(selectedYear, selectedMonth).toLocaleString('default', { month: 'long', year: 'numeric' })}</h3>
                     <button style={dateButtons} onClick={handleNextMonth}>Next</button>
                 </div>
                 <div style={calendarGrid}>
