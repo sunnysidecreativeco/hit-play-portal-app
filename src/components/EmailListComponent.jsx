@@ -13,7 +13,6 @@ function EmailListComponent() {
     const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
     const [showModal, setShowModal] = useState(false);
 
-
     const h2 = {
         fontFamily: "'ChicagoFLF', serif",
         fontSize: 30,
@@ -40,15 +39,14 @@ function EmailListComponent() {
         borderCollapse: 'collapse',
         textAlign: 'center',
         border: '1px solid black',
-        boxShadow: '3px 3px 0px 0px #1b1b1b', 
-        border: '2px solid #1b1b1b' 
+        boxShadow: '3px 3px 0px 0px #1b1b1b',
+        border: '2px solid #1b1b1b'
     };
 
     const td = {
         border: '1px solid black',
         padding: '8px',
         fontFamily: '"IBMPlexSerif", serif',
-       
     };
 
     const th = {
@@ -67,8 +65,8 @@ function EmailListComponent() {
         paddingLeft: 25,
         paddingRight: 25,
         borderRadius: 5,
-        boxShadow: '3px 3px 0px 0px #1b1b1b', 
-        border: '2px solid #1b1b1b' 
+        boxShadow: '3px 3px 0px 0px #1b1b1b',
+        border: '2px solid #1b1b1b'
     };
 
     const calendarContainer = {
@@ -93,22 +91,22 @@ function EmailListComponent() {
         border: '1px solid #ccc',
         backgroundColor: '#fff',
         borderRadius: 3,
-        boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
+        boxShadow: '3px 3px 0px 0px #1b1b1b',
         border: '2px solid #1b1b1b'
     };
 
     const highlightedDay = {
-        backgroundColor: '#1B1B1B', // Light blue
+        backgroundColor: '#1B1B1B',
         borderRadius: 3,
-        boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
+        boxShadow: '3px 3px 0px 0px #1b1b1b',
         border: '2px solid #FFFFFF',
         color: '#FFFFFF',
     };
 
     const selectedDay = {
-        backgroundColor: '#DCD5BD', // Light blue
+        backgroundColor: '#BBCBD2',
         borderRadius: 3,
-        boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
+        boxShadow: '3px 3px 0px 0px #1b1b1b',
         border: '2px solid #FFFFFF',
         color: '#FFFFFF',
     };
@@ -130,8 +128,8 @@ function EmailListComponent() {
         paddingLeft: 25,
         paddingRight: 25,
         borderRadius: 5,
-        boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
-        border: '2px solid #1b1b1b'  // Proper CSS border syntax
+        boxShadow: '3px 3px 0px 0px #1b1b1b',
+        border: '2px solid #1b1b1b'
     };
 
     useEffect(() => {
@@ -245,6 +243,28 @@ function EmailListComponent() {
         });
     };
 
+    const downloadCSV = () => {
+        const headers = ["Artist Name", "Email", "Date"];
+        const rows = filteredEmails.map(email => [
+            email.artistName,
+            email.email,
+            new Date(email.date.seconds * 1000).toLocaleString(),
+        ]);
+
+        const csvContent = [headers, ...rows]
+            .map(e => e.join(","))
+            .join("\n");
+
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const link = document.createElement("a");
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", `emails_${selectedDate}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
     const filteredEmails = selectedDate ? emails.filter(email => {
         const emailDate = new Date(email.date.seconds * 1000).toDateString();
         return emailDate === selectedDate;
@@ -259,6 +279,7 @@ function EmailListComponent() {
                     <button style={buttonStyle} onClick={handlePreviousMonth}>Previous</button>
                     <h3 style={h2}>{new Date(selectedYear, selectedMonth).toLocaleString('default', { month: 'long', year: 'numeric' })}</h3>
                     <button style={buttonStyle} onClick={handleNextMonth}>Next</button>
+                    <button style={buttonStyle} onClick={downloadCSV}>Download</button>
                 </div>
                 <div style={calendarGrid}>
                     {generateCalendar()}
