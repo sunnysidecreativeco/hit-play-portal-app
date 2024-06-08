@@ -9,6 +9,8 @@ function EmailListComponent() {
     const [emails, setEmails] = useState([]);
     const [dates, setDates] = useState([]);
     const [selectedDate, setSelectedDate] = useState('');
+    const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
+    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
     const [showModal, setShowModal] = useState(false);
 
     const emailListContainer = {
@@ -20,7 +22,6 @@ function EmailListComponent() {
     const emailTable = {
         margin: 20,
         borderCollapse: 'collapse',
-        //width: '50%',
         textAlign: 'center',
     };
 
@@ -34,17 +35,39 @@ function EmailListComponent() {
         padding: '8px',
     };
 
-    const dateButton = {
-        margin: '5px',
-        padding: '10px 20px',
-        cursor: 'pointer',
-    };
-
-    const buttonContainer = {
+    const calendarContainer = {
         marginBottom: '20px',
         display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
+        flexDirection: 'column',
+        alignItems: 'center',
+    };
+
+    const calendarGrid = {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(7, 1fr)',
+        gap: '5px',
+    };
+
+    const dayButton = {
+        padding: '10px',
+        cursor: 'pointer',
+        textAlign: 'center',
+        border: '1px solid #ccc',
+        backgroundColor: '#fff',
+    };
+
+    const highlightedDay = {
+        backgroundColor: '#f0f8ff', // Light blue
+    };
+
+    const selectedDay = {
+        backgroundColor: '#add8e6', // Darker blue
+    };
+
+    const monthSelector = {
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginBottom: '10px',
     };
 
     useEffect(() => {
@@ -108,7 +131,54 @@ function EmailListComponent() {
     }, []);
 
     const handleDateClick = (date) => {
-        setSelectedDate(date);
+        setSelectedDate(date.toDateString());
+    };
+
+    const handlePreviousMonth = () => {
+        setSelectedMonth(prev => prev === 0 ? 11 : prev - 1);
+        setSelectedYear(prev => selectedMonth === 0 ? prev - 1 : prev);
+    };
+
+    const handleNextMonth = () => {
+        setSelectedMonth(prev => prev === 11 ? 0 : prev + 1);
+        setSelectedYear(prev => selectedMonth === 11 ? prev + 1 : prev);
+    };
+
+    const generateCalendar = () => {
+        const firstDayOfMonth = new Date(selectedYear, selectedMonth, 1).getDay();
+        const lastDateOfMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
+
+        const daysInMonth = [];
+        for (let i = 1; i <= lastDateOfMonth; i++) {
+            daysInMonth.push(i);
+        }
+
+        const calendarDays = Array(firstDayOfMonth).fill(null).concat(daysInMonth);
+
+        return calendarDays.map((day, index) => {
+            if (day === null) {
+                return <div key={index} style={{ visibility: 'hidden' }}>0</div>;
+            }
+
+            const date = new Date(selectedYear, selectedMonth, day);
+            const dateString = date.toDateString();
+            const isHighlighted = dates.includes(dateString);
+            const isSelected = selectedDate === dateString;
+
+            return (
+                <button
+                    key={index}
+                    style={{
+                        ...dayButton,
+                        ...(isHighlighted ? highlightedDay : {}),
+                        ...(isSelected ? selectedDay : {}),
+                    }}
+                    onClick={() => handleDateClick(date)}
+                >
+                    {day}
+                </button>
+            );
+        });
     };
 
     const filteredEmails = selectedDate ? emails.filter(email => {
@@ -120,16 +190,15 @@ function EmailListComponent() {
         <div style={emailListContainer}>
             <p>On this page you'll find the email and artist name of every entry to your room.</p>
             <p>{roomName}</p>
-            <div style={buttonContainer}>
-                {dates.map((date, index) => (
-                    <button
-                        key={index}
-                        style={dateButton}
-                        onClick={() => handleDateClick(date)}
-                    >
-                        {date}
-                    </button>
-                ))}
+            <div style={calendarContainer}>
+                <div style={monthSelector}>
+                    <button onClick={handlePreviousMonth}>Previous</button>
+                    <h3>{new Date(selectedYear, selectedMonth).toLocaleString('default', { month: 'long', year: 'numeric' })}</h3>
+                    <button onClick={handleNextMonth}>Next</button>
+                </div>
+                <div style={calendarGrid}>
+                    {generateCalendar()}
+                </div>
             </div>
             {selectedDate && (
                 <div>
