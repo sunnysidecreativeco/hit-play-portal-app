@@ -328,6 +328,8 @@ function EmailListComponent() {
             {selectedDate && (
                 <div>
                     <h2 style={h2}>Entries for {selectedDate}</h2>
+                    <button style={buttonStyle} onClick={downloadCSV}>Download Emails</button>
+                    <button style={downloadButtonStyle} onClick={downloadMonthCSV}>Download Entire Month</button>
                     {filteredEmails.length > 0 ? (
                         <div>
                             <table style={emailTable}>
@@ -348,8 +350,7 @@ function EmailListComponent() {
                                     ))}
                                 </tbody>
                             </table>
-                            <button style={buttonStyle} onClick={downloadCSV}>Download Emails</button>
-                            <button style={downloadButtonStyle} onClick={downloadMonthCSV}>Download Entire Month</button> {/* New Button */}
+                            
                         </div>
                     ) : (
                         <p>No entries found for {selectedDate}.</p>
