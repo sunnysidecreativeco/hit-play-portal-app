@@ -10,15 +10,15 @@ function EmailListComponent() {
     const [showModal, setShowModal] = useState(false);
 
     const emailListContainer = {
-        display: flex,
-        flexDirection: column,
-        alignItems: center,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
     };
     const emailTable = {
         margin: 20,
-        borderCollapse: collapse,
+        borderCollapse: 'collapse',
         width: '80%',
-        textAlign: center,
+        textAlign: 'center',
     };
 
     const td = {
