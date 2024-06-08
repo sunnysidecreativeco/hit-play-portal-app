@@ -39,7 +39,6 @@ function EmailListComponent() {
         margin: 20,
         borderCollapse: 'collapse',
         textAlign: 'center',
-        borderRadius: 5,
         border: '1px solid black',
         boxShadow: '3px 3px 0px 0px #1b1b1b', 
         border: '2px solid #1b1b1b' 
@@ -107,7 +106,7 @@ function EmailListComponent() {
     };
 
     const selectedDay = {
-        backgroundColor: '#3F3F3F', // Light blue
+        backgroundColor: '#DCD5BD', // Light blue
         borderRadius: 3,
         boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
         border: '2px solid #FFFFFF',
