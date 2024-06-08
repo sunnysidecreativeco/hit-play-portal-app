@@ -132,6 +132,12 @@ function EmailListComponent() {
         border: '2px solid #1b1b1b'
     };
 
+    const downloadButtonStyle = {
+        ...buttonStyle,
+        backgroundColor: 'black',
+        color: 'white',
+    };
+
     useEffect(() => {
         const authInstance = getAuth();
 
@@ -265,6 +271,33 @@ function EmailListComponent() {
         document.body.removeChild(link);
     };
 
+    const downloadMonthCSV = () => {
+        const headers = ["Artist Name", "Email", "Date"];
+        const rows = emails
+            .filter(email => {
+                const emailDate = new Date(email.date.seconds * 1000);
+                return emailDate.getMonth() === selectedMonth && emailDate.getFullYear() === selectedYear;
+            })
+            .map(email => [
+                email.artistName,
+                email.email,
+                new Date(email.date.seconds * 1000).toLocaleString(),
+            ]);
+
+        const csvContent = [headers, ...rows]
+            .map(e => e.join(","))
+            .join("\n");
+
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const link = document.createElement("a");
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", `emails_${selectedYear}_${selectedMonth + 1}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
     const filteredEmails = selectedDate ? emails.filter(email => {
         const emailDate = new Date(email.date.seconds * 1000).toDateString();
         return emailDate === selectedDate;
@@ -307,7 +340,8 @@ function EmailListComponent() {
                                     ))}
                                 </tbody>
                             </table>
-                            <button style={buttonStyle} onClick={downloadCSV}>Download</button> {/* Step 3 */}
+                            <button style={buttonStyle} onClick={downloadCSV}>Download Emails</button>
+                            <button style={downloadButtonStyle} onClick={downloadMonthCSV}>Download Entire Month</button> {/* New Button */}
                         </div>
                     ) : (
                         <p>No entries found for {selectedDate}.</p>
