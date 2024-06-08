@@ -138,6 +138,13 @@ function EmailListComponent() {
         color: 'white',
     };
 
+    const dashboardButtonStyle = {
+        ...buttonStyle,
+        position: 'absolute',
+        top: '10px',
+        left: '10px',
+    };
+
     useEffect(() => {
         const authInstance = getAuth();
 
@@ -305,6 +312,7 @@ function EmailListComponent() {
 
     return (
         <div style={emailListContainer}>
+            <button style={dashboardButtonStyle} onClick={() => window.location.href = '/dashboard'}>Dashboard</button> {/* Dashboard Button */}
             <h2 style={h2}>Select the date you'd like to view.</h2>
             <p style={p}>Download the emails as a CSV by selecting the download button in the top right of the calendar.</p>
             <div style={calendarContainer}>
@@ -320,8 +328,6 @@ function EmailListComponent() {
             {selectedDate && (
                 <div>
                     <h2 style={h2}>Entries for {selectedDate}</h2>
-                    <button style={buttonStyle} onClick={downloadCSV}>Download Emails</button>
-                    <button style={downloadButtonStyle} onClick={downloadMonthCSV}>Download Entire Month</button>
                     {filteredEmails.length > 0 ? (
                         <div>
                             <table style={emailTable}>
@@ -342,7 +348,8 @@ function EmailListComponent() {
                                     ))}
                                 </tbody>
                             </table>
-                            
+                            <button style={buttonStyle} onClick={downloadCSV}>Download Emails</button>
+                            <button style={downloadButtonStyle} onClick={downloadMonthCSV}>Download Entire Month</button> {/* New Button */}
                         </div>
                     ) : (
                         <p>No entries found for {selectedDate}.</p>
