@@ -18,7 +18,7 @@ function EmailListComponent() {
         fontFamily: "'ChicagoFLF', serif",
         fontSize: 30,
         marginTop: 10,
-        marginBottom: 10,
+        marginBottom: -10,
     };
 
     const p = {
@@ -49,6 +49,18 @@ function EmailListComponent() {
     const th = {
         border: '1px solid black',
         padding: '8px',
+    };
+
+    const dateButtons = {
+        fontFamily: "'ChicagoFLF', serif",
+        marginTop: 15,
+        paddingTop: 3,
+        paddingBottom: 3,
+        paddingLeft: 125,
+        paddingRight: 125,
+        borderRadius: 5,
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
+        border: '2px solid #1b1b1b'  // Proper CSS border syntax
     };
 
     const calendarContainer = {
@@ -217,11 +229,11 @@ function EmailListComponent() {
     return (
         <div style={emailListContainer}>
             <h2>Select the date you'd like to view.</h2>
-            <p>Download the emails as a CSV by selecting the download button in the top right</p>
+            <p>Download the emails as a CSV by selecting the download button in the top right of the calendar.</p>
             <p>{roomName}</p>
             <div style={calendarContainer}>
                 <div style={monthSelector}>
-                    <button onClick={handlePreviousMonth}>Previous</button>
+                    <button style={dateButtons} onClick={handlePreviousMonth}>Previous</button>
                     <h3>{new Date(selectedYear, selectedMonth).toLocaleString('default', { month: 'long', year: 'numeric' })}</h3>
                     <button onClick={handleNextMonth}>Next</button>
                 </div>
