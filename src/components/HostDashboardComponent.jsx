@@ -143,6 +143,9 @@ function HostDashboardComponent() {
       }
 
 
+      function handleEmailList() {
+        window.location.href = '/emailList'; // Redirect to email list page
+    }
 
 
     function handleSignOut() {
@@ -191,6 +194,9 @@ function HostDashboardComponent() {
                 </div>
                 <div style="margin-top: 20px">
                     <button style={buttonStyle} onClick={handleGoLive}><p>GO LIVE</p></button>
+                </div>
+                <div style="margin-top: 20px">
+                    <button style={buttonStyle} onClick={handleEmailList}><p>EMAIL LISTS</p></button>
                 </div>
             </div>
             <div>
