@@ -333,7 +333,7 @@ function EmailListComponent() {
                     {generateCalendar()}
                 </div>
             </div>
-            <div style={{ marginTop: '20px', textAlign: 'center' }}>
+            <div style={{ marginTop: '10px', marginBottom: '20px', textAlign: 'center' }}>
                 <p style={p}>Total emails in current month: <span style={{ fontWeight: 'bold' }}>{emailsInCurrentMonth}</span></p>
                 <p style={p}>Total emails collected: <span style={{ fontWeight: 'bold' }}>{totalEmails}</span></p>
             </div>
