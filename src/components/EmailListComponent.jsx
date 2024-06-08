@@ -311,6 +311,13 @@ function EmailListComponent() {
         return emailDate === selectedDate;
     }) : [];
 
+    const emailsInCurrentMonth = emails.filter(email => {
+        const emailDate = new Date(email.date.seconds * 1000);
+        return emailDate.getMonth() === selectedMonth && emailDate.getFullYear() === selectedYear;
+    }).length;
+
+    const totalEmails = emails.length;
+
     return (
         <div style={emailListContainer}>
             <button style={dashboardButtonStyle} onClick={() => window.location.href = '/dashboard'}>Dashboard</button> {/* Dashboard Button */}
@@ -325,6 +332,10 @@ function EmailListComponent() {
                 <div style={calendarGrid}>
                     {generateCalendar()}
                 </div>
+            </div>
+            <div style={{ marginTop: '20px', textAlign: 'center' }}>
+                <p>Total emails in current month: {emailsInCurrentMonth}</p>
+                <p>Total emails collected: {totalEmails}</p>
             </div>
             {selectedDate && (
                 <div>
