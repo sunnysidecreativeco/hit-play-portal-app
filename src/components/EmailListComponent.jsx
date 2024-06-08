@@ -17,38 +17,35 @@ function EmailListComponent() {
                 const fetchRoomData = async () => {
                     try {
                         const userDocRef = doc(db, "users", user.uid);
-                        const unsubscribeUserDoc = onSnapshot(userDocRef, async docSnap => {
-                            if (docSnap.exists()) {
-                                const roomDocRef = doc(db, "liveRooms", user.uid);
-                                const roomDocSnap = await getDoc(roomDocRef);
-                                console.log('the room doc is', roomDocSnap.data().roomCode);
+
+                        // Fetch user document
+                        const userDocSnap = await getDoc(userDocRef);
+                        if (userDocSnap.exists()) {
+                            console.log("User document exists.");
+
+                            // Fetch room document
+                            const roomDocRef = doc(db, "liveRooms", user.uid);
+                            const roomDocSnap = await getDoc(roomDocRef);
+                            if (roomDocSnap.exists()) {
+                                const roomData = roomDocSnap.data();
+                                setRoomName(roomData.roomName || "No room name");
 
                                 // Fetch emails collection
                                 const emailsCollectionRef = collection(db, "liveRooms", user.uid, "emails");
                                 const emailsQuery = query(emailsCollectionRef, orderBy("date", "desc"));
                                 const emailDocsSnap = await getDocs(emailsQuery);
-                                
-                                const emailData = emailDocsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                                setEmails(emailData);
-                            } else {
-                                console.log("No such user document!");
-                            }
-                        });
 
-                        const roomDocRef = doc(db, "liveRooms", user.uid);
-                        const unsubscribeRoomDoc = onSnapshot(roomDocRef, docSnap => {
-                            if (docSnap.exists()) {
-                                const roomData = docSnap.data();
-                                setRoomName(roomData.roomName);
+                                const emailData = emailDocsSnap.docs.map(doc => ({
+                                    id: doc.id,
+                                    ...doc.data()
+                                }));
+                                setEmails(emailData);
                             } else {
                                 console.log("No such room document!");
                             }
-                        });
-
-                        return () => {
-                            unsubscribeUserDoc();
-                            unsubscribeRoomDoc();
-                        };
+                        } else {
+                            console.log("No such user document!");
+                        }
                     } catch (error) {
                         console.error("Error fetching room data:", error);
                     }
