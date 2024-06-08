@@ -9,6 +9,29 @@ function EmailListComponent() {
     const [emails, setEmails] = useState([]);
     const [showModal, setShowModal] = useState(false);
 
+    const emailListContainer = {
+        display: flex,
+        flexDirection: column,
+        alignItems: center,
+    };
+    const emailTable = {
+        margin: 20,
+        borderCollapse: collapse,
+        width: '80%',
+        textAlign: center,
+    };
+
+    const td = {
+        border: '1px solid black',
+        padding: '8px',
+    };
+    const th = {
+        border: '1px solid black',
+        padding: '8px',
+    };
+
+
+
     useEffect(() => {
         const authInstance = getAuth();
 
@@ -63,24 +86,24 @@ function EmailListComponent() {
     }, []);
 
     return (
-        <div>
+        <div style={emailListContainer}>
             <p>On this page you'll find the email and artist name of every entry to your room.</p>
             <p>{roomName}</p>
             {emails.length > 0 ? (
-                <table className="email-table">
+                <table style={emailTable}>
                     <thead>
                         <tr>
-                            <th>Artist Name</th>
-                            <th>Email</th>
-                            <th>Date</th>
+                            <th style={th}>Artist Name</th>
+                            <th style={th}>Email</th>
+                            <th style={th}>Date</th>
                         </tr>
                     </thead>
                     <tbody>
                         {emails.map(email => (
                             <tr key={email.id}>
-                                <td>{email.artistName}</td>
-                                <td>{email.email}</td>
-                                <td>{new Date(email.date.seconds * 1000).toLocaleString()}</td>
+                                <td style={td}>{email.artistName}</td>
+                                <td style={td}>{email.email}</td>
+                                <td style={td}>{new Date(email.date.seconds * 1000).toLocaleString()}</td>
                             </tr>
                         ))}
                     </tbody>
