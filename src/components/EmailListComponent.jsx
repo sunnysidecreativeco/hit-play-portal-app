@@ -17,7 +17,7 @@ function EmailListComponent() {
     const emailTable = {
         margin: 20,
         borderCollapse: 'collapse',
-        width: '80%',
+        width: '50%',
         textAlign: 'center',
     };
 
