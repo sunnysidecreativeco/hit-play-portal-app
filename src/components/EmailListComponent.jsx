@@ -39,12 +39,17 @@ function EmailListComponent() {
         margin: 20,
         borderCollapse: 'collapse',
         textAlign: 'center',
+        borderRadius: 5,
+        border: '1px solid black',
+        boxShadow: '3px 3px 0px 0px #1b1b1b', 
+        border: '2px solid #1b1b1b' 
     };
 
     const td = {
         border: '1px solid black',
         padding: '8px',
         fontFamily: '"IBMPlexSerif", serif',
+       
     };
 
     const th = {
@@ -63,11 +68,12 @@ function EmailListComponent() {
         paddingLeft: 25,
         paddingRight: 25,
         borderRadius: 5,
-        boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
-        border: '2px solid #1b1b1b'  // Proper CSS border syntax
+        boxShadow: '3px 3px 0px 0px #1b1b1b', 
+        border: '2px solid #1b1b1b' 
     };
 
     const calendarContainer = {
+        marginTop: '25px',
         marginBottom: '20px',
         display: 'flex',
         flexDirection: 'column',
