@@ -314,7 +314,7 @@ function EmailListComponent() {
         <div style={emailListContainer}>
             <button style={dashboardButtonStyle} onClick={() => window.location.href = '/dashboard'}>Dashboard</button> {/* Dashboard Button */}
             <h2 style={h2}>Select the date you'd like to view.</h2>
-            <p style={p}>Download the emails as a CSV by selecting the download button in the top right of the calendar.</p>
+            <p style={p}>Download the emails as a CSV by selecting the download button on top of the email list. Or download the entire month.</p>
             <div style={calendarContainer}>
                 <div style={monthSelector}>
                     <button style={buttonStyle} onClick={handlePreviousMonth}>Previous</button>
