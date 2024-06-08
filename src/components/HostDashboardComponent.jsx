@@ -53,6 +53,17 @@ function HostDashboardComponent() {
         boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
         border: '2px solid #1b1b1b'  // Proper CSS border syntax
     };
+    const buttonStyleEmail = {
+        fontFamily: "'ChicagoFLF', serif",
+        marginTop: 15,
+        paddingTop: 3,
+        paddingBottom: 3,
+        paddingLeft: 108,
+        paddingRight: 108,
+        borderRadius: 5,
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
+        border: '2px solid #1b1b1b'  // Proper CSS border syntax
+    };
     
 
     useEffect(() => {
@@ -195,8 +206,8 @@ function HostDashboardComponent() {
                 <div style="margin-top: 20px">
                     <button style={buttonStyle} onClick={handleGoLive}><p>GO LIVE</p></button>
                 </div>
-                <div style="margin-top: 20px">
-                    <button style={buttonStyle} onClick={handleEmailList}><p>EMAIL LISTS</p></button>
+                <div>
+                    <button style={buttonStyleEmail} onClick={handleEmailList}><p>EMAIL LISTS</p></button>
                 </div>
             </div>
             <div>
