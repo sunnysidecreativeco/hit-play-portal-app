@@ -136,6 +136,7 @@ function EmailListComponent() {
     const downloadButtonStyle = {
         ...buttonStyle,
         backgroundColor: 'black',
+        border: '2px solid #FFFFFF',
         color: 'white',
     };
 
