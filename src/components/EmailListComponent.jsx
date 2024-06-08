@@ -82,6 +82,7 @@ function EmailListComponent() {
 
     const dayButton = {
         padding: '10px',
+        fontFamily: "'ChicagoFLF', serif",
         cursor: 'pointer',
         textAlign: 'center',
         border: '1px solid #ccc',
@@ -100,7 +101,11 @@ function EmailListComponent() {
     };
 
     const selectedDay = {
-        backgroundColor: '#add8e6', // Darker blue
+        backgroundColor: '#3F3F3F', // Light blue
+        borderRadius: 3,
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
+        border: '2px solid #FFFFFF',
+        color: '#FFFFFF',
     };
 
     const monthSelector = {
@@ -116,6 +121,7 @@ function EmailListComponent() {
         marginLeft: 25,
         paddingTop: 3,
         paddingBottom: 3,
+        height: 40,
         paddingLeft: 25,
         paddingRight: 25,
         borderRadius: 5,
@@ -255,7 +261,7 @@ function EmailListComponent() {
             </div>
             {selectedDate && (
                 <div>
-                    <h2>Entries for {selectedDate}</h2>
+                    <h2 style={h2}>Entries for {selectedDate}</h2>
                     {filteredEmails.length > 0 ? (
                         <table style={emailTable}>
                             <thead>
