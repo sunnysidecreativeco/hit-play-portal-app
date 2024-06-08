@@ -142,8 +142,8 @@ function EmailListComponent() {
     const dashboardButtonStyle = {
         ...buttonStyle,
         position: 'absolute',
-        top: '10px',
-        left: '10px',
+        top: '20px',
+        left: '0px',
     };
 
     useEffect(() => {
