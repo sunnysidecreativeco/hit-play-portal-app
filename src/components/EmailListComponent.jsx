@@ -95,8 +95,8 @@ function EmailListComponent() {
         backgroundColor: '#1B1B1B', // Light blue
         borderRadius: 3,
         boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
-        border: '2px solid #FFFFFF'
-
+        border: '2px solid #FFFFFF',
+        color: '#FFFFFF',
     };
 
     const selectedDay = {
@@ -112,10 +112,12 @@ function EmailListComponent() {
     const buttonStyle = {
         fontFamily: "'ChicagoFLF', serif",
         marginTop: 15,
+        marginRight: 25,
+        marginLeft: 25,
         paddingTop: 3,
         paddingBottom: 3,
-        paddingLeft: 125,
-        paddingRight: 125,
+        paddingLeft: 25,
+        paddingRight: 25,
         borderRadius: 5,
         boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
         border: '2px solid #1b1b1b'  // Proper CSS border syntax
@@ -243,9 +245,9 @@ function EmailListComponent() {
             <p style={p}>Download the emails as a CSV by selecting the download button in the top right of the calendar.</p>
             <div style={calendarContainer}>
                 <div style={monthSelector}>
-                    <button style={dateButtons} onClick={handlePreviousMonth}>Previous</button>
+                    <button style={buttonStyle} onClick={handlePreviousMonth}>Previous</button>
                     <h3 style={h2}>{new Date(selectedYear, selectedMonth).toLocaleString('default', { month: 'long', year: 'numeric' })}</h3>
-                    <button style={dateButtons} onClick={handleNextMonth}>Next</button>
+                    <button style={buttonStyle} onClick={handleNextMonth}>Next</button>
                 </div>
                 <div style={calendarGrid}>
                     {generateCalendar()}
