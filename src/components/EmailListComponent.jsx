@@ -232,7 +232,7 @@ function EmailListComponent() {
     return (
         <div style={emailListContainer}>
             <h2>Select the date you'd like to view.</h2>
-            <p>Download the emails as a CSV by selecting the download button in the top right of the calendar.</p>
+            <p style={p}>Download the emails as a CSV by selecting the download button in the top right of the calendar.</p>
             <p>{roomName}</p>
             <div style={calendarContainer}>
                 <div style={monthSelector}>
