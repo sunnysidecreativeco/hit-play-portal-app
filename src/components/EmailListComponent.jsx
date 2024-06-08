@@ -279,7 +279,6 @@ function EmailListComponent() {
                     <button style={buttonStyle} onClick={handlePreviousMonth}>Previous</button>
                     <h3 style={h2}>{new Date(selectedYear, selectedMonth).toLocaleString('default', { month: 'long', year: 'numeric' })}</h3>
                     <button style={buttonStyle} onClick={handleNextMonth}>Next</button>
-                    <button style={buttonStyle} onClick={downloadCSV}>Download</button>
                 </div>
                 <div style={calendarGrid}>
                     {generateCalendar()}
@@ -289,24 +288,27 @@ function EmailListComponent() {
                 <div>
                     <h2 style={h2}>Entries for {selectedDate}</h2>
                     {filteredEmails.length > 0 ? (
-                        <table style={emailTable}>
-                            <thead>
-                                <tr>
-                                    <th style={th}>Artist Name</th>
-                                    <th style={th}>Email</th>
-                                    <th style={th}>Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {filteredEmails.map(email => (
-                                    <tr key={email.id}>
-                                        <td style={td}>{email.artistName}</td>
-                                        <td style={td}>{email.email}</td>
-                                        <td style={td}>{new Date(email.date.seconds * 1000).toLocaleString()}</td>
+                        <div>
+                            <table style={emailTable}>
+                                <thead>
+                                    <tr>
+                                        <th style={th}>Artist Name</th>
+                                        <th style={th}>Email</th>
+                                        <th style={th}>Date</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {filteredEmails.map(email => (
+                                        <tr key={email.id}>
+                                            <td style={td}>{email.artistName}</td>
+                                            <td style={td}>{email.email}</td>
+                                            <td style={td}>{new Date(email.date.seconds * 1000).toLocaleString()}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            <button style={buttonStyle} onClick={downloadCSV}>Download</button> {/* Step 3 */}
+                        </div>
                     ) : (
                         <p>No entries found for {selectedDate}.</p>
                     )}
