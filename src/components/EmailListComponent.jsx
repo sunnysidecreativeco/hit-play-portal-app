@@ -119,7 +119,8 @@ function EmailListComponent() {
 
     const buttonStyle = {
         fontFamily: "'ChicagoFLF', serif",
-        marginTop: 15,
+        marginTop: 5,
+        marginBottom: 5,
         marginRight: 25,
         marginLeft: 25,
         paddingTop: 3,
