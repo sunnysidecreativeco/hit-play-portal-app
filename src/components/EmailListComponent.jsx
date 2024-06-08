@@ -334,8 +334,8 @@ function EmailListComponent() {
                 </div>
             </div>
             <div style={{ marginTop: '20px', textAlign: 'center' }}>
-                <p>Total emails in current month: {emailsInCurrentMonth}</p>
-                <p>Total emails collected: {totalEmails}</p>
+                <p style={p}>Total emails in current month: <span style={{ fontWeight: 'bold' }}>{emailsInCurrentMonth}</span></p>
+                <p style={p}>Total emails collected: <span style={{ fontWeight: 'bold' }}>{totalEmails}</span></p>
             </div>
             {selectedDate && (
                 <div>
