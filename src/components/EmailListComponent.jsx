@@ -13,6 +13,22 @@ function EmailListComponent() {
     const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
     const [showModal, setShowModal] = useState(false);
 
+
+    const h2 = {
+        fontFamily: "'ChicagoFLF', serif",
+        fontSize: 30,
+        marginTop: 10,
+        marginBottom: 10,
+    };
+
+    const p = {
+        textAlign: 'center',
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 16,
+        paddingLeft: 10,
+        marginBottom: 0,
+    };
+
     const emailListContainer = {
         display: 'flex',
         flexDirection: 'column',
@@ -68,6 +84,18 @@ function EmailListComponent() {
         display: 'flex',
         justifyContent: 'space-between',
         marginBottom: '10px',
+    };
+
+    const buttonStyle = {
+        fontFamily: "'ChicagoFLF', serif",
+        marginTop: 15,
+        paddingTop: 3,
+        paddingBottom: 3,
+        paddingLeft: 125,
+        paddingRight: 125,
+        borderRadius: 5,
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
+        border: '2px solid #1b1b1b'  // Proper CSS border syntax
     };
 
     useEffect(() => {
@@ -188,7 +216,8 @@ function EmailListComponent() {
 
     return (
         <div style={emailListContainer}>
-            <p>On this page you'll find the email and artist name of every entry to your room.</p>
+            <h2>Select the date you'd like to view.</h2>
+            <p>Download the emails as a CSV by selecting the download button in the top right</p>
             <p>{roomName}</p>
             <div style={calendarContainer}>
                 <div style={monthSelector}>
