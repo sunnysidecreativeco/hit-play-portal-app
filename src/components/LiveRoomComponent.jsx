@@ -795,24 +795,35 @@ function LiveRoomComponent() {
             return;
         }
         const roomDocRef = doc(db, `liveRooms/${userUid}`);
-        if(freeLineOpenStatus == true){
+        if(freeLineOpenStatus == true && lineOpenStatus == true){
             try {
                 await updateDoc(roomDocRef, {
-                    lineOpen: !lineOpenStatus, // Toggle the current Firestore state based on UI state
+                    lineOpen: false, // Toggle the current Firestore state based on UI state
                     freeLineOpen: false,
                 });
-                setLineOpenStatus(!lineOpenStatus); // Toggle UI state
+                setLineOpenStatus(false); // Toggle UI state
                 setFreeLineOpenStatus(false);
             } catch (error) {
                 console.error("Failed to toggle line status:", error);
             }
-        } else {
+        } else if(freeLineOpenStatus == true && lineOpenStatus == false){
             try {
                 await updateDoc(roomDocRef, {
-                    lineOpen: !lineOpenStatus, // Toggle the current Firestore state based on UI state
+                    lineOpen: true, // Toggle the current Firestore state based on UI state
                     freeLineOpen: true,
                 });
-                setLineOpenStatus(!lineOpenStatus); // Toggle UI state
+                setLineOpenStatus(true); // Toggle UI state
+                setFreeLineOpenStatus(true);
+            } catch (error) {
+                console.error("Failed to toggle line status:", error);
+            }
+        } else if(freeLineOpenStatus == false && lineOpenStatus == false){
+            try {
+                await updateDoc(roomDocRef, {
+                    lineOpen: true, // Toggle the current Firestore state based on UI state
+                    freeLineOpen: true,
+                });
+                setLineOpenStatus(true); // Toggle UI state
                 setFreeLineOpenStatus(true);
             } catch (error) {
                 console.error("Failed to toggle line status:", error);
