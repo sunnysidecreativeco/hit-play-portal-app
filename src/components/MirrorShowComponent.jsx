@@ -602,7 +602,7 @@ function MirrorShowComponent() {
                         {songsSkipPlus.map(song => (
                             <div key={song.id} className="song-item" style="display: flex;">
                                 <div style={artistNameContainerList}>
-                                    <p style={songNameTextList}>{song.songName}</p> 
+                                    <p style={songNameTextList}>{song.songName}{song.boost >= 1 ? ` +${song.boost}` : ''}</p> 
                                     <p style={artistNameTextList}>{song.artistName}</p>
                                 </div>
                                 <div style={spotifyButtonList}>
@@ -621,7 +621,7 @@ function MirrorShowComponent() {
                         {songsSkip.map(song => (
                             <div key={song.id} className="song-item" style="display: flex;">
                                 <div style={artistNameContainerList}>
-                                    <p style={songNameTextList}>{song.songName}</p> 
+                                    <p style={songNameTextList}>{song.songName}{song.boost >= 1 ? ` +${song.boost}` : ''}</p> 
                                     <p style={artistNameTextList}>{song.artistName}</p>
                                 </div>
                                 <div style={spotifyButtonList}>
@@ -640,7 +640,7 @@ function MirrorShowComponent() {
                         {songs.map(song => (
                             <div key={song.id} className="song-item" style="display: flex;">
                                 <div style={artistNameContainerList}>
-                                    <p style={songNameTextList}>{song.songName}</p> 
+                                    <p style={songNameTextList}>{song.songName}{song.boost >= 1 ? ` +${song.boost}` : ''}</p> 
                                     <p style={artistNameTextList}>{song.artistName}</p>
                                 </div>
                                 <div style={spotifyButtonList}>
