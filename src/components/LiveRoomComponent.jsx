@@ -1091,7 +1091,7 @@ function LiveRoomComponent() {
                                         <td style={cellStyle}>{freeLineOpenStatus ? "Open" : "Closed"}</td>
                                     </tr>
                                     <tr style={rowStyle}>
-                                        <td style={cellText}>Your main lines are:</td>
+                                        <td style={cellText}>Your paid lines are:</td>
                                         <td style={cellStyle}>{lineOpenStatus ? "Open" : "Closed"}</td>
                                     </tr>
                                     <tr style={rowStyle}>
