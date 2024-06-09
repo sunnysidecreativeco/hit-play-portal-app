@@ -795,16 +795,30 @@ function LiveRoomComponent() {
             return;
         }
         const roomDocRef = doc(db, `liveRooms/${userUid}`);
-        try {
-            await updateDoc(roomDocRef, {
-                lineOpen: !lineOpenStatus, // Toggle the current Firestore state based on UI state
-                freeLineOpen: false,
-            });
-            setLineOpenStatus(!lineOpenStatus); // Toggle UI state
-            setFreeLineOpenStatus(false);
-        } catch (error) {
-            console.error("Failed to toggle line status:", error);
+        if(freeLineOpenStatus == true){
+            try {
+                await updateDoc(roomDocRef, {
+                    lineOpen: !lineOpenStatus, // Toggle the current Firestore state based on UI state
+                    freeLineOpen: false,
+                });
+                setLineOpenStatus(!lineOpenStatus); // Toggle UI state
+                setFreeLineOpenStatus(false);
+            } catch (error) {
+                console.error("Failed to toggle line status:", error);
+            }
+        } else {
+            try {
+                await updateDoc(roomDocRef, {
+                    lineOpen: !lineOpenStatus, // Toggle the current Firestore state based on UI state
+                    freeLineOpen: true,
+                });
+                setLineOpenStatus(!lineOpenStatus); // Toggle UI state
+                setFreeLineOpenStatus(true);
+            } catch (error) {
+                console.error("Failed to toggle line status:", error);
+            }
         }
+        
     };
 
     const goOffAir = async () => {
