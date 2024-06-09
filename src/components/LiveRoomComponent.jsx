@@ -798,10 +798,10 @@ function LiveRoomComponent() {
         try {
             await updateDoc(roomDocRef, {
                 lineOpen: !lineOpenStatus, // Toggle the current Firestore state based on UI state
-                freeLineOpen: !freeLineOpenStatus
+                freeLineOpen: false,
             });
             setLineOpenStatus(!lineOpenStatus); // Toggle UI state
-            setFreeLineOpenStatus(!freeLineOpenStatus);
+            setFreeLineOpenStatus(false);
         } catch (error) {
             console.error("Failed to toggle line status:", error);
         }
