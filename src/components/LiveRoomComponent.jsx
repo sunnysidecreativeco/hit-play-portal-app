@@ -109,11 +109,24 @@ function LiveRoomComponent() {
         marginTop: 5,
     };
 
-    const buttonStyleCloseLine = {
+    const buttonStyleCloseFreeLine = {
         fontFamily: "'ChicagoFLF', serif",
         fontSize: '18px',
         backgroundColor: '#ffffff', 
         marginTop: '15px',
+        paddingTop: '13px',
+        paddingBottom: '13px',
+        paddingLeft: '54px',
+        paddingRight: '54px',
+        borderRadius: '5px',
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  
+        border: '2px solid #1b1b1b' 
+    };
+
+    const buttonStyleCloseLine = {
+        fontFamily: "'ChicagoFLF', serif",
+        fontSize: '18px',
+        backgroundColor: '#ffffff', 
         paddingTop: '13px',
         paddingBottom: '13px',
         paddingLeft: '70px',
@@ -1055,7 +1068,7 @@ function LiveRoomComponent() {
                         </div>
 
                         <div style="margin-top: 15px;">
-                            <button onClick={toggleFreeLineStatus} style={buttonStyleCloseLine}>
+                            <button onClick={toggleFreeLineStatus} style={buttonStyleCloseFreeLine}>
                                 {freeLineOpenStatus ? "CLOSE THE FREE LINE" : "OPEN THE FREE LINE"}
                             </button>
                         </div>
