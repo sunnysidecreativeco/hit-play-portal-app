@@ -139,15 +139,16 @@ function LiveRoomComponent() {
     const buttonStyleOffAir = {
         fontFamily: "'ChicagoFLF', serif",
         fontSize: '18px',
-        backgroundColor: '#ffffff', 
+        color: '#FFFFFF',
+        backgroundColor: '#d43348', 
         marginTop: '15px',
         paddingTop: '13px',
         paddingBottom: '13px',
-        paddingLeft: '90px',
-        paddingRight: '90px',
+        paddingLeft: '95px',
+        paddingRight: '95px',
         borderRadius: '5px',
         boxShadow: '3px 3px 0px 0px #1b1b1b',  
-        border: '2px solid #1b1b1b' 
+        border: '2px solid #FFFFFF' 
     };
     
     const avatarContainer = {
