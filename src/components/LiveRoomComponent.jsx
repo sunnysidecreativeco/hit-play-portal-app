@@ -831,11 +831,11 @@ function LiveRoomComponent() {
         } else if(freeLineOpenStatus == false && lineOpenStatus == true){
             try {
                 await updateDoc(roomDocRef, {
-                    lineOpen: true, // Toggle the current Firestore state based on UI state
-                    freeLineOpen: true,
+                    lineOpen: false, // Toggle the current Firestore state based on UI state
+                    freeLineOpen: false,
                 });
-                setLineOpenStatus(true); // Toggle UI state
-                setFreeLineOpenStatus(true);
+                setLineOpenStatus(false); // Toggle UI state
+                setFreeLineOpenStatus(false);
             } catch (error) {
                 console.error("Failed to toggle line status:", error);
             }
