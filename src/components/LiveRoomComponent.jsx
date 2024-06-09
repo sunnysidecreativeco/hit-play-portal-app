@@ -24,6 +24,7 @@ import {
 function LiveRoomComponent() {
     const [roomName, setRoomName] = useState('');
     const [onAirStatus, setOnAirStatus] = useState(false);
+    const [freeLineOpenStatus, setFreeLineOpenStatus] = useState(false);
     const [lineOpenStatus, setLineOpenStatus] = useState(false);
     const [creditsEarned, setCreditsEarned] = useState(0);
     const [showModal, setShowModal] = useState(false);
@@ -445,6 +446,7 @@ function LiveRoomComponent() {
                         const roomData = docSnap.data();
                         setRoomName(roomData.roomName);
                         setOnAirStatus(roomData.onAir ? "On Air" : "Off Air");
+                        setFreeLineOpenStatus(roomData.freeLineOpen)
                         setLineOpenStatus(roomData.lineOpen);
                         setCreditsEarned(roomData.creditsEarned || 0);
                         setIsHost(roomData.hostId === user.uid); // Set isHost based on the hostId field
@@ -452,6 +454,7 @@ function LiveRoomComponent() {
                         console.log("No such room document!");
                         setRoomName('');
                         setOnAirStatus('Off Air');
+                        setFreeLineOpenStatus(false);
                         setLineOpenStatus(false);
                         setCreditsEarned(0);
                     }
@@ -753,6 +756,23 @@ function LiveRoomComponent() {
         }
     };
 
+    const toggleFreeLineStatus = async () => {
+        const userUid = getAuth().currentUser?.uid;
+        if (!userUid) {
+            console.error("User not authenticated");
+            return;
+        }
+        const roomDocRef = doc(db, `liveRooms/${userUid}`);
+        try {
+            await updateDoc(roomDocRef, {
+                freeLineOpen: !freeLineOpenStatus // Toggle the current Firestore state based on UI state
+            });
+            setLineOpenStatus(!freeLineOpenStatus); // Toggle UI state
+        } catch (error) {
+            console.error("Failed to toggle line status:", error);
+        }
+    };
+
 
     const toggleLineStatus = async () => {
         const userUid = getAuth().currentUser?.uid;
@@ -1015,7 +1035,11 @@ function LiveRoomComponent() {
                                         <td style={cellStyle}>{onAirStatus || "No status available"}</td>
                                     </tr>
                                     <tr style={rowStyle}>
-                                        <td style={cellText}>Your line is:</td>
+                                        <td style={cellText}>Your free line is:</td>
+                                        <td style={cellStyle}>{freeLineOpenStatus ? "Open" : "Closed"}</td>
+                                    </tr>
+                                    <tr style={rowStyle}>
+                                        <td style={cellText}>Your main lines are:</td>
                                         <td style={cellStyle}>{lineOpenStatus ? "Open" : "Closed"}</td>
                                     </tr>
                                     <tr style={rowStyle}>
@@ -1031,8 +1055,14 @@ function LiveRoomComponent() {
                         </div>
 
                         <div style="margin-top: 15px;">
+                            <button onClick={toggleFreeLineStatus} style={buttonStyleCloseLine}>
+                                {freeLineOpenStatus ? "CLOSE THE FREE LINE" : "OPEN THE FREE LINE"}
+                            </button>
+                        </div>
+
+                        <div style="margin-top: 15px;">
                             <button onClick={toggleLineStatus} style={buttonStyleCloseLine}>
-                                {lineOpenStatus ? "CLOSE THE LINE" : "OPEN THE LINE"}
+                                {lineOpenStatus ? "CLOSE ALL LINES" : "OPEN ALL LINES"}
                             </button>
                         </div>
                         
