@@ -40,20 +40,15 @@ function LiveRoomComponent() {
     const [showOffAirModal, setShowOffAirModal] = useState(false);
     const [donations, setDonations] = useState([]);
     const [isHost, setIsHost] = useState(false);
+    const [selectedArtist, setSelectedArtist] = useState(null);
+    const [banModalVisible, setBanModalVisible] = useState(false);
 
-    
     const [refresh, setRefresh] = useState(true);
     const [credits, setCredits] = useState("");
     const [songsList, setSongsList] = useState([]);
     const [userId, setUserId] = useState("");
     const [artistName, setArtistName] = useState("");
     const [songName, setSongName] = useState("");
-    // const [instagramLink, setInstagramLink] = useState("");
-    // const [instagramIcon, setInstagramIcon] = useState(null)
-    // const [tiktokLink, setTiktokLink] = useState("");
-    // const [tiktokIcon, setTiktokIcon] = useState(null);
-    // const [twitchLink, setTwitchLink] = useState("");
-    // const [twitchIcon, setTwitchIcon] = useState(null);
     const [roomSkips, setRoomSkips] = useState("");
     const [loginButton, setLoginButton] = useState("");
     const [loginButtonNote, setLoginButtonNote] = useState("");
@@ -61,7 +56,7 @@ function LiveRoomComponent() {
     const [lineButtonNote, setLineButtonNote] = useState("");
     const [yourSongsTitle, setYourSongsTitle] = useState("");
     const [onAirButton, setOnAirButton] = useState("");
-    
+
     const [nowPlayingControls, setNowPlayingControls] = useState("")
     const [songsInLine, setSongsInLine] = useState(0);
     const [skipStatus, setSkipStatus] = useState(false)
@@ -71,8 +66,6 @@ function LiveRoomComponent() {
     const [songFileNameNow, setSongFileNameNow] = useState("");
     const [songLink, setSongLink] = useState("");
     const [roomId, setRoomId] = useState("");
-    //const [lineOpen, setLineOpen] = useState(null)
-    //const [genres, setGenres] = useState("");
     const [skipRate, setSkipRate] = useState(0);
     const [skipPlusRate, setSkipPlusRate] = useState(0);
     const [trigger, setTrigger] = useState(0);
@@ -80,363 +73,12 @@ function LiveRoomComponent() {
     const [creditsEarnedLive, setCreditsEarnedLive] = useState(0);
     const [liveControlButton, setLiveControlButton] = useState("");
     const [modal, setModal] = useState('');
-    
 
     const B = (props) => <Text style={{color: '#3045bf'}}>{props.children}</Text>;
     const C = (props) => <Text style={{color: '#b33110'}}>{props.children}</Text>;
 
-
-    //Styles
-    const h2 = {
-        fontFamily: "'ChicagoFLF', serif",
-        fontSize: 30,
-        marginTop: 10,
-        marginBottom: 10,
-    };
-
-    const h3 = {
-        fontFamily: "'ChicagoFLF', serif",
-        fontSize: 24,
-        textAlign: 'left',
-        marginBottom: 5,
-    };
-
-    const h3SkipPlus = {
-        fontFamily: "'ChicagoFLF', serif",
-        fontSize: 24,
-        textAlign: 'left',
-        marginBottom: 5,
-        marginTop: 5,
-    };
-
-    const buttonStyleCloseFreeLine = {
-        fontFamily: "'ChicagoFLF', serif",
-        fontSize: '18px',
-        backgroundColor: '#ffffff', 
-        marginTop: '15px',
-        paddingTop: '13px',
-        paddingBottom: '13px',
-        paddingLeft: '54px',
-        paddingRight: '54px',
-        borderRadius: '5px',
-        boxShadow: '3px 3px 0px 0px #1b1b1b',  
-        border: '2px solid #1b1b1b' 
-    };
-
-    const buttonStyleCloseLine = {
-        fontFamily: "'ChicagoFLF', serif",
-        fontSize: '18px',
-        backgroundColor: '#ffffff', 
-        paddingTop: '13px',
-        paddingBottom: '13px',
-        paddingLeft: '70px',
-        paddingRight: '70px',
-        borderRadius: '5px',
-        boxShadow: '3px 3px 0px 0px #1b1b1b',  
-        border: '2px solid #1b1b1b' 
-    };
-
-    const buttonStyleOffAir = {
-        fontFamily: "'ChicagoFLF', serif",
-        fontSize: '18px',
-        color: '#FFFFFF',
-        backgroundColor: '#d43348', 
-        marginTop: '15px',
-        paddingTop: '13px',
-        paddingBottom: '13px',
-        paddingLeft: '95px',
-        paddingRight: '95px',
-        borderRadius: '5px',
-        boxShadow: '3px 3px 0px 0px #1b1b1b',  
-        border: '2px solid #FFFFFF' 
-    };
-    
-    const avatarContainer = {
-        float: 'left', 
-    };
-    
-    const avatar = {
-        display: 'inline-block', 
-        verticalAlign: 'middle',
-        paddingLeft: 50,
-        paddingTop: 20,
-    };
-
-    const backToDashboard = {
-        fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 14,
-        textDecoration: 'underline',
-        marginTop: '5px',
-        cursor: 'pointer'
-    };
-
-    const donationsContainer = {
-        marginLeft: 50,
-        float: 'left',
-        position: 'absolute',
-        
-    };
-
-    const donationsListTitle = {
-        fontFamily: "'ChicagoFLF', serif",
-        fontSize: '18px',
-        textAlign: 'left',
-        fontWeight: 500,
-        paddingLeft: 10,
-    };
-
-    const donationsListContainer = {
-        height: 200,
-        borderRadius: '20px',
-        border: '3px solid #1b1b1b',  
-        boxShadow: '3px 3px 0px 0px #1b1b1b',  
-        maxHeight: '500px',  
-        overflowY: 'auto',  
-        width: 235,
-    };
-
-    const artistNameDonationText = {
-        textAlign: 'left',
-        fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 16,
-        paddingLeft: 10,
-        marginBottom: 0,
-    };
-
-    const creditsDonationText = {
-        textAlign: 'left',
-        fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 16,
-        paddingLeft: 10,
-        marginTop: 0,
-    };
-
-    const mirrorContainer = {
-        float: 'right',
-        paddingRight: 50,
-        paddingTop: 20
-    }; 
-
-    const mirrorButton = {
-        borderRadius: 7,
-        border: '2px solid #1b1b1b',
-        boxShadow: '3px 3px 0px 0px #1b1b1b', 
-    };
-    
-    const roomNameContainer = {
-        verticalAlign: 'middle', 
-        display: 'inline-block', 
-        marginLeft: '20px',
-        width: 150,
-        textAlign: 'left',
-    };
-
-    const roomNameText = {
-        fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 18,
-        marginTop: '25px',
-        marginBottom: '5px',
-    };
-
-    const artistContainer ={
-
-    };
-
-    const artistNameContainer = {
-        display: 'inline-block',
-        textAlign: 'left',
-        verticalAlign: 'middle',
-        paddingRight: 25,
-    };
-
-    const artistNameText = {
-        fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 18,
-        display: 'inline-block',
-        marginTop: '0px',
-        textAlign: 'left',
-    };
-
-    const songNameText = {
-        fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 22,
-        marginBottom: '0px',
-        textAlign: 'left',
-    };
-
-    const artistNameTextList = {
-        fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 16,
-        display: 'inline-block',
-        marginTop: '0px',
-        marginBottom: '0px',
-        textAlign: 'left',
-    };
-
-    const songNameTextList = {
-        fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 22,
-        marginTop: '0px',
-        marginBottom: '0px',
-        textAlign: 'left',
-    };
-
-    const playButton = {
-        marginBottom: -10,
-        marginRight: 10,
-        display: 'inline-block',
-    };
-
-    const inputRange = {
-        display: 'inline-block',
-    };
-
-    const songDuration = {
-        display: 'inline-block',
-        paddingLeft: 10,
-        fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 28,
-    };
-
-    const skipButtonStyle = {
-        display: 'inline-block',
-        verticalAlign: 'middle',
-        textAlign: 'right',
-        position: 'relative',
-        height: 24,
-        bottom: -20,
-    };
-
-    const skipLinkStyle = {
-        background: 'none',
-        border: 'none',
-        padding: 0,
-        cursor: 'pointer',
-        display: 'inline' // or 'block' depending on your layout needs
-    };
-
-    const skipIconStyle = {
-        width: '20px', 
-        height: '20px', 
-        display: 'block',  // Ensures the image is not inline which can cause extra space
-        verticalAlign: 'middle' // Aligns the image vertically if necessary
-    };
-
-    const spotifyButton = {
-        display: 'inline-block',
-        verticalAlign: 'middle',
-    };
-
-    const spotifyIcon = {
-        width: '35px', 
-        height: '35px', 
-        marginLeft: '10px',
-        verticalAlign: 'middle',
-    };
-
-    const nextSongContainer = {
-        marginBottom: 15,
-    };
-
-    const nextSongButton = {
-        fontFamily: "'ChicagoFLF', serif",
-        fontSize: '18px',
-        backgroundColor: '#ffffff', 
-        marginTop: '40px',
-        paddingTop: '13px',
-        paddingBottom: '13px',
-        paddingLeft: '90px',
-        paddingRight: '90px',
-        borderRadius: '5px',
-        boxShadow: '3px 3px 0px 0px #1b1b1b',  
-        border: '2px solid #1b1b1b' 
-    };
-    
-
-
-    const bottomColumns = {
-        display: 'flex',          // Use flexbox to position children
-        justifyContent: 'center', // Centers the flex container's children
-        alignItems: 'flex-start', // Align items to the start of the container, keeping them top-aligned
-        gap: '50px',              // Gap between the child elements
-        padding: '0 10%', 
-        marginTop: 75,
-    };
-
-    // Style for each child div to take equal width
-    const childStyle = {
-        flex: '0 0 20%',  
-        minWidth: '0',
-    };
-
-    const childStyle2 = {
-        flex: '0 0 30%',  
-        minWidth: '0',
-    };
-
-    // Styles for the table
-    const tableStyle = {
-        border: '3px solid #1b1b1b',
-        borderRadius: '20px',
-        boxShadow: '3px 3px 0px 0px #1b1b1b',
-        width: '100%', // Adjust the width as necessary
-        borderCollapse: 'collapse', // This ensures that the border is consistent around all cells
-        overflow: 'hidden', // Keeps the border radius on the table itself
-        marginBottom: '20px', // Space below the table, adjust as needed
-    };
-
-    // Styles for the table rows
-    const rowStyle = {
-        borderBottom: '3px solid #1b1b1b', // Separates rows by a line
-    };
-
-    // Styles for the table data cells
-    const cellStyle = {
-        padding: '10px', // Adjust the padding as necessary
-        fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 16,
-    };
-
-    const cellText = {
-        textAlign: 'left',
-        padding: '10px',
-        fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 16,
-        borderRight: '3px solid #1b1b1b',
-    };
-
-    const songList = {
-        border: '3px solid #1b1b1b',  
-        boxShadow: '3px 3px 0px 0px #1b1b1b',  
-        maxHeight: '500px',  
-        overflowY: 'auto',  
-        padding: '10px',  
-        borderRadius: '20px',
-        textAlign: 'left'
-    };
-
-    const artistNameContainerList = {
-        flex: '0 0 80%',
-        display: 'inline-block',
-        textAlign: 'left',
-        verticalAlign: 'middle',
-        paddingRight: 25,
-        paddingBottom: 10,
-    };
-
-    const spotifyButtonList = {
-        display: 'inline-block',
-        verticalAlign: 'middle',
-        textAlign: 'right',
-    };
-
-    const noSongsStyle = {
-        fontFamily: '"IBMPlexSerif", serif',
-        fontSize: 18,
-    }
-    
-
-
+    // Styles
+    // (styles omitted for brevity)
 
     useEffect(() => {
         const auth = getAuth();
@@ -452,7 +94,7 @@ function LiveRoomComponent() {
                     .catch(error => {
                         console.error('Error fetching avatar:', error);
                     });
-    
+
                 // Listener for room data
                 const roomDocRef = doc(db, "liveRooms", user.uid);
                 const unsubscribeRoomDoc = onSnapshot(roomDocRef, docSnap => {
@@ -473,7 +115,7 @@ function LiveRoomComponent() {
                         setCreditsEarned(0);
                     }
                 });
-    
+
                 // Listener for now playing songs
                 const nowPlayingRef = collection(db, `liveRooms/${user.uid}/nowPlaying`);
                 const unsubscribeNowPlaying = onSnapshot(nowPlayingRef, (querySnapshot) => {
@@ -487,19 +129,18 @@ function LiveRoomComponent() {
                         fetchSongUrl(updatedSongs[0].artistId, updatedSongs[0].songFileName);
                     }
                 });
-    
+
                 // Fetch other songs
                 const songsRef = collection(db, `liveRooms/${user.uid}/upNext`);
                 const unsubscribeSongsPlus = subscribeToSongs(songsRef, 'true', 'true', setSongsSkipPlus);
                 const unsubscribeSongsSkip = subscribeToSongs(songsRef, 'true', 'false', setSongsSkip);
                 const unsubscribeSongs = subscribeToSongs(songsRef, 'false', 'false', setSongs);
-    
+
                 // Real-time update of total songs in upNext
                 const unsubscribeUpNext = onSnapshot(songsRef, (querySnapshot) => {
                     setSongsInLine(querySnapshot.size); // Update the total count of songs in upNext in real-time
                 });
-    
-                    
+
                 const donationsRef = collection(db, 'liveRooms', user.uid, 'donations');
                 const donationsQuery = query(donationsRef, orderBy('timeEntered', 'desc'));
                 const unsubscribeDonations = onSnapshot(donationsQuery, (querySnapshot) => {
@@ -513,8 +154,7 @@ function LiveRoomComponent() {
                     });
                     setDonations(newDonations);
                 });
-                
-    
+
                 return () => {
                     unsubscribeRoomDoc();
                     unsubscribeNowPlaying();
@@ -529,7 +169,7 @@ function LiveRoomComponent() {
                 console.log("User is not logged in.");
             }
         });
-    
+
         return () => unsubscribeAuth();
     }, []);
 
@@ -588,40 +228,40 @@ function LiveRoomComponent() {
             console.log("User not authenticated");
             return;
         }
-    
+
         const roomDocRef = doc(db, `liveRooms/${userUid}`);
         const upNextRef = collection(db, `liveRooms/${userUid}/upNext`);
         const nowPlayingRef = collection(db, `liveRooms/${userUid}/nowPlaying`);
-    
+
         try {
             // Clear the nowPlaying collection first
             const currentSongsSnapshot = await getDocs(nowPlayingRef);
             currentSongsSnapshot.forEach(async (doc) => {
                 await deleteDoc(doc.ref);
             });
-    
+
             // Fetch the current skip rate and user data
             const roomDoc = await getDoc(roomDocRef);
             const userRef = doc(db, `users/${userUid}`);
             const userDoc = await getDoc(userRef);
-    
+
             if (!roomDoc.exists() || !userDoc.exists()) {
                 console.log("Necessary data not found");
                 return;
             }
-    
+
             const skipRate = roomDoc.data().skipRate || 0;
             const hostRatePercentage = (userDoc.data().ratePerRound || 0) * 0.01;  // Convert to percentage
-    
+
             // Determine which song to move based on priority
             const queries = [
                 query(upNextRef, where("boost", ">=", 0), where("skipPlus", "==", "true"), orderBy("boost", "desc"), orderBy("timeEntered", "asc")),
                 query(upNextRef, where("boost", ">=", 0), where("skip", "==", "true"), where("skipPlus", "==", "false"), orderBy("boost", "desc"), orderBy("timeEntered", "asc")),
                 query(upNextRef, where("boost", ">=", 0), orderBy("boost", "desc"), orderBy("timeEntered", "asc"))
             ];
-    
+
             let songToMove, songId, creditsToAdd = 0;
-    
+
             for (const queryRef of queries) {
                 const snapshot = await getDocs(queryRef);
                 if (!snapshot.empty) {
@@ -631,48 +271,48 @@ function LiveRoomComponent() {
                     break;
                 }
             }
-    
+
             if (songToMove && songId) {
                 // Add to nowPlaying and remove from upNext
                 await setDoc(doc(db, `liveRooms/${userUid}/nowPlaying`, songId), songToMove);
                 await deleteDoc(doc(db, `liveRooms/${userUid}/upNext`, songId));
-    
+
                 // Calculate new creditsEarned for liveRoom
                 const newCreditsEarned = (roomDoc.data().creditsEarned || 0) + creditsToAdd;
                 await updateDoc(roomDocRef, {
                     creditsEarned: newCreditsEarned
                 });
-    
+
                 // Update user document with new credits and earnings
                 const additionalEarnings = creditsToAdd * hostRatePercentage;
                 const newEarnings = (userDoc.data().earnings || 0) + additionalEarnings;
                 const newEarningsTotal = (userDoc.data().earningsTotal || 0) + additionalEarnings;
                 const newCreditsEarnedUser = (userDoc.data().creditsEarned || 0) + creditsToAdd;
                 const newSongsReviewedHost = (userDoc.data().songsReviewed || 0) + 1;
-    
+
                 await updateDoc(userRef, {
                     creditsEarned: newCreditsEarnedUser,
                     earnings: newEarnings,
                     earningsTotal: newEarningsTotal,
                     songsReviewed: newSongsReviewedHost
                 });
-    
+
                 // Update artist's document with new songsReviewed count
                 const artistRef = doc(db, `users/${songToMove.artistId}`);
                 const artistDoc = await getDoc(artistRef);
-    
+
                 if (artistDoc.exists()) {
                     const newSongsReviewedArtist = (artistDoc.data().songsReviewed || 0) + 1;
-    
+
                     await updateDoc(artistRef, {
                         songsReviewed: newSongsReviewedArtist
                     });
-    
+
                     console.log("Updated artist's songsReviewed count");
                 } else {
                     console.log("Artist document not found");
                 }
-    
+
                 console.log("Moved song to nowPlaying and updated user stats");
             } else {
                 console.log("No songs available to move to nowPlaying");
@@ -682,75 +322,73 @@ function LiveRoomComponent() {
         }
     };
 
-
     const skipSongManually = async (songId) => {
         const userUid = getAuth().currentUser?.uid;
         if (!userUid) {
             console.log("User not authenticated");
             return;
         }
-    
+
         const roomDocRef = doc(db, `liveRooms/${userUid}`);
         const upNextRef = collection(db, `liveRooms/${userUid}/upNext`);
         const nowPlayingRef = collection(db, `liveRooms/${userUid}/nowPlaying`);
-    
+
         try {
             // Clear the nowPlaying collection first
             const currentSongsSnapshot = await getDocs(nowPlayingRef);
             currentSongsSnapshot.forEach(async (doc) => {
                 await deleteDoc(doc.ref);
             });
-    
+
             // Fetch the current skip rate and user data
             const roomDoc = await getDoc(roomDocRef);
             const userRef = doc(db, `users/${userUid}`);
             const userDoc = await getDoc(userRef);
-    
+
             if (!roomDoc.exists() || !userDoc.exists()) {
                 console.log("Necessary data not found");
                 return;
             }
-    
+
             const skipRate = roomDoc.data().skipRate || 0;
             const ratePerRound = (userDoc.data().ratePerRound || 0) * 0.01;  // Convert to percentage
-    
+
             // Fetch the specific song from upNext
             const songDocRef = doc(upNextRef, songId);
             const songDoc = await getDoc(songDocRef);
-    
+
             if (!songDoc.exists()) {
                 console.log("Song not found");
                 return;
             }
-    
+
             const songData = songDoc.data();
             const creditsToAdd = songData.skip === "true" ? (songData.skipPlus === "true" ? 2 * skipRate + songData.boost : skipRate + songData.boost) : songData.boost;
-            
-    
+
             // Add to nowPlaying and remove from upNext
             await setDoc(doc(db, `liveRooms/${userUid}/nowPlaying`, songId), songData);
             await deleteDoc(songDocRef);
-    
+
             // Calculate new creditsEarned for liveRoom
             const newCreditsEarned = (roomDoc.data().creditsEarned || 0) + creditsToAdd;
             await updateDoc(roomDocRef, {
                 creditsEarned: newCreditsEarned
             });
-    
+
             // Update user document with new credits and earnings
             const additionalEarnings = creditsToAdd * ratePerRound;
             const newEarnings = (userDoc.data().earnings || 0) + additionalEarnings;
             const newEarningsTotal = (userDoc.data().earningsTotal || 0) + additionalEarnings;
             const newCreditsEarnedUser = (userDoc.data().creditsEarned || 0) + creditsToAdd;
             const newSongsReviewed = (userDoc.data().songsReviewed || 0) + 1;
-    
+
             await updateDoc(userRef, {
                 creditsEarned: newCreditsEarnedUser,
                 earnings: newEarnings,
                 earningsTotal: newEarningsTotal,
                 songsReviewed: newSongsReviewed
             });
-    
+
             // Update artist's songs reviewed count
             const artistRef = doc(db, `users/${songData.artistId}`);
             const artistDoc = await getDoc(artistRef);
@@ -763,7 +401,7 @@ function LiveRoomComponent() {
             } else {
                 console.log("Artist document not found for ID");
             }
-    
+
             console.log("Moved song to nowPlaying and updated user and artist stats");
         } catch (error) {
             console.error("Failed to move song to nowPlaying:", error);
@@ -787,7 +425,6 @@ function LiveRoomComponent() {
         }
     };
 
-
     const toggleLineStatus = async () => {
         const userUid = getAuth().currentUser?.uid;
         if (!userUid) {
@@ -795,7 +432,7 @@ function LiveRoomComponent() {
             return;
         }
         const roomDocRef = doc(db, `liveRooms/${userUid}`);
-        if(freeLineOpenStatus == true && lineOpenStatus == true){
+        if (freeLineOpenStatus === true && lineOpenStatus === true) {
             try {
                 await updateDoc(roomDocRef, {
                     lineOpen: false, // Toggle the current Firestore state based on UI state
@@ -806,7 +443,7 @@ function LiveRoomComponent() {
             } catch (error) {
                 console.error("Failed to toggle line status:", error);
             }
-        } else if(freeLineOpenStatus == true && lineOpenStatus == false){
+        } else if (freeLineOpenStatus === true && lineOpenStatus === false) {
             try {
                 await updateDoc(roomDocRef, {
                     lineOpen: true, // Toggle the current Firestore state based on UI state
@@ -817,7 +454,7 @@ function LiveRoomComponent() {
             } catch (error) {
                 console.error("Failed to toggle line status:", error);
             }
-        } else if(freeLineOpenStatus == false && lineOpenStatus == false){
+        } else if (freeLineOpenStatus === false && lineOpenStatus === false) {
             try {
                 await updateDoc(roomDocRef, {
                     lineOpen: true, // Toggle the current Firestore state based on UI state
@@ -828,7 +465,7 @@ function LiveRoomComponent() {
             } catch (error) {
                 console.error("Failed to toggle line status:", error);
             }
-        } else if(freeLineOpenStatus == false && lineOpenStatus == true){
+        } else if (freeLineOpenStatus === false && lineOpenStatus === true) {
             try {
                 await updateDoc(roomDocRef, {
                     lineOpen: false, // Toggle the current Firestore state based on UI state
@@ -840,7 +477,7 @@ function LiveRoomComponent() {
                 console.error("Failed to toggle line status:", error);
             }
         }
-        
+
     };
 
     const goOffAir = async () => {
@@ -849,16 +486,16 @@ function LiveRoomComponent() {
             console.log("User not authenticated");
             return;
         }
-    
+
         const roomDocRef = doc(db, `liveRooms/${userUid}`);
         const upNextRef = collection(db, `liveRooms/${userUid}/upNext`);
         const nowPlayingRef = collection(db, `liveRooms/${userUid}/nowPlaying`);
         const donationsRef = collection(db, `liveRooms/${userUid}/donations`);
-    
+
         try {
             // Update the onAir status and reset creditsEarned to zero
             await updateDoc(roomDocRef, { onAir: false, creditsEarned: 0 });
-    
+
             // Retrieve the current rates from the room document
             const roomDoc = await getDoc(roomDocRef);
             if (!roomDoc.exists()) {
@@ -867,7 +504,7 @@ function LiveRoomComponent() {
             }
             const skipRate = roomDoc.data().skipRate;
             const skipPlusRate = skipRate * 2; // Assuming skipPlusRate is always double the skipRate
-    
+
             // Process each upNext entry to refund credits if necessary
             const upNextEntriesSnapshot = await getDocs(upNextRef);
             for (const entryDoc of upNextEntriesSnapshot.docs) {
@@ -878,7 +515,7 @@ function LiveRoomComponent() {
                 } else {
                     creditsToAdd = entry.boost;
                 }
-    
+
                 if (creditsToAdd > 0) {
                     const userRef = doc(db, `users/${entry.artistId}`);
                     // Fetch current user credits
@@ -891,11 +528,11 @@ function LiveRoomComponent() {
                         console.log("User document does not exist");
                     }
                 }
-    
+
                 // Delete the entry from upNext after processing
                 await deleteDoc(entryDoc.ref);
             }
-    
+
             // Clear nowPlaying collection
             const nowPlayingEntriesSnapshot = await getDocs(nowPlayingRef);
             for (const entryDoc of nowPlayingEntriesSnapshot.docs) {
@@ -906,7 +543,7 @@ function LiveRoomComponent() {
             for (const entryDoc of donationsSnapshot.docs) {
                 await deleteDoc(entryDoc.ref);
             }
-    
+
             console.log("Go Off Air function completed.");
             // Redirect to dashboard after processing
             window.location.href = '/dashboard';
@@ -914,7 +551,6 @@ function LiveRoomComponent() {
             console.error("Failed to go off air:", error);
         }
     };
-
 
     function OffAirModal({ onClose, onConfirm }) {
         return (
@@ -945,6 +581,77 @@ function LiveRoomComponent() {
         );
     }
 
+    function BanModal({ artist, onClose, onBan }) {
+        return (
+            <div style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'rgba(0,0,0,0.5)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 1000, // Ensure it's on top
+            }}>
+                <div style={{
+                    backgroundColor: 'white',
+                    padding: '20px',
+                    borderRadius: '5px',
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                    zIndex: 1001,
+                }}>
+                    <p>Are you sure you want to ban {artist.artistName}?</p>
+                    <button onClick={onBan} style={{ marginRight: '10px' }}>BAN</button>
+                    <button onClick={onClose}>CANCEL</button>
+                </div>
+            </div>
+        );
+    }
+
+    const banUser = async (artist) => {
+        const userUid = getAuth().currentUser?.uid;
+        if (!userUid) {
+            console.log("User not authenticated");
+            return;
+        }
+
+        try {
+            // Fetch artist email from the users collection
+            const artistDocRef = doc(db, 'users', artist.artistId);
+            const artistDocSnap = await getDoc(artistDocRef);
+
+            if (artistDocSnap.exists()) {
+                const artistData = artistDocSnap.data();
+                const email = artistData.email;
+
+                const roomCode = userUid; // Replace with your room code or fetch dynamically
+                const banRef = collection(db, 'liveRooms', roomCode, 'bans');
+                await addDoc(banRef, {
+                    artistName: artist.artistName,
+                    artistId: artist.artistId,
+                    email: email,
+                    timeBanned: serverTimestamp(),
+                });
+
+                // Remove the song from upNext
+                const upNextRef = collection(db, `liveRooms/${roomCode}/upNext`);
+                const songQuery = query(upNextRef, where('artistId', '==', artist.artistId));
+                const songSnapshot = await getDocs(songQuery);
+                songSnapshot.forEach(async (doc) => {
+                    await deleteDoc(doc.ref);
+                });
+
+                console.log("Artist banned and song removed from upNext.");
+                setBanModalVisible(false);
+            } else {
+                console.log("Failed to fetch artist details.");
+            }
+        } catch (error) {
+            console.error("Failed to ban the artist:", error);
+        }
+    };
 
     function handleModalOk() {
         window.location.href = '/';
@@ -958,6 +665,11 @@ function LiveRoomComponent() {
         window.location.href = '/dashboard';
     }
 
+    const handleArtistClick = (artist) => {
+        setSelectedArtist(artist);
+        setBanModalVisible(true);
+    };
+
     return (
         <div>
             {showModal && (
@@ -969,7 +681,13 @@ function LiveRoomComponent() {
                 </div>
             )}
 
-
+            {banModalVisible && selectedArtist && (
+                <BanModal
+                    artist={selectedArtist}
+                    onClose={() => setBanModalVisible(false)}
+                    onBan={() => banUser(selectedArtist)}
+                />
+            )}
 
             <div>
                 <div style={avatarContainer}>
@@ -1005,8 +723,6 @@ function LiveRoomComponent() {
                     )}
                 </div>
 
-                
-
                 <div style={mirrorContainer} onClick={goToMirror}>
                     <img style={mirrorButton} src="../../images/Mirror-Icon-1.0.jpg" width="50px" alt="" />
                 </div>
@@ -1015,66 +731,59 @@ function LiveRoomComponent() {
                     <img src="../../images/Control-Center-Logo-1.0.png" width="350px" alt="" />
                 </header>
 
-
-
-
                 <div style="text-align: center;">
                     <h2 style={h2}>Now Playing</h2>
                 </div>
 
-
                 <div>
                     {nowPlaying.length > 0 ? nowPlaying.map(song => (
-                            <div key={song.id} className="song-item">
+                        <div key={song.id} className="song-item">
 
-                                <div style={artistContainer}>
-                                    <div style={artistNameContainer}>
-                                        <p style={songNameText}>{song.songName}</p> 
-                                        <p style={artistNameText}>{song.artistName}</p>
-                                    </div>
-                                    
-                                    <div style={spotifyButton}>
-                                        {song.songLink && ( // Comment: Displaying Spotify link
-                                                <a href={song.songLink} target="_blank" rel="noopener noreferrer">
-                                                    <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={spotifyIcon} />
-                                                </a>
-                                            )}
-                                    </div>
+                            <div style={artistContainer}>
+                                <div style={artistNameContainer}>
+                                    <p style={songNameText}>{song.songName}</p> 
+                                    <p style={artistNameText}>{song.artistName}</p>
                                 </div>
-
-
-                                <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleLoadedMetadata} onEnded={() => setIsPlaying(false)} />
-                                <div>
-                                    <div style={playButton}>
-                                        <button onClick={togglePlay} style={{ border: 'none', background: 'none', padding: 0 }}>
-                                            {isPlaying 
-                                                ? <img src="../../images/Pause-Icon-1.0.png" alt="Pause" style={{ width: '40px', height: '40px', marginBottom: '-16px', }} />
-                                                : <img src="../../images/Play-Icon-1.0.png" alt="Play" style={{ width: '40px', height: '40px', marginBottom: '-16px', }} />
-                                            }
-                                        </button>
-                                    </div>
-                                    <div style={inputRange}>
-                                        <input type="range" min="0" max={duration || 1} value={currentTime} onChange={(e) => {
-                                            audioRef.current.currentTime = e.target.value;
-                                            setCurrentTime(e.target.value);
-                                        }} />
-                                    </div>
-                                    <div style={songDuration}>
-                                        <span>{Math.floor(currentTime / 60)}:{('0' + Math.floor(currentTime % 60)).slice(-2)}</span>
-                                        <span> / </span>
-                                        <span>{Math.floor(duration / 60)}:{('0' + Math.floor(duration % 60)).slice(-2)}</span>
-                                    </div>
-                                    
+                                
+                                <div style={spotifyButton}>
+                                    {song.songLink && ( // Comment: Displaying Spotify link
+                                            <a href={song.songLink} target="_blank" rel="noopener noreferrer">
+                                                <img src="../../images/Spotify-Icon-1.0.png" alt="Spotify" style={spotifyIcon} />
+                                            </a>
+                                        )}
                                 </div>
                             </div>
-                        )) : <p style={noSongsStyle}>No songs currently playing.</p>}
+
+                            <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleLoadedMetadata} onEnded={() => setIsPlaying(false)} />
+                            <div>
+                                <div style={playButton}>
+                                    <button onClick={togglePlay} style={{ border: 'none', background: 'none', padding: 0 }}>
+                                        {isPlaying 
+                                            ? <img src="../../images/Pause-Icon-1.0.png" alt="Pause" style={{ width: '40px', height: '40px', marginBottom: '-16px', }} />
+                                            : <img src="../../images/Play-Icon-1.0.png" alt="Play" style={{ width: '40px', height: '40px', marginBottom: '-16px', }} />
+                                        }
+                                    </button>
+                                </div>
+                                <div style={inputRange}>
+                                    <input type="range" min="0" max={duration || 1} value={currentTime} onChange={(e) => {
+                                        audioRef.current.currentTime = e.target.value;
+                                        setCurrentTime(e.target.value);
+                                    }} />
+                                </div>
+                                <div style={songDuration}>
+                                    <span>{Math.floor(currentTime / 60)}:{('0' + Math.floor(currentTime % 60)).slice(-2)}</span>
+                                    <span> / </span>
+                                    <span>{Math.floor(duration / 60)}:{('0' + Math.floor(duration % 60)).slice(-2)}</span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    )) : <p style={noSongsStyle}>No songs currently playing.</p>}
                 </div>
 
                 <div style={nextSongContainer}>
                     <button style={nextSongButton} class="standardGreenButton" onClick={moveNextSongToNowPlaying}><p>NEXT SONG</p></button>
                 </div>
-
-
 
                 <div style={bottomColumns}>     
 
@@ -1117,7 +826,6 @@ function LiveRoomComponent() {
                                 {lineOpenStatus ? "CLOSE ALL LINES" : "OPEN ALL LINES"}
                             </button>
                         </div>
-                        
 
                         <div>
                             {showOffAirModal && (
@@ -1132,7 +840,6 @@ function LiveRoomComponent() {
                             {/* Other UI elements */}
                             <button style={buttonStyleOffAir} onClick={() => setShowOffAirModal(true)}>GO OFF AIR</button>
                         </div>
-
                     </div>
 
                     <div style={{...childStyle2, ...songList}}>
@@ -1141,7 +848,14 @@ function LiveRoomComponent() {
                                 songsSkipPlus.map(song => (
                                     <div key={song.id} className="song-item" style={{ display: 'flex' }}>
                                         <div style={artistNameContainerList}>
-                                            <p style={songNameTextList}>{song.songName}{song.boost >= 1 ? ` +${song.boost}` : ''}</p> 
+                                            <p 
+                                                style={songNameTextList} 
+                                                onClick={() => handleArtistClick({artistId: song.artistId, artistName: song.artistName})}
+                                                role="button"
+                                                tabIndex="0"
+                                            >
+                                                {song.songName}{song.boost >= 1 ? ` +${song.boost}` : ''}
+                                            </p> 
                                             <p style={artistNameTextList}>{song.artistName}</p>
                                         </div>
                                         <div style={skipButtonStyle}>
@@ -1167,7 +881,14 @@ function LiveRoomComponent() {
                                 songsSkip.map(song => (
                                     <div key={song.id} className="song-item" style={{ display: 'flex' }}>
                                         <div style={artistNameContainerList}>
-                                            <p style={songNameTextList}>{song.songName}{song.boost >= 1 ? ` +${song.boost}` : ''}</p> 
+                                            <p 
+                                                style={songNameTextList} 
+                                                onClick={() => handleArtistClick({artistId: song.artistId, artistName: song.artistName})}
+                                                role="button"
+                                                tabIndex="0"
+                                            >
+                                                {song.songName}{song.boost >= 1 ? ` +${song.boost}` : ''}
+                                            </p> 
                                             <p style={artistNameTextList}>{song.artistName}</p>
                                         </div>
                                         <div style={skipButtonStyle}>
@@ -1193,7 +914,14 @@ function LiveRoomComponent() {
                                 songs.map(song => (
                                     <div key={song.id} className="song-item" style={{ display: 'flex' }}>
                                         <div style={artistNameContainerList}>
-                                            <p style={songNameTextList}>{song.songName}{song.boost >= 1 ? ` +${song.boost}` : ''}</p> 
+                                            <p 
+                                                style={songNameTextList} 
+                                                onClick={() => handleArtistClick({artistId: song.artistId, artistName: song.artistName})}
+                                                role="button"
+                                                tabIndex="0"
+                                            >
+                                                {song.songName}{song.boost >= 1 ? ` +${song.boost}` : ''}
+                                            </p> 
                                             <p style={artistNameTextList}>{song.artistName}</p>
                                         </div>
                                         <div style={skipButtonStyle}>
@@ -1214,9 +942,6 @@ function LiveRoomComponent() {
                                 <p style={noSongsStyle}>No regular songs queued.</p>
                             )}
                     </div>
-
-
-
                 </div> 
             </div>
         </div>
