@@ -981,7 +981,7 @@ function LiveRoomComponent() {
                 const banRef = collection(db, 'liveRooms', roomCode, 'bans');
                 await addDoc(banRef, {
                     artistName: artist.artistName,
-                    artistId: artist.artistId,
+                    userId: artist.artistId,
                     email: email,
                     timeBanned: serverTimestamp(),
                 });
