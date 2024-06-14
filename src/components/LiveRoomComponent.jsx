@@ -268,6 +268,7 @@ function LiveRoomComponent() {
         marginTop: '0px',
         marginBottom: '0px',
         textAlign: 'left',
+        cursor: 'pointer'
     };
 
     const songNameTextList = {
