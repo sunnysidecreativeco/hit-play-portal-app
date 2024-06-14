@@ -113,7 +113,8 @@ function LiveRoomComponent() {
         paddingRight: '54px',
         borderRadius: '5px',
         boxShadow: '3px 3px 0px 0px #1b1b1b',  
-        border: '2px solid #1b1b1b' 
+        border: '2px solid #1b1b1b',
+        cursor: 'pointer'
     };
 
     const buttonStyleCloseLine = {
@@ -126,7 +127,8 @@ function LiveRoomComponent() {
         paddingRight: '70px',
         borderRadius: '5px',
         boxShadow: '3px 3px 0px 0px #1b1b1b',  
-        border: '2px solid #1b1b1b' 
+        border: '2px solid #1b1b1b',
+        cursor: 'pointer'
     };
 
     const buttonStyleOffAir = {
@@ -141,7 +143,8 @@ function LiveRoomComponent() {
         paddingRight: '95px',
         borderRadius: '5px',
         boxShadow: '3px 3px 0px 0px #1b1b1b',  
-        border: '2px solid #FFFFFF' 
+        border: '2px solid #FFFFFF',
+        cursor: 'pointer'
     };
     
     const avatarContainer = {
@@ -248,6 +251,7 @@ function LiveRoomComponent() {
         display: 'inline-block',
         marginTop: '0px',
         textAlign: 'left',
+        cursor: 'pointer'
     };
 
     const songNameText = {
