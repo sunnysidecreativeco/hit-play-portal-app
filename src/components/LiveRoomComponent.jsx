@@ -73,12 +73,363 @@ function LiveRoomComponent() {
     const [creditsEarnedLive, setCreditsEarnedLive] = useState(0);
     const [liveControlButton, setLiveControlButton] = useState("");
     const [modal, setModal] = useState('');
+    
 
     const B = (props) => <Text style={{color: '#3045bf'}}>{props.children}</Text>;
     const C = (props) => <Text style={{color: '#b33110'}}>{props.children}</Text>;
 
-    // Styles
-    // (styles omitted for brevity)
+
+    //Styles
+    const h2 = {
+        fontFamily: "'ChicagoFLF', serif",
+        fontSize: 30,
+        marginTop: 10,
+        marginBottom: 10,
+    };
+
+    const h3 = {
+        fontFamily: "'ChicagoFLF', serif",
+        fontSize: 24,
+        textAlign: 'left',
+        marginBottom: 5,
+    };
+
+    const h3SkipPlus = {
+        fontFamily: "'ChicagoFLF', serif",
+        fontSize: 24,
+        textAlign: 'left',
+        marginBottom: 5,
+        marginTop: 5,
+    };
+
+    const buttonStyleCloseFreeLine = {
+        fontFamily: "'ChicagoFLF', serif",
+        fontSize: '18px',
+        backgroundColor: '#ffffff', 
+        marginTop: '15px',
+        paddingTop: '13px',
+        paddingBottom: '13px',
+        paddingLeft: '54px',
+        paddingRight: '54px',
+        borderRadius: '5px',
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  
+        border: '2px solid #1b1b1b' 
+    };
+
+    const buttonStyleCloseLine = {
+        fontFamily: "'ChicagoFLF', serif",
+        fontSize: '18px',
+        backgroundColor: '#ffffff', 
+        paddingTop: '13px',
+        paddingBottom: '13px',
+        paddingLeft: '70px',
+        paddingRight: '70px',
+        borderRadius: '5px',
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  
+        border: '2px solid #1b1b1b' 
+    };
+
+    const buttonStyleOffAir = {
+        fontFamily: "'ChicagoFLF', serif",
+        fontSize: '18px',
+        color: '#FFFFFF',
+        backgroundColor: '#d43348', 
+        marginTop: '15px',
+        paddingTop: '13px',
+        paddingBottom: '13px',
+        paddingLeft: '95px',
+        paddingRight: '95px',
+        borderRadius: '5px',
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  
+        border: '2px solid #FFFFFF' 
+    };
+    
+    const avatarContainer = {
+        float: 'left', 
+    };
+    
+    const avatar = {
+        display: 'inline-block', 
+        verticalAlign: 'middle',
+        paddingLeft: 50,
+        paddingTop: 20,
+    };
+
+    const backToDashboard = {
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 14,
+        textDecoration: 'underline',
+        marginTop: '5px',
+        cursor: 'pointer'
+    };
+
+    const donationsContainer = {
+        marginLeft: 50,
+        float: 'left',
+        position: 'absolute',
+        
+    };
+
+    const donationsListTitle = {
+        fontFamily: "'ChicagoFLF', serif",
+        fontSize: '18px',
+        textAlign: 'left',
+        fontWeight: 500,
+        paddingLeft: 10,
+    };
+
+    const donationsListContainer = {
+        height: 200,
+        borderRadius: '20px',
+        border: '3px solid #1b1b1b',  
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  
+        maxHeight: '500px',  
+        overflowY: 'auto',  
+        width: 235,
+    };
+
+    const artistNameDonationText = {
+        textAlign: 'left',
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 16,
+        paddingLeft: 10,
+        marginBottom: 0,
+    };
+
+    const creditsDonationText = {
+        textAlign: 'left',
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 16,
+        paddingLeft: 10,
+        marginTop: 0,
+    };
+
+    const mirrorContainer = {
+        float: 'right',
+        paddingRight: 50,
+        paddingTop: 20
+    }; 
+
+    const mirrorButton = {
+        borderRadius: 7,
+        border: '2px solid #1b1b1b',
+        boxShadow: '3px 3px 0px 0px #1b1b1b', 
+    };
+    
+    const roomNameContainer = {
+        verticalAlign: 'middle', 
+        display: 'inline-block', 
+        marginLeft: '20px',
+        width: 150,
+        textAlign: 'left',
+    };
+
+    const roomNameText = {
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 18,
+        marginTop: '25px',
+        marginBottom: '5px',
+    };
+
+    const artistContainer ={
+
+    };
+
+    const artistNameContainer = {
+        display: 'inline-block',
+        textAlign: 'left',
+        verticalAlign: 'middle',
+        paddingRight: 25,
+    };
+
+    const artistNameText = {
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 18,
+        display: 'inline-block',
+        marginTop: '0px',
+        textAlign: 'left',
+    };
+
+    const songNameText = {
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 22,
+        marginBottom: '0px',
+        textAlign: 'left',
+    };
+
+    const artistNameTextList = {
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 16,
+        display: 'inline-block',
+        marginTop: '0px',
+        marginBottom: '0px',
+        textAlign: 'left',
+    };
+
+    const songNameTextList = {
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 22,
+        marginTop: '0px',
+        marginBottom: '0px',
+        textAlign: 'left',
+    };
+
+    const playButton = {
+        marginBottom: -10,
+        marginRight: 10,
+        display: 'inline-block',
+    };
+
+    const inputRange = {
+        display: 'inline-block',
+    };
+
+    const songDuration = {
+        display: 'inline-block',
+        paddingLeft: 10,
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 28,
+    };
+
+    const skipButtonStyle = {
+        display: 'inline-block',
+        verticalAlign: 'middle',
+        textAlign: 'right',
+        position: 'relative',
+        height: 24,
+        bottom: -20,
+    };
+
+    const skipLinkStyle = {
+        background: 'none',
+        border: 'none',
+        padding: 0,
+        cursor: 'pointer',
+        display: 'inline' // or 'block' depending on your layout needs
+    };
+
+    const skipIconStyle = {
+        width: '20px', 
+        height: '20px', 
+        display: 'block',  // Ensures the image is not inline which can cause extra space
+        verticalAlign: 'middle' // Aligns the image vertically if necessary
+    };
+
+    const spotifyButton = {
+        display: 'inline-block',
+        verticalAlign: 'middle',
+    };
+
+    const spotifyIcon = {
+        width: '35px', 
+        height: '35px', 
+        marginLeft: '10px',
+        verticalAlign: 'middle',
+    };
+
+    const nextSongContainer = {
+        marginBottom: 15,
+    };
+
+    const nextSongButton = {
+        fontFamily: "'ChicagoFLF', serif",
+        fontSize: '18px',
+        backgroundColor: '#ffffff', 
+        marginTop: '40px',
+        paddingTop: '13px',
+        paddingBottom: '13px',
+        paddingLeft: '90px',
+        paddingRight: '90px',
+        borderRadius: '5px',
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  
+        border: '2px solid #1b1b1b' 
+    };
+    
+
+
+    const bottomColumns = {
+        display: 'flex',          // Use flexbox to position children
+        justifyContent: 'center', // Centers the flex container's children
+        alignItems: 'flex-start', // Align items to the start of the container, keeping them top-aligned
+        gap: '50px',              // Gap between the child elements
+        padding: '0 10%', 
+        marginTop: 75,
+    };
+
+    // Style for each child div to take equal width
+    const childStyle = {
+        flex: '0 0 20%',  
+        minWidth: '0',
+    };
+
+    const childStyle2 = {
+        flex: '0 0 30%',  
+        minWidth: '0',
+    };
+
+    // Styles for the table
+    const tableStyle = {
+        border: '3px solid #1b1b1b',
+        borderRadius: '20px',
+        boxShadow: '3px 3px 0px 0px #1b1b1b',
+        width: '100%', // Adjust the width as necessary
+        borderCollapse: 'collapse', // This ensures that the border is consistent around all cells
+        overflow: 'hidden', // Keeps the border radius on the table itself
+        marginBottom: '20px', // Space below the table, adjust as needed
+    };
+
+    // Styles for the table rows
+    const rowStyle = {
+        borderBottom: '3px solid #1b1b1b', // Separates rows by a line
+    };
+
+    // Styles for the table data cells
+    const cellStyle = {
+        padding: '10px', // Adjust the padding as necessary
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 16,
+    };
+
+    const cellText = {
+        textAlign: 'left',
+        padding: '10px',
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 16,
+        borderRight: '3px solid #1b1b1b',
+    };
+
+    const songList = {
+        border: '3px solid #1b1b1b',  
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  
+        maxHeight: '500px',  
+        overflowY: 'auto',  
+        padding: '10px',  
+        borderRadius: '20px',
+        textAlign: 'left'
+    };
+
+    const artistNameContainerList = {
+        flex: '0 0 80%',
+        display: 'inline-block',
+        textAlign: 'left',
+        verticalAlign: 'middle',
+        paddingRight: 25,
+        paddingBottom: 10,
+    };
+
+    const spotifyButtonList = {
+        display: 'inline-block',
+        verticalAlign: 'middle',
+        textAlign: 'right',
+    };
+
+    const noSongsStyle = {
+        fontFamily: '"IBMPlexSerif", serif',
+        fontSize: 18,
+    }
+    
+
+
 
     useEffect(() => {
         const auth = getAuth();
