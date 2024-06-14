@@ -1199,15 +1199,14 @@ function LiveRoomComponent() {
                                 songsSkipPlus.map(song => (
                                     <div key={song.id} className="song-item" style={{ display: 'flex' }}>
                                         <div style={artistNameContainerList}>
-                                            <p 
-                                                style={songNameTextList} 
-                                                onClick={() => handleArtistClick({artistId: song.artistId, artistName: song.artistName})}
-                                                role="button"
-                                                tabIndex="0"
-                                            >
+                                            <p style={songNameTextList}>
                                                 {song.songName}{song.boost >= 1 ? ` +${song.boost}` : ''}
                                             </p> 
-                                            <p style={artistNameTextList}>{song.artistName}</p>
+                                            <p style={artistNameTextList} 
+                                                onClick={() => handleArtistClick({artistId: song.artistId, artistName: song.artistName})}
+                                                role="button"
+                                                tabIndex="0">{song.artistName}
+                                            </p>
                                         </div>
                                         <div style={skipButtonStyle}>
                                             <a style={skipLinkStyle} onClick={() => skipSongManually(song.id)} role="button">
@@ -1232,15 +1231,14 @@ function LiveRoomComponent() {
                                 songsSkip.map(song => (
                                     <div key={song.id} className="song-item" style={{ display: 'flex' }}>
                                         <div style={artistNameContainerList}>
-                                            <p 
-                                                style={songNameTextList} 
-                                                onClick={() => handleArtistClick({artistId: song.artistId, artistName: song.artistName})}
-                                                role="button"
-                                                tabIndex="0"
-                                            >
+                                            <p style={songNameTextList}>
                                                 {song.songName}{song.boost >= 1 ? ` +${song.boost}` : ''}
                                             </p> 
-                                            <p style={artistNameTextList}>{song.artistName}</p>
+                                            <p style={artistNameTextList} 
+                                                onClick={() => handleArtistClick({artistId: song.artistId, artistName: song.artistName})}
+                                                role="button"
+                                                tabIndex="0">{song.artistName}
+                                            </p>
                                         </div>
                                         <div style={skipButtonStyle}>
                                             <a style={skipLinkStyle} onClick={() => skipSongManually(song.id)} role="button">
@@ -1265,15 +1263,14 @@ function LiveRoomComponent() {
                                 songs.map(song => (
                                     <div key={song.id} className="song-item" style={{ display: 'flex' }}>
                                         <div style={artistNameContainerList}>
-                                            <p 
-                                                style={songNameTextList} 
-                                                onClick={() => handleArtistClick({artistId: song.artistId, artistName: song.artistName})}
-                                                role="button"
-                                                tabIndex="0"
-                                            >
+                                            <p style={songNameTextList}>
                                                 {song.songName}{song.boost >= 1 ? ` +${song.boost}` : ''}
                                             </p> 
-                                            <p style={artistNameTextList}>{song.artistName}</p>
+                                            <p style={artistNameTextList} 
+                                                onClick={() => handleArtistClick({artistId: song.artistId, artistName: song.artistName})}
+                                                role="button"
+                                                tabIndex="0">{song.artistName}
+                                            </p>
                                         </div>
                                         <div style={skipButtonStyle}>
                                             <a style={skipLinkStyle} onClick={() => skipSongManually(song.id)} role="button">
