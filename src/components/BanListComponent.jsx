@@ -34,19 +34,20 @@ function BanListComponent() {
         borderCollapse: 'collapse',
         textAlign: 'center',
         boxShadow: '3px 3px 0px 0px #1b1b1b',
-        border: '2px solid #1b1b1b'
+        border: '2px solid #1b1b1b',
+        width: '80%',
     };
 
     const td = {
         padding: '8px',
         fontFamily: '"IBMPlexSerif", serif',
-        textAlign: 'left'
+        textAlign: 'left',
+        borderBottom: '2px solid #1b1b1b',
     };
 
-    const th = {
-        padding: '8px',
-        fontFamily: '"IBMPlexSerif", serif',
-        textAlign: 'left'
+    const trash = {
+        width: 35,
+        cursor: 'pointer',
     };
 
     const dashboardButtonStyle = {
@@ -128,25 +129,19 @@ function BanListComponent() {
 
             {!showModal && (
                 <table style={emailTable}>
-                    <thead>
-                        <tr>
-                            <th style={th}>Artist Name</th>
-                            <th style={th}>Email</th>
-                            <th style={th}>Time Banned</th>
-                            <th style={th}></th>
-                        </tr>
-                    </thead>
                     <tbody>
                         {bannedUsers.map(user => (
                             <tr key={user.id}>
-                                <td style={td}>{user.artistName}</td>
-                                <td style={td}>{user.email}</td>
-                                <td style={td}>{new Date(user.timeBanned.seconds * 1000).toLocaleString()}</td>
                                 <td style={td}>
+                                    <div>{user.artistName}</div>
+                                    <div>{user.email}</div>
+                                    <div>{new Date(user.timeBanned.seconds * 1000).toLocaleString()}</div>
+                                </td>
+                                <td style={{ ...td, textAlign: 'center' }}>
                                     <img 
                                         src="../../images/Trash-Icon-1.0.png" 
                                         alt="Remove Ban" 
-                                        style={{ cursor: 'pointer' }}
+                                        style={trash}
                                         onClick={() => handleRemoveBan(user.id)} 
                                     />
                                 </td>
