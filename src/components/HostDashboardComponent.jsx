@@ -158,6 +158,10 @@ function HostDashboardComponent() {
         window.location.href = '/emailList'; // Redirect to email list page
     }
 
+    function handleBanList() {
+        window.location.href = '/banList'; // Redirect to email list page
+    }
+
 
     function handleSignOut() {
         const auth = getAuth();
@@ -208,6 +212,9 @@ function HostDashboardComponent() {
                 </div>
                 <div>
                     <button style={buttonStyleEmail} onClick={handleEmailList}><p>EMAIL LISTS</p></button>
+                </div>
+                <div>
+                    <button style={buttonStyleEmail} onClick={handleBanList}><p>BANNED USERS</p></button>
                 </div>
             </div>
             <div>
