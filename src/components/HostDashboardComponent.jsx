@@ -47,8 +47,8 @@ function HostDashboardComponent() {
         marginTop: 15,
         paddingTop: 3,
         paddingBottom: 3,
-        paddingLeft: 121,
-        paddingRight: 121,
+        paddingLeft: 119.5,
+        paddingRight: 119.5,
         borderRadius: 5,
         boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
         border: '2px solid #1b1b1b'  // Proper CSS border syntax
@@ -60,6 +60,17 @@ function HostDashboardComponent() {
         paddingBottom: 3,
         paddingLeft: 108,
         paddingRight: 108,
+        borderRadius: 5,
+        boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
+        border: '2px solid #1b1b1b'  // Proper CSS border syntax
+    };
+    const buttonStyleBan = {
+        fontFamily: "'ChicagoFLF', serif",
+        marginTop: 15,
+        paddingTop: 3,
+        paddingBottom: 3,
+        paddingLeft: 101,
+        paddingRight: 101,
         borderRadius: 5,
         boxShadow: '3px 3px 0px 0px #1b1b1b',  // Proper CSS shadow syntax
         border: '2px solid #1b1b1b'  // Proper CSS border syntax
@@ -214,7 +225,7 @@ function HostDashboardComponent() {
                     <button style={buttonStyleEmail} onClick={handleEmailList}><p>EMAIL LISTS</p></button>
                 </div>
                 <div>
-                    <button style={buttonStyleEmail} onClick={handleBanList}><p>BANNED USERS</p></button>
+                    <button style={buttonStyleBan} onClick={handleBanList}><p>BANNED USERS</p></button>
                 </div>
             </div>
             <div>
