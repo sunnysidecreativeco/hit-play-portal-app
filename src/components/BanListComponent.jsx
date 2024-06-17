@@ -35,7 +35,7 @@ function BanListComponent() {
         textAlign: 'center',
         boxShadow: '3px 3px 0px 0px #1b1b1b',
         border: '2px solid #1b1b1b',
-        width: '80%',
+        width: '30%',
     };
 
     const td = {
@@ -46,7 +46,7 @@ function BanListComponent() {
     };
 
     const trash = {
-        width: 35,
+        width: 30,
         cursor: 'pointer',
     };
 
